@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import AnimatedText from '@/components/AnimatedText';
+import ProjectCard from '@/components/ProjectCard';
+import { projects } from '@/data/projects';
 import { FaReact, FaNodeJs } from 'react-icons/fa';
 import { SiNextdotjs, SiTypescript, SiTailwindcss, SiKotlin, SiFlutter } from 'react-icons/si';
 import { MdDesignServices } from 'react-icons/md';
@@ -51,28 +53,10 @@ export default function Home() {
 
 			{/* Featured Projects */}
 			<section className='py-16'>
-				<h2 className='text-3xl font-bold mb-10 text-center'>Big Projects</h2>
+				<h2 className='text-3xl font-bold mb-10 text-center'>My Projects</h2>
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-					{[1, 2, 3].map((i) => (
-						<div
-							key={i}
-							className='border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition'>
-							<div className='h-48 bg-gray-100 relative'>
-								<Image
-									src={`https://picsum.photos/seed/${i}/500/300`}
-									alt={`Project ${i}`}
-									fill
-									className='object-cover'
-								/>
-							</div>
-							<div className='p-6'>
-								<h3 className='text-xl font-semibold mb-2'>Project {i}</h3>
-								<p className='text-gray-600 mb-4'>Description text placeholder.</p>
-								<Link href={`/projects/${i}`} className='text-blue-600 font-medium hover:underline'>
-									See More →
-								</Link>
-							</div>
-						</div>
+					{projects.slice(0, 3).map((project) => (
+						<ProjectCard key={project.id} project={project} />
 					))}
 				</div>
 				<div className='text-center mt-12'>

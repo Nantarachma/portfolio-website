@@ -1,154 +1,314 @@
 import Image from 'next/image';
+import {
+	FaGraduationCap,
+	FaBriefcase,
+	FaUser,
+	FaHandsHelping,
+	FaCertificate,
+} from 'react-icons/fa';
+import { volunteeringData } from '@/data/volunteering';
+import { certificationData } from '@/data/certification';
 
 export default function About() {
 	return (
-		<div className='container mx-auto px-4 py-16'>
-			<h1 className='text-4xl font-bold mb-8'>About Me</h1>
-
-			<div className='flex flex-col md:flex-row gap-12'>
-				<div className='md:w-1/3'>
-					<div className='relative h-80 w-full rounded-lg overflow-hidden shadow-lg'>
-						<Image src='/profile2.JPG' alt='Rachmananta' fill className='object-cover' />
+		<div className='container mx-auto px-4 py-16 max-w-5xl'>
+			{/* Hero Section */}
+			<div className='bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 mb-16 shadow-sm'>
+				<div className='flex flex-col-reverse md:flex-row items-center gap-8'>
+					<div className='md:w-2/3 space-y-4'>
+						<h1 className='text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600'>
+							About Me
+						</h1>
+						<p className='text-xl leading-relaxed'>
+							Hello! I&apos;m Rachmananta Ibnu Fajar, a web developer passionate about creating
+							engaging and useful digital solutions.
+						</p>
 					</div>
-				</div>
+					<div className='md:w-1/3'>
+						<div className='relative w-64 h-64 mx-auto'>
+							{/* Background gradient effect */}
+							<div
+								className='absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full opacity-20 
+      group-hover:opacity-30 transition-opacity duration-300'></div>
 
-				<div className='md:w-2/3 space-y-6'>
-					<p className='text-xl'>
-						Hello! I&apos;m Rachmananta Ibnu Fajar, a web developer passionate about creating
-						engaging and useful digital solutions.
-					</p>
-
-					<div>
-						<h2 className='text-2xl font-bold mb-3'>Experience</h2>
-						<div className='space-y-4'>
-							<div className='border-l-4 border-blue-500 pl-4'>
-								<h3 className='font-bold'>Head Of Regeneration Department</h3>
-								<p className='text-gray-600'>
-									BEM Fakultas Ilmu Komputer UPN &quot;Veteran&quot; Jawa Timur
-								</p>
-								<p className='text-gray-600'>2024 - 2025</p>
-								<div className='space-y-2'>
-									<p>
-										- Created and implemented regeneration activities at the faculty level, aligning
-										with designated stages to foster leadership development and succession planning
-										within BEM FAKULTAS ILMU KOMPUTER UPN &quot;VETERAN&quot; JAWA TIMUR.
-									</p>
-
-									<p>
-										- Devised strategic regeneration initiatives tailored for the families of
-										students within the Faculty of Computer Science, aimed at engaging and involving
-										them in the academic community.
-									</p>
-
-									<p>
-										- Conducted leadership capacity-building coaching sessions for prospective board
-										candidates, empowering them with the necessary skills and knowledge to take on
-										leadership roles within the organization.
-									</p>
-								</div>
-							</div>
-
-							<div className='border-l-4 border-blue-500 pl-4'>
-								<h3 className='font-bold'>Mobile Developer Cohort</h3>
-								<p className='text-gray-600'>
-									Bangkit Academy led by Google, Tokopedia, Gojek, & Traveloka
-								</p>
-								<p className='text-gray-600'>2021 - 2023</p>
-								<div className='space-y-2'>
-									<p>
-										- Completed comprehensive online modules on Kotlin programming, Android
-										development, UI/UX design, and Machine Learning fundamentals through the
-										Dicoding platform.
-									</p>
-
-									<p>
-										- Actively participated in Instructor-Led Training (ILT) sessions covering
-										technical skills (Kotlin, Android, Machine Learning), soft skills (Growth
-										Mindset, Time Management, Problem Solving, etc.), and English for professionals.
-									</p>
-
-									<p>
-										- Engaged in collaborative learning through study groups and regular
-										consultations with mentors.
-									</p>
-
-									<p>
-										- Successfully developed SHARA, an Android application for skin type analysis
-										and personalized skincare recommendations, as part of the Capstone Project.
-									</p>
-
-									<p>
-										- Applied technical skills including Kotlin programming, Android Studio, UI/UX
-										design principles.
-									</p>
-
-									<p>
-										- Demonstrated teamwork and project management skills by collaborating
-										effectively within a diverse team.
-									</p>
-
-									<p>- Presented project outcomes in peer review sessions.</p>
-
-									<p>
-										- Fulfilled all program requirements, including attendance, quizzes,
-										assignments, and final project submission.
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div>
-						<h2 className='text-2xl font-bold mb-3'>Education</h2>
-						<div className='border-l-4 border-blue-500 pl-4'>
-							<h3 className='font-bold'>Bachelor of Computer Science</h3>
-							<p className='text-gray-600'>UPN “Veteran” Jawa Timur</p>
-							<p className='text-gray-600'>2022 - 2026</p>
-							<div className='mt-2'>
-								<p className='font-medium mb-1'>Relevant Coursework:</p>
-								<p className='text-gray-700'>
-									Computer Architecture, English, Computational Mathematics, Object-Oriented
-									Programming, Information Systems & Technology, Computer Networks, Web Programming,
-									Data Structures and Algorithms, Artificial Intelligence, Interface Design,
-									Software Engineering
-								</p>
+							{/* Wrapper for image to ensure proper sizing and clipping */}
+							<div className='absolute inset-0 p-2 rounded-full overflow-hidden'>
+								<Image
+									src='/profile2.JPG'
+									alt='Rachmananta Ibnu Fajar - Portrait'
+									fill
+									sizes='256'
+									priority
+									className='object-cover transition-transform duration-300 group-hover:scale-105'
+								/>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div className='mt-16'>
-				<h2 className='text-2xl font-bold mb-6'>My Story</h2>
-				<div className='prose prose-lg max-w-none'>
-					<p>
-						I&apos;m currently a sixth-semester Informatics student at UPN &quot;Veteran&quot; Jawa
-						Timur in Surabaya, where I&apos;ve developed a strong passion for mobile development and
-						web technologies throughout my academic journey.
-					</p>
-					<p>
-						My technical foundation was significantly strengthened during my participation in the
-						Google-led Bangkit Academy, where I worked on the &quot;SHARA&quot; Android application
-						project. This experience deepened my skills in Kotlin development and UI/UX design
-						practices for mobile platforms.
-					</p>
-					<p>
-						I&apos;ve further enhanced my expertise through professional certifications in Android
-						Development, Multi-Platform App Development, and Backend technologies from Dicoding.
-						These structured learning paths have equipped me with both theoretical knowledge and
-						practical implementation skills.
-					</p>
-					<p>
-						Beyond technical pursuits, I serve as the Head of Regeneration Department at BEM
-						Fakultas Ilmu Komputer, where I&apos;ve developed strong leadership and organizational
-						abilities while contributing to our university community.
-					</p>
-					<p>
-						I&apos;m proficient in various development tools including Android Studio, Postman, and
-						Figma, and I&apos;m constantly expanding my skillset to stay current with industry
-						trends. My goal is to leverage these technical and soft skills to create innovative
-						solutions that make a meaningful impact.
-					</p>
+			{/* Main Content with Modern Timeline */}
+			<div className='grid grid-cols-1 lg:grid-cols-3 gap-16'>
+				{/* Left Column: Experience & Education */}
+				<div className='lg:col-span-2 space-y-16'>
+					{/* Experience Section */}
+					<section>
+						<div className='flex items-center gap-3 mb-8'>
+							<div className='bg-blue-100 p-3 rounded-lg'>
+								<FaBriefcase className='text-blue-600 text-xl' />
+							</div>
+							<h2 className='text-2xl font-bold'>Professional Experience</h2>
+						</div>
+
+						<div className='space-y-12'>
+							{/* Timeline Items */}
+							<div className='timeline-item'>
+								<div className='flex'>
+									<div className='timeline-marker'></div>
+									<div className='ml-8 bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300'>
+										<h3 className='font-bold text-xl'>Head Of Regeneration Department</h3>
+										<p className='text-blue-600 font-medium'>
+											BEM Fakultas Ilmu Komputer UPN &quot;Veteran&quot; Jawa Timur
+										</p>
+										<p className='text-gray-500 mb-4'>2024 - 2025</p>
+										<ul className='space-y-2 text-gray-700'>
+											<li className='flex items-start'>
+												<span className='text-blue-500 mr-2'>•</span>
+												<span>
+													Created and implemented regeneration activities at the faculty level.
+												</span>
+											</li>
+											<li className='flex items-start'>
+												<span className='text-blue-500 mr-2'>•</span>
+												<span>
+													Devised strategic regeneration initiatives for students within the
+													Faculty.
+												</span>
+											</li>
+											<li className='flex items-start'>
+												<span className='text-blue-500 mr-2'>•</span>
+												<span>Conducted leadership capacity-building coaching sessions.</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div className='timeline-item'>
+								<div className='flex'>
+									<div className='timeline-marker'></div>
+									<div className='ml-8 bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300'>
+										<h3 className='font-bold text-xl'>Mobile Developer Cohort</h3>
+										<p className='text-blue-600 font-medium'>
+											Bangkit Academy led by Google, Tokopedia, Gojek, & Traveloka
+										</p>
+										<p className='text-gray-500 mb-4'>2024 - 2025</p>
+										<ul className='space-y-2 text-gray-700'>
+											<li className='flex items-start'>
+												<span className='text-blue-500 mr-2'>•</span>
+												<span>
+													Completed comprehensive online modules on Kotlin and Android development.
+												</span>
+											</li>
+											<li className='flex items-start'>
+												<span className='text-blue-500 mr-2'>•</span>
+												<span>
+													Participated in Instructor-Led Training sessions on technical and soft
+													skills.
+												</span>
+											</li>
+											<li className='flex items-start'>
+												<span className='text-blue-500 mr-2'>•</span>
+												<span>Developed SHARA, an Android application for skin type analysis.</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					{/* Education Section */}
+					<section>
+						<div className='flex items-center gap-3 mb-8'>
+							<div className='bg-indigo-100 p-3 rounded-lg'>
+								<FaGraduationCap className='text-indigo-600 text-xl' />
+							</div>
+							<h2 className='text-2xl font-bold'>Education</h2>
+						</div>
+
+						<div className='timeline-item'>
+							<div className='flex'>
+								<div className='timeline-marker'></div>
+								<div className='ml-8 bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300'>
+									<h3 className='font-bold text-xl'>Bachelor of Computer Science</h3>
+									<p className='text-indigo-600 font-medium'>UPN &quot;Veteran&quot; Jawa Timur</p>
+									<p className='text-gray-500 mb-4'>2022 - 2026</p>
+									<div>
+										<p className='font-medium mb-2'>Relevant Coursework:</p>
+										<div className='flex flex-wrap gap-2'>
+											{[
+												'Computer Architecture',
+												'Object-Oriented Programming',
+												'Data Structures',
+												'Web Programming',
+												'AI',
+												'Interface Design',
+												'Software Engineering',
+											].map((course) => (
+												<span
+													key={course}
+													className='bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm'>
+													{course}
+												</span>
+											))}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					{/* Volunteering Section */}
+					<section>
+						<div className='flex items-center gap-3 mb-8'>
+							<div className='bg-amber-100 p-3 rounded-lg'>
+								<FaHandsHelping className='text-amber-600 text-xl' />
+							</div>
+							<h2 className='text-2xl font-bold'>Volunteering</h2>
+						</div>
+
+						<div className='space-y-12'>
+							{/* Timeline Items */}
+							{volunteeringData.map((item, index) => (
+								<div className='timeline-item' key={index}>
+									<div className='flex'>
+										<div className='timeline-marker'></div>
+										<div className='ml-8 bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300'>
+											<h3 className='font-bold text-xl'>{item.title}</h3>
+											<p className='text-amber-600 font-medium'>{item.organization}</p>
+											<p className='text-gray-500 mb-4'>{item.period}</p>
+											<ul className='space-y-2 text-gray-700'>
+												{item.responsibilities.map((responsibility, idx) => (
+													<li className='flex items-start' key={idx}>
+														<span className='text-amber-500 mr-2'>•</span>
+														<span>{responsibility}</span>
+													</li>
+												))}
+											</ul>
+										</div>
+									</div>
+								</div>
+							))}
+						</div>
+					</section>
+
+					{/* Certification Section */}
+					<section>
+						<div className='flex items-center gap-3 mb-8'>
+							<div className='bg-purple-100 p-3 rounded-lg'>
+								<FaCertificate className='text-purple-600 text-xl' />
+							</div>
+							<h2 className='text-2xl font-bold'>Certifications</h2>
+						</div>
+
+						<div className='space-y-6'>
+							{certificationData.map((cert, index) => (
+								<div className='timeline-item' key={index}>
+									<div className='flex'>
+										<div className='timeline-marker'></div>
+										<div className='ml-8 bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300'>
+											<h3 className='font-bold text-xl'>{cert.title}</h3>
+											<p className='text-purple-600 font-medium'>{cert.issuer}</p>
+											<p className='text-gray-500 mb-2'>{cert.issueDate}</p>
+											{cert.url && (
+												<div className='flex items-center mt-2'>
+													<a
+														href={cert.url}
+														className='text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1'
+														target='_blank'
+														rel='noopener noreferrer'>
+														View Certificate
+														<svg
+															xmlns='http://www.w3.org/2000/svg'
+															className='h-4 w-4'
+															fill='none'
+															viewBox='0 0 24 24'
+															stroke='currentColor'>
+															<path
+																strokeLinecap='round'
+																strokeLinejoin='round'
+																strokeWidth={2}
+																d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+															/>
+														</svg>
+													</a>
+												</div>
+											)}
+										</div>
+									</div>
+								</div>
+							))}
+						</div>
+					</section>
+				</div>
+
+				{/* Right Column: My Story */}
+				<div className='lg:col-span-1'>
+					<div className='sticky top-8'>
+						<div className='flex items-center gap-3 mb-8'>
+							<div className='bg-green-100 p-3 rounded-lg'>
+								<FaUser className='text-green-600 text-xl' />
+							</div>
+							<h2 className='text-2xl font-bold'>My Story</h2>
+						</div>
+
+						<div className='bg-white p-6 rounded-lg shadow-sm border border-gray-100'>
+							<div className='prose prose-lg'>
+								<p>
+									I&apos;m a sixth-semester Informatics student with a passion for mobile and web
+									development.
+								</p>
+								<p>
+									My journey was enriched by participating in Google-led Bangkit Academy, where I
+									worked on the &quot;SHARA&quot; Android application.
+								</p>
+								<p>
+									I&apos;ve earned certifications in Android Development, Multi-Platform App
+									Development, and Backend technologies.
+								</p>
+								<p>
+									Beyond tech, I lead the Regeneration Department at BEM Fakultas Ilmu Komputer,
+									developing leadership skills while serving our university community.
+								</p>
+							</div>
+						</div>
+
+						{/* Skills Section */}
+						<div className='mt-8'>
+							<h3 className='text-xl font-bold mb-4'>Core Skills</h3>
+							<div className='space-y-4'>
+								{[
+									{ name: 'Mobile Development', level: 90 },
+									{ name: 'Web Development', level: 85 },
+									{ name: 'UI/UX Design', level: 75 },
+									{ name: 'Leadership', level: 80 },
+								].map((skill) => (
+									<div key={skill.name}>
+										<div className='flex justify-between mb-1'>
+											<span className='font-medium'>{skill.name}</span>
+											<span className='text-gray-500'>{skill.level}%</span>
+										</div>
+										<div className='w-full bg-gray-200 rounded-full h-2'>
+											<div
+												className='skill-progress-bar'
+												style={{ '--skill-level': `${skill.level}%` } as React.CSSProperties}></div>
+										</div>
+									</div>
+								))}
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

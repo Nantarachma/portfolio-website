@@ -12,3 +12,73 @@
 .prose p {
 	@apply my-4;
 }
+
+/* Timeline styling */
+.timeline-item {
+	position: relative;
+}
+
+.timeline-marker {
+	position: relative;
+	width: 20px;
+	height: 20px;
+	min-width: 20px;
+	border-radius: 50%;
+	background: white;
+	border: 3px solid #3b82f6;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+	margin-top: 14px;
+	z-index: 2;
+}
+
+/* Connecting vertical line */
+.timeline-item:not(:last-child)::before {
+	content: '';
+	position: absolute;
+	left: 10px; /* Center of the marker */
+	top: 34px; /* Below the first marker */
+	width: 2px;
+	height: calc(100% - 30px);
+	background: linear-gradient(to bottom, #3b82f6 0%, #6366f1 100%);
+	opacity: 0.3;
+	z-index: 1;
+}
+
+/* Add animation for timeline items */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.timeline-item {
+	animation: fadeIn 0.5s ease-out forwards;
+}
+
+.timeline-item:nth-child(2) {
+	animation-delay: 0.2s;
+}
+
+.timeline-item:nth-child(3) {
+	animation-delay: 0.4s;
+}
+
+/* Glow effect for markers on hover */
+.timeline-item:hover .timeline-marker {
+	box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.2);
+	transition: box-shadow 0.3s ease;
+}
+
+/* Skill progress bar style */
+.skill-progress-bar {
+	height: 100%;
+	border-radius: 9999px;
+	width: var(--skill-level);
+	background-image: linear-gradient(to right, #3f5270, #6366f1);
+	transition: width 1s ease-out;
+}
