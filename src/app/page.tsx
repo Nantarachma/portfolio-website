@@ -6,6 +6,7 @@ import { projects } from '@/data/projects';
 import { FaReact, FaNodeJs } from 'react-icons/fa';
 import { SiNextdotjs, SiTypescript, SiTailwindcss, SiKotlin, SiFlutter } from 'react-icons/si';
 import { MdDesignServices } from 'react-icons/md';
+import TypewriterEffect from '@/components/TypewriterEffect';
 
 export default function Home() {
 	return (
@@ -14,7 +15,15 @@ export default function Home() {
 			<section className='flex flex-col md:flex-row items-center justify-between gap-8 py-16'>
 				<div className='md:w-1/2 space-y-6'>
 					<h1 className='text-5xl font-bold tracking-tight'>
-						Allo, My name is Rachmananta Ibnu Fajar
+						Allo, My name is{' '}
+						<span className='bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>
+							<TypewriterEffect
+								texts={['Rachmananta Ibnu Fajar']}
+								typingSpeed={100}
+								erasingSpeed={80}
+								delayAfterType={2000}
+							/>
+						</span>
 					</h1>
 					<p className='text-xl text-gray-600'>
 						Web Developer & Designer that specialized in{' '}
