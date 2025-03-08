@@ -1,5 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import AnimatedText from '@/components/AnimatedText';
+import { FaReact, FaNodeJs } from 'react-icons/fa';
+import { SiNextdotjs, SiTypescript, SiTailwindcss, SiKotlin, SiFlutter } from 'react-icons/si';
+import { MdDesignServices } from 'react-icons/md';
 
 export default function Home() {
 	return (
@@ -7,27 +11,34 @@ export default function Home() {
 			{/* Hero Section */}
 			<section className='flex flex-col md:flex-row items-center justify-between gap-8 py-16'>
 				<div className='md:w-1/2 space-y-6'>
-					<h1 className='text-5xl font-bold tracking-tight'>Halo, Saya Rachmananta Ibnu Fajar</h1>
+					<h1 className='text-5xl font-bold tracking-tight'>
+						Halo, My name is Rachmananta Ibnu Fajar
+					</h1>
 					<p className='text-xl text-gray-600'>
-						Web Developer & Designer yang berfokus pada pembuatan pengalaman digital yang menarik
-						dan fungsional.
+						Web Developer & Designer that specialized in{' '}
+						<span className='font-semibold text-blue-600'>
+							<AnimatedText
+								words={['Next.js', 'Flutter', 'Kotlin', 'Node.js', 'UI/UX Design']}
+								delay={1500}
+							/>
+						</span>{' '}
 					</p>
 					<div className='flex gap-4'>
 						<Link
 							href='/projects'
 							className='px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition'>
-							Lihat Karya Saya
+							My Projects
 						</Link>
 						<Link
 							href='/contact'
 							className='px-6 py-3 border border-gray-300 rounded-md hover:border-gray-400 transition'>
-							Hubungi Saya
+							Contact Me
 						</Link>
 					</div>
 				</div>
 				<div className='md:w-1/2 relative h-80 md:h-96 overflow-hidden rounded-lg shadow-xl'>
 					<Image
-						src='/profile-placeholder.jpg'
+						src='/profile.JPG'
 						alt='Rachmananta'
 						fill
 						className='object-cover'
@@ -40,7 +51,7 @@ export default function Home() {
 
 			{/* Featured Projects */}
 			<section className='py-16'>
-				<h2 className='text-3xl font-bold mb-10 text-center'>Proyek Unggulan</h2>
+				<h2 className='text-3xl font-bold mb-10 text-center'>Big Projects</h2>
 				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
 					{[1, 2, 3].map((i) => (
 						<div
@@ -55,12 +66,10 @@ export default function Home() {
 								/>
 							</div>
 							<div className='p-6'>
-								<h3 className='text-xl font-semibold mb-2'>Proyek {i}</h3>
-								<p className='text-gray-600 mb-4'>
-									Deskripsi singkat mengenai proyek dan teknologi yang digunakan.
-								</p>
+								<h3 className='text-xl font-semibold mb-2'>Project {i}</h3>
+								<p className='text-gray-600 mb-4'>Description text placeholder.</p>
 								<Link href={`/projects/${i}`} className='text-blue-600 font-medium hover:underline'>
-									Lihat Selengkapnya →
+									See More →
 								</Link>
 							</div>
 						</div>
@@ -70,30 +79,74 @@ export default function Home() {
 					<Link
 						href='/projects'
 						className='px-6 py-3 border border-gray-300 rounded-md hover:border-gray-400 transition'>
-						Lihat Semua Proyek
+						Check All Of My Projects
 					</Link>
 				</div>
 			</section>
 
 			{/* Skills Section */}
-			<section className='py-16 bg-gray-50 -mx-4 px-4'>
+			<section className='py-16 bg-white -mx-4 px-4'>
 				<div className='container mx-auto'>
-					<h2 className='text-3xl font-bold mb-10 text-center'>Keahlian</h2>
+					<h2 className='text-3xl font-bold mb-10 text-center'>Skills</h2>
 					<div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 text-center'>
 						{[
-							'React',
-							'Next.js',
-							'TypeScript',
-							'Tailwind CSS',
-							'Node.js',
-							'MongoDB',
-							'UI/UX Design',
-							'Responsive Design',
+							{
+								name: 'React',
+								icon: <FaReact className='text-[#61DAFB] text-3xl' />,
+								color: 'bg-blue-50 border-blue-200',
+								textColor: 'text-blue-800',
+							},
+							{
+								name: 'Next.js',
+								icon: <SiNextdotjs className='text-black text-3xl' />,
+								color: 'bg-gray-50 border-gray-200',
+								textColor: 'text-gray-800',
+							},
+							{
+								name: 'TypeScript',
+								icon: <SiTypescript className='text-[#3178C6] text-3xl' />,
+								color: 'bg-blue-50 border-blue-200',
+								textColor: 'text-blue-800',
+							},
+							{
+								name: 'Tailwind CSS',
+								icon: <SiTailwindcss className='text-[#38B2AC] text-3xl' />,
+								color: 'bg-cyan-50 border-cyan-200',
+								textColor: 'text-cyan-800',
+							},
+							{
+								name: 'Node.js',
+								icon: <FaNodeJs className='text-[#339933] text-3xl' />,
+								color: 'bg-green-50 border-green-200',
+								textColor: 'text-green-800',
+							},
+							{
+								name: 'Kotlin',
+								icon: <SiKotlin className='text-[#7F52FF] text-3xl' />,
+								color: 'bg-purple-50 border-purple-200',
+								textColor: 'text-purple-800',
+							},
+							{
+								name: 'UI/UX Design',
+								icon: <MdDesignServices className='text-[#FF7F50] text-3xl' />,
+								color: 'bg-pink-50 border-pink-200',
+								textColor: 'text-pink-800',
+							},
+							{
+								name: 'Flutter',
+								icon: <SiFlutter className='text-[#02569B] text-3xl' />,
+								color: 'bg-blue-50 border-blue-200',
+								textColor: 'text-blue-800',
+							},
 						].map((skill) => (
 							<div
-								key={skill}
-								className='p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition'>
-								<p className='font-medium'>{skill}</p>
+								key={skill.name}
+								className={`p-6 ${skill.color} border rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 group`}>
+								<div className='flex flex-col items-center'>
+									<span className='mb-3'>{skill.icon}</span>
+									<p className={`font-medium ${skill.textColor}`}>{skill.name}</p>
+									<div className='h-1 w-0 bg-gradient-to-r from-blue-500 to-purple-500 mt-2 group-hover:w-16 transition-all duration-300'></div>
+								</div>
 							</div>
 						))}
 					</div>

@@ -2,26 +2,50 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
 	const pathname = usePathname();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const [isScrolled, setIsScrolled] = useState(false);
 
 	const navigation = [
-		{ name: 'Beranda', href: '/' },
-		{ name: 'Tentang', href: '/about' },
-		{ name: 'Proyek', href: '/projects' },
-		{ name: 'Kontak', href: '/contact' },
+		{ name: 'Home', href: '/' },
+		{ name: 'About', href: '/about' },
+		{ name: 'Projects', href: '/projects' },
+		{ name: 'Contact', href: '/contact' },
 	];
 
+	// Track scroll position
+	useEffect(() => {
+		const handleScroll = () => {
+			if (window.scrollY > 10) {
+				setIsScrolled(true);
+			} else {
+				setIsScrolled(false);
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll);
+
+		// Clean up the event listener
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
+
 	return (
-		<header className='bg-white shadow-sm'>
+		<header
+			className={`${
+				isScrolled
+					? 'fixed top-0 left-0 right-0 bg-white/70 backdrop-blur-md border-b border-white/20 shadow-lg z-50'
+					: 'bg-white shadow-sm'
+			} transition-all duration-300`}>
 			<nav className='container mx-auto px-4 py-4 flex justify-between items-center'>
 				{/* Logo / Brand */}
 				<div className='flex items-center'>
 					<Link href='/' className='text-xl font-bold text-blue-600'>
-						Rachmananta Portofolio
+						Rachmananta Next Portfolio
 					</Link>
 				</div>
 
