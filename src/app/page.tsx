@@ -12,7 +12,7 @@ export default function Home() {
 			<section className='flex flex-col md:flex-row items-center justify-between gap-8 py-16'>
 				<div className='md:w-1/2 space-y-6'>
 					<h1 className='text-5xl font-bold tracking-tight'>
-						Halo, My name is Rachmananta Ibnu Fajar
+						Allo, My name is Rachmananta Ibnu Fajar
 					</h1>
 					<p className='text-xl text-gray-600'>
 						Web Developer & Designer that specialized in{' '}
