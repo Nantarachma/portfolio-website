@@ -1,6 +1,4 @@
-@import 'tailwindcss/preflight';
-@tailwind utilities;
-@tailwind utilities;
+@import 'tailwindcss';
 
 /* Tambahkan custom styles di sini jika diperlukan */
 .prose h3 {

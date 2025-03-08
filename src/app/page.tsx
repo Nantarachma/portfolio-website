@@ -7,7 +7,7 @@ export default function Home() {
 			{/* Hero Section */}
 			<section className='flex flex-col md:flex-row items-center justify-between gap-8 py-16'>
 				<div className='md:w-1/2 space-y-6'>
-					<h1 className='text-5xl font-bold tracking-tight'>Halo, Saya Nantarachmasaya</h1>
+					<h1 className='text-5xl font-bold tracking-tight'>Halo, Saya Rachmananta Ibnu Fajar</h1>
 					<p className='text-xl text-gray-600'>
 						Web Developer & Designer yang berfokus pada pembuatan pengalaman digital yang menarik
 						dan fungsional.
@@ -28,7 +28,7 @@ export default function Home() {
 				<div className='md:w-1/2 relative h-80 md:h-96 overflow-hidden rounded-lg shadow-xl'>
 					<Image
 						src='/profile-placeholder.jpg'
-						alt='Nantarachmasaya'
+						alt='Rachmananta'
 						fill
 						className='object-cover'
 						priority

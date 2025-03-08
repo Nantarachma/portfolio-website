@@ -19,8 +19,8 @@ export default function About() {
 
 				<div className='md:w-2/3 space-y-6'>
 					<p className='text-xl'>
-						Halo! Saya Nantarachmasaya, seorang web developer yang bersemangat dalam menciptakan
-						solusi digital yang menarik dan berguna.
+						Halo! Saya Rachmananta Ibnu Fajar, seorang web developer yang bersemangat dalam
+						menciptakan solusi digital yang menarik dan berguna.
 					</p>
 
 					<div>

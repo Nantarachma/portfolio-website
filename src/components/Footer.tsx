@@ -8,7 +8,7 @@ export default function Footer() {
 			<div className='container mx-auto px-4 py-12'>
 				<div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
 					<div>
-						<h3 className='text-xl font-bold mb-4'>Nantarachma</h3>
+						<h3 className='text-xl font-bold mb-4'>Rachmananta</h3>
 						<p className='text-gray-300'>
 							Web developer berpassion dalam menciptakan pengalaman digital yang menarik dan
 							fungsional.

@@ -21,7 +21,7 @@ export default function Navbar() {
 				{/* Logo / Brand */}
 				<div className='flex items-center'>
 					<Link href='/' className='text-xl font-bold text-blue-600'>
-						Nantarachma
+						Rachmananta Portofolio
 					</Link>
 				</div>
 
