@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+	images: {
+		domains: ['placekitten.com', 'picsum.photos'], // Untuk contoh gambar
+	},
 };
 
 export default nextConfig;

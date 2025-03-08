@@ -1,26 +1,16 @@
-@import "tailwindcss";
+@import 'tailwindcss/preflight';
+@tailwind utilities;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Tambahkan custom styles di sini jika diperlukan */
+.prose h3 {
+	@apply text-lg font-semibold mt-6 mb-2;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.prose ul {
+	@apply list-disc pl-6 my-4 space-y-2;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.prose p {
+	@apply my-4;
 }
