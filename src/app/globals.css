@@ -28,6 +28,7 @@
 	border: 3px solid #3b82f6;
 	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 	margin-top: 14px;
+	margin-left: 13px;
 	z-index: 2;
 }
 
@@ -41,6 +42,7 @@
 	height: calc(100% - 30px);
 	background: linear-gradient(to bottom, #3b82f6 0%, #6366f1 100%);
 	opacity: 0.3;
+	margin-left: 12px;
 	z-index: 1;
 }
 
@@ -57,6 +59,7 @@
 }
 
 .timeline-item {
+	opacity: 0; /* Start with 0 opacity to prevent flash */
 	animation: fadeIn 0.5s ease-out forwards;
 }
 
@@ -74,11 +77,34 @@
 	transition: box-shadow 0.3s ease;
 }
 
-/* Skill progress bar style */
-.skill-progress-bar {
-	height: 100%;
-	border-radius: 9999px;
-	width: var(--skill-level);
-	background-image: linear-gradient(to right, #3f5270, #6366f1);
-	transition: width 1s ease-out;
+/* Sticky positioning fix */
+html,
+body {
+	min-height: 100vh;
+	overflow-x: hidden;
+}
+
+/* Fix for sticky positioning */
+.sticky {
+	position: sticky;
+	top: 24px; /* Adjust based on your header height */
+	height: max-content; /* Allow content to determine height */
+	max-height: calc(100vh - 48px); /* Prevent overflowing viewport */
+	overflow-y: auto; /* Allow scrolling if content is too tall */
+}
+
+@layer components {
+	/* Skill progress bar animation */
+	.skill-progress-bar {
+		@apply h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500;
+		width: 0;
+		animation: fillBar 3s ease-out forwards;
+		animation-delay: 0.5s;
+	}
+
+	@keyframes fillBar {
+		to {
+			width: var(--skill-level);
+		}
+	}
 }

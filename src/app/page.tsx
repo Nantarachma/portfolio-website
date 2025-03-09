@@ -15,7 +15,13 @@ export default function Home() {
 	return (
 		<div className='container mx-auto px-4 py-12'>
 			{/* Hero Section */}
-			<ScrollReveal direction='up' delay={0.5}>
+			<ScrollReveal
+				direction='down'
+				delay={0.5}
+				distance={50}
+				duration={1}
+				easing={[0.42, 0, 0.58, 1]}
+				opacity={0.9}>
 				<section className='flex flex-col md:flex-row items-center justify-between gap-8 py-16'>
 					<div className='md:w-1/2 space-y-6'>
 						<h1 className='text-5xl font-bold tracking-tight'>
@@ -66,13 +72,21 @@ export default function Home() {
 			</ScrollReveal>
 
 			{/* Featured Projects */}
-			<ScrollReveal direction='up' delay={1}>
+			<ScrollReveal
+				direction='right'
+				delay={0.7}
+				distance={50}
+				duration={1}
+				easing={[0.42, 0, 0.58, 1]}
+				opacity={0.9}>
 				<section className='py-16'>
 					<h2 className='text-3xl font-bold mb-10 text-center'>My Projects</h2>
 					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-						{projects.slice(0, 3).map((project) => (
-							<ProjectCard key={project.id} project={project} />
-						))}
+						{projects
+							.filter((project) => [1, 4, 5].includes(project.id))
+							.map((project) => (
+								<ProjectCard key={project.id} project={project} />
+							))}
 					</div>
 					<div className='text-center mt-12'>
 						<Link
@@ -98,7 +112,13 @@ export default function Home() {
 			</ScrollReveal>
 
 			{/* Skills Section */}
-			<ScrollReveal direction='left' delay={1}>
+			<ScrollReveal
+				direction='up'
+				delay={0.7}
+				distance={50}
+				duration={1}
+				easing={[0.42, 0, 0.58, 1]}
+				opacity={0.9}>
 				<section className='py-16 bg-white -mx-4 px-4'>
 					<div className='container mx-auto'>
 						<h2 className='text-3xl font-bold mb-10 text-center'>Skills</h2>

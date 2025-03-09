@@ -8,7 +8,6 @@ export default function PageTransition({ children }: PropsWithChildren) {
 	const pathname = usePathname();
 	const [isLoading, setIsLoading] = useState(false);
 	const [isHydrated, setIsHydrated] = useState(false);
-	const [currentPathname, setCurrentPathname] = useState(pathname);
 	const prevPathnameRef = useRef(pathname);
 
 	// Track route changes using pathname
@@ -20,7 +19,6 @@ export default function PageTransition({ children }: PropsWithChildren) {
 			// Small delay to ensure everything is ready
 			setTimeout(() => {
 				setIsLoading(false);
-				setCurrentPathname(pathname);
 			}, 700);
 		}
 
@@ -69,49 +67,8 @@ export default function PageTransition({ children }: PropsWithChildren) {
 				)}
 			</AnimatePresence>
 
-			{/* Page content with transitions */}
-			<div className='overflow-hidden relative'>
-				<AnimatePresence mode='wait'>
-					<motion.div
-						key={currentPathname}
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						transition={{ duration: 0.4 }}
-						className='min-h-screen'>
-						{children}
-
-						{/* Masking overlay - creates a "wipe" effect */}
-						<motion.div
-							className='fixed inset-0 z-40 bg-blue-500 pointer-events-none'
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 0 }}
-							exit={{ opacity: 1 }}
-							transition={{ duration: 0.3 }}
-						/>
-
-						<motion.div
-							className='fixed inset-0 z-40 pointer-events-none'
-							initial={{
-								background: 'linear-gradient(90deg, transparent, transparent)',
-							}}
-							animate={{
-								background: 'linear-gradient(90deg, transparent, transparent)',
-							}}
-							exit={{
-								background:
-									'linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(59,130,246,1) 50%, rgba(0,0,0,0) 100%)',
-							}}
-							transition={{ duration: 0.8, ease: 'easeInOut' }}
-							style={{
-								backgroundSize: '200% 100%',
-								backgroundPosition: 'left center',
-								animationFillMode: 'forwards',
-							}}
-						/>
-					</motion.div>
-				</AnimatePresence>
-			</div>
+			{/* Page content */}
+			<div className='overflow-hidden relative'>{children}</div>
 		</>
 	);
 }
