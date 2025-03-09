@@ -38,9 +38,9 @@ export default function Navbar() {
 		<header
 			className={`${
 				isScrolled
-					? 'fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-b border-gray-200/30 shadow-lg z-50'
-					: 'bg-white/95 shadow-sm'
-			} transition-all duration-500`}>
+					? 'fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-b border-gray-200/30 shadow-lg'
+					: 'relative bg-white/95 shadow-sm'
+			} transition-all duration-500 z-50`}>
 			<div className='absolute inset-0 bg-gradient-to-r from-blue-50/40 to-indigo-50/40 opacity-50'></div>
 
 			{/* Top border accent */}
@@ -145,16 +145,6 @@ export default function Navbar() {
 							</Link>
 						);
 					})}
-
-					{/* Mobile CTA button */}
-					<div className='pt-2 pb-3'>
-						<Link
-							href='/contact'
-							className='block w-full text-center px-4 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium shadow-sm hover:shadow-md transition-all duration-300'
-							onClick={() => setMobileMenuOpen(false)}>
-							Get In Touch
-						</Link>
-					</div>
 				</div>
 			</div>
 		</header>
