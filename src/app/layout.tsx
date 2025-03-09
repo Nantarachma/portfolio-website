@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PageTransition from '@/components/PageTransition';
 
-const inter = Inter({ subsets: ['latin'] });
+const plusJakarta = Plus_Jakarta_Sans({
+	subsets: ['latin'],
+	variable: '--font-plus-jakarta',
+	display: 'swap',
+});
 
 export const metadata: Metadata = {
 	title: 'Rachmananta Portfolio',
@@ -15,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang='en'>
-			<body className={inter.className}>
+			<body className={plusJakarta.className}>
 				<Navbar />
 				<PageTransition>{children}</PageTransition>
 				<Footer />
