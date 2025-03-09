@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* Tambahkan custom styles di sini jika diperlukan */
+/* Typography Styles */
 .prose h3 {
 	@apply text-lg font-semibold mt-6 mb-2;
 }
@@ -13,9 +13,11 @@
 	@apply my-4;
 }
 
-/* Timeline styling */
+/* ===== TIMELINE STYLING ===== */
 .timeline-item {
 	position: relative;
+	opacity: 0;
+	animation: fadeIn 0.5s ease-out forwards;
 }
 
 .timeline-marker {
@@ -30,14 +32,15 @@
 	margin-top: 14px;
 	margin-left: 13px;
 	z-index: 2;
+	transition: box-shadow 0.3s ease;
 }
 
 /* Connecting vertical line */
 .timeline-item:not(:last-child)::before {
 	content: '';
 	position: absolute;
-	left: 10px; /* Center of the marker */
-	top: 34px; /* Below the first marker */
+	left: 10px;
+	top: 34px;
 	width: 2px;
 	height: calc(100% - 30px);
 	background: linear-gradient(to bottom, #3b82f6 0%, #6366f1 100%);
@@ -46,23 +49,7 @@
 	z-index: 1;
 }
 
-/* Add animation for timeline items */
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-.timeline-item {
-	opacity: 0; /* Start with 0 opacity to prevent flash */
-	animation: fadeIn 0.5s ease-out forwards;
-}
-
+/* Timeline stagger animation */
 .timeline-item:nth-child(2) {
 	animation-delay: 0.2s;
 }
@@ -74,17 +61,16 @@
 /* Glow effect for markers on hover */
 .timeline-item:hover .timeline-marker {
 	box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.2);
-	transition: box-shadow 0.3s ease;
 }
 
-/* Sticky positioning fix */
+/* ===== LAYOUT UTILITIES ===== */
+/* Fix for sticky positioning */
 html,
 body {
 	min-height: 100vh;
 	overflow-x: hidden;
 }
 
-/* Fix for sticky positioning */
 .sticky {
 	position: sticky;
 	top: 24px; /* Adjust based on your header height */
@@ -93,18 +79,137 @@ body {
 	overflow-y: auto; /* Allow scrolling if content is too tall */
 }
 
+@media (max-width: 768px) {
+	.container {
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+	}
+}
+
+/* ===== ANIMATION KEYFRAMES ===== */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Standard gradient animation - slow */
+@keyframes gradient-shift-slow {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* Standard gradient animation - medium */
+@keyframes gradient-shift {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* Border color animation */
+@keyframes border-color-flow {
+	0%,
+	100% {
+		border-color: rgba(59, 130, 246, 0.3);
+	}
+	50% {
+		border-color: rgba(139, 92, 246, 0.3);
+	}
+}
+
+/* Shine effect animation */
+@keyframes shine {
+	to {
+		left: 200%;
+	}
+}
+
+.animate-shine {
+	animation: shine 1.5s ease-in-out;
+}
+
+/* ===== ANIMATION UTILITY CLASSES ===== */
+/* Slow gradient animation (8s) */
+.animate-gradient-slow {
+	background-size: 300% 300%;
+	animation: gradient-shift-slow 8s ease infinite;
+}
+
+/* Medium gradient animation (6s) */
+.animate-gradient,
+.animate-gradient-xy {
+	background-size: 200% 200%;
+	animation: gradient-shift 6s ease infinite;
+}
+
+/* Fast gradient animation (4s) */
+.animate-gradient-x {
+	background-size: 200% 200%;
+	animation: gradient-shift 4s ease infinite;
+}
+
+/* Button shine effect */
+.animate-shine {
+	animation: shine 1.5s ease;
+}
+
+/* Animated border gradient */
+.animate-border-flow {
+	background: linear-gradient(
+		90deg,
+		rgba(255, 255, 255, 0.1),
+		rgba(255, 255, 255, 0.3),
+		rgba(255, 255, 255, 0.1)
+	);
+	background-size: 200% 200%;
+	animation: gradient-shift 3s ease infinite;
+}
+
+/* Border with animated color */
+.bg-gradient-border {
+	border-width: 2px;
+	border-style: solid;
+	border-image: linear-gradient(to right, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3)) 1;
+	animation: border-color-flow 4s ease infinite;
+}
+
+/* Skills background gradient */
+.bg-skill-gradient {
+	background: linear-gradient(
+		90deg,
+		rgba(59, 130, 246, 0.2),
+		rgba(99, 102, 241, 0.2),
+		rgba(139, 92, 246, 0.2)
+	);
+	background-size: 200% 200%;
+	animation: gradient-shift 6s ease infinite;
+}
+
+/* ===== TAILWIND COMPONENTS ===== */
 @layer components {
 	/* Skill progress bar animation */
 	.skill-progress-bar {
 		@apply h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500;
 		width: 0;
-		animation: fillBar 3s ease-out forwards;
+		animation: fillBar 2s ease-out forwards;
 		animation-delay: 0.5s;
-	}
-
-	@keyframes fillBar {
-		to {
-			width: var(--skill-level);
-		}
 	}
 }

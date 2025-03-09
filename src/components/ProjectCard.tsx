@@ -104,33 +104,117 @@ export default function ProjectCard({ project }: { project: Project }) {
 		}
 	};
 
+	// Function to determine background gradient based on project type
+	const getGradientClass = (iconType: string) => {
+		switch (iconType) {
+			case 'mobile':
+				return 'bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200';
+			case 'medical':
+				return 'bg-gradient-to-br from-green-50 to-green-100 border-green-200';
+			case 'food':
+				return 'bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200';
+			case 'diagram':
+				return 'bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-200';
+			case 'document':
+				return 'bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200';
+			default:
+				return 'bg-gradient-to-br from-gray-50 to-gray-100 border-gray-200';
+		}
+	};
+
+	// Function to determine icon color based on project type
+	const getIconColorClass = (iconType: string) => {
+		switch (iconType) {
+			case 'mobile':
+				return 'text-blue-600 bg-blue-100';
+			case 'medical':
+				return 'text-green-600 bg-green-100';
+			case 'food':
+				return 'text-orange-600 bg-orange-100';
+			case 'diagram':
+				return 'text-indigo-600 bg-indigo-100';
+			case 'document':
+				return 'text-purple-600 bg-purple-100';
+			default:
+				return 'text-gray-600 bg-gray-100';
+		}
+	};
+
+	// Function to determine button color based on project type
+	const getButtonClass = (iconType: string) => {
+		switch (iconType) {
+			case 'mobile':
+				return 'text-blue-600 hover:bg-blue-100 focus:ring-blue-300';
+			case 'medical':
+				return 'text-green-600 hover:bg-green-100 focus:ring-green-300';
+			case 'food':
+				return 'text-orange-600 hover:bg-orange-100 focus:ring-orange-300';
+			case 'diagram':
+				return 'text-indigo-600 hover:bg-indigo-100 focus:ring-indigo-300';
+			case 'document':
+				return 'text-purple-600 hover:bg-purple-100 focus:ring-purple-300';
+			default:
+				return 'text-gray-600 hover:bg-gray-100 focus:ring-gray-300';
+		}
+	};
+
+	// Get the appropriate classes based on the project type
+	const gradientClass = getGradientClass(project.icon);
+	const iconColorClass = getIconColorClass(project.icon);
+	const buttonClass = getButtonClass(project.icon);
+
 	return (
-		<div className='border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition'>
+		<div
+			className={`rounded-xl overflow-hidden transition-all duration-300 group hover:shadow-lg border ${gradientClass} hover:translate-y-[-4px]`}>
 			<div className='p-6'>
+				{/* Project Header */}
 				<div className='flex items-center mb-4'>
-					<div className='w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full mr-3'>
+					<div
+						className={`w-12 h-12 flex items-center justify-center rounded-lg mr-4 shadow-sm ${iconColorClass} transform group-hover:scale-110 transition-transform duration-300`}>
 						{getIcon(project.icon)}
 					</div>
-					<h3 className='text-xl font-semibold'>{project.title}</h3>
+					<h3 className='text-xl font-bold text-gray-800 group-hover:text-gray-900'>
+						{project.title}
+					</h3>
 				</div>
 
-				<p className='text-gray-600 mb-4'>{project.description}</p>
+				{/* Description with limited lines */}
+				<p className='text-gray-600 mb-5 line-clamp-3 h-[4.5rem]'>{project.description}</p>
 
-				<div className='flex flex-wrap gap-2 mb-4'>
+				{/* Tags with improved styling */}
+				<div className='flex flex-wrap gap-2 mb-5'>
 					{project.tags.map((tag, index) => (
-						<span key={index} className='px-2 py-1 bg-gray-100 text-gray-700 text-sm rounded'>
+						<span
+							key={index}
+							className='px-2.5 py-1 bg-white bg-opacity-60 backdrop-blur-sm text-gray-700 text-xs font-medium rounded-full border border-gray-200'>
 							{tag}
 						</span>
 					))}
 				</div>
 
-				<Link
-					href={project.link}
-					className='text-blue-600 font-medium hover:underline'
-					target='_blank'
-					rel='noreferrer noopener'>
-					Lihat Selengkapnya →
-				</Link>
+				{/* Call to action with dynamic styling */}
+				<div className='pt-2 border-t border-gray-200'>
+					<Link
+						href={project.link}
+						className={`inline-flex items-center font-medium rounded-lg px-4 py-2 transition-all ${buttonClass} focus:outline-none focus:ring-2 focus:ring-offset-2`}
+						target='_blank'
+						rel='noreferrer noopener'>
+						See More
+						<svg
+							xmlns='http://www.w3.org/2000/svg'
+							className='h-4 w-4 ml-1.5 transform group-hover:translate-x-1 transition-transform'
+							fill='none'
+							viewBox='0 0 24 24'
+							stroke='currentColor'>
+							<path
+								strokeLinecap='round'
+								strokeLinejoin='round'
+								strokeWidth={2}
+								d='M14 5l7 7m0 0l-7 7m7-7H3'
+							/>
+						</svg>
+					</Link>
+				</div>
 			</div>
 		</div>
 	);
