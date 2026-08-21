@@ -12,23 +12,34 @@ const defaultVisual: ProjectVisualData = {
 	steps: ['Research', 'Design', 'Build'],
 };
 
+function Connector({ direction = 'horizontal' }: { direction?: 'horizontal' | 'vertical' }) {
+	return (
+		<span aria-hidden='true' className={`flex shrink-0 items-center justify-center text-blue-300 ${direction === 'vertical' ? 'h-4' : 'w-4'}`}>
+			<svg className={direction === 'vertical' ? 'size-3 rotate-90' : 'size-3'} fill='none' viewBox='0 0 16 16'>
+				<path d='M2 8h10M8.5 4.5 12 8l-3.5 3.5' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='1.5' />
+			</svg>
+		</span>
+	);
+}
+
 function FlowSteps({ steps }: { steps: readonly string[] }) {
 	return (
-		<div className='flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-1.5'>
+		<ol className='flex flex-col items-stretch gap-1.5 sm:flex-row sm:items-stretch'>
 			{steps.map((step, index) => (
-				<div key={`${step}-${index}`} className='contents'>
-					<div className='min-w-0 flex-1 rounded-md border border-slate-700 bg-slate-900/90 px-2.5 py-2 text-center text-xs font-medium text-slate-100'>
-						<span className='mr-1.5 font-mono text-blue-300'>0{index + 1}</span>
-						{step}
+				<li key={`${step}-${index}`} className='flex min-w-0 flex-1 flex-col sm:flex-row sm:items-center'>
+					<div className='min-w-0 flex-1 border border-slate-700 bg-slate-950/85 px-2.5 py-2.5'>
+						<p className='font-mono text-[10px] font-semibold text-blue-300'>{String(index + 1).padStart(2, '0')}</p>
+						<p className='mt-1 text-xs font-medium leading-4 text-slate-100'>{step}</p>
 					</div>
 					{index < steps.length - 1 ? (
-						<span aria-hidden='true' className='hidden text-center text-sm text-blue-300 sm:inline'>
-							→
-						</span>
+						<>
+							<span className='sm:hidden'><Connector direction='vertical' /></span>
+							<span className='hidden sm:inline-flex'><Connector /></span>
+						</>
 					) : null}
-				</div>
+				</li>
 			))}
-		</div>
+		</ol>
 	);
 }
 
@@ -36,27 +47,32 @@ function FeatureFusion({ steps }: { steps: readonly string[] }) {
 	const [input = 'Image', deepFeatures = 'MobileNetV2', textureFeatures = 'LBP', fusion = 'Feature fusion', output = 'Classification'] = steps;
 
 	return (
-		<div className='grid gap-3 text-center text-xs font-medium text-slate-100'>
-			<div className='mx-auto rounded-md border border-slate-700 bg-slate-900 px-4 py-2'>
-				{input}
+		<div className='grid gap-2.5 text-center text-xs font-medium text-slate-100'>
+			<div className='mx-auto border border-slate-700 bg-slate-950/85 px-4 py-2.5'>
+				<p className='font-mono text-[10px] text-blue-300'>INPUT</p>
+				<p className='mt-1'>{input}</p>
 			</div>
-			<div aria-hidden='true' className='text-blue-300'>
-				↓
-			</div>
+			<div className='flex justify-center'><Connector direction='vertical' /></div>
 			<div className='grid grid-cols-2 gap-3'>
-				<div className='rounded-md border border-slate-700 bg-slate-900 px-3 py-2'>{deepFeatures}</div>
-				<div className='rounded-md border border-slate-700 bg-slate-900 px-3 py-2'>{textureFeatures}</div>
+				<div className='border border-slate-700 bg-slate-950/85 px-3 py-2.5'>
+					<p className='font-mono text-[10px] text-slate-400'>DEEP</p>
+					<p className='mt-1'>{deepFeatures}</p>
+				</div>
+				<div className='border border-slate-700 bg-slate-950/85 px-3 py-2.5'>
+					<p className='font-mono text-[10px] text-slate-400'>TEXTURE</p>
+					<p className='mt-1'>{textureFeatures}</p>
+				</div>
 			</div>
-			<div aria-hidden='true' className='text-blue-300'>
-				↘ &nbsp;&nbsp; ↙
+			<div className='flex justify-center'><Connector direction='vertical' /></div>
+			<div className='mx-auto border border-blue-400/50 bg-blue-500/15 px-4 py-2.5 text-blue-100'>
+				<p className='font-mono text-[10px] text-blue-300'>FUSION</p>
+				<p className='mt-1'>{fusion}</p>
 			</div>
-			<div className='mx-auto rounded-md border border-blue-400/50 bg-blue-500/15 px-4 py-2 text-blue-100'>
-				{fusion}
+			<div className='flex justify-center'><Connector direction='vertical' /></div>
+			<div className='mx-auto border border-slate-700 bg-slate-950/85 px-4 py-2.5'>
+				<p className='font-mono text-[10px] text-slate-400'>OUTPUT</p>
+				<p className='mt-1'>{output}</p>
 			</div>
-			<div aria-hidden='true' className='text-blue-300'>
-				↓
-			</div>
-			<div className='mx-auto rounded-md border border-slate-700 bg-slate-900 px-4 py-2'>{output}</div>
 		</div>
 	);
 }
@@ -65,19 +81,25 @@ function MobileFlow({ steps }: { steps: readonly string[] }) {
 	const [platform = 'Android', analysis = 'ML-assisted analysis', outcome = 'Recommendations'] = steps;
 
 	return (
-		<div className='mx-auto w-full max-w-xs rounded-[1.75rem] border border-slate-600 bg-slate-900 p-3 shadow-inner'>
-			<div className='mx-auto mb-3 h-1.5 w-14 rounded-full bg-slate-700' />
-			<div className='space-y-2 rounded-[1.1rem] border border-slate-700 bg-slate-950 p-3'>
-				<p className='font-mono text-[10px] uppercase tracking-[0.18em] text-blue-300'>{platform}</p>
-				<div className='h-9 rounded-md border border-slate-800 bg-slate-900' />
-				<div className='grid grid-cols-2 gap-2'>
-					<div className='h-7 rounded-md border border-slate-800 bg-slate-900' />
-					<div className='h-7 rounded-md border border-slate-800 bg-slate-900' />
+		<div className='grid grid-cols-[auto_1fr] border border-slate-700 bg-slate-950/85'>
+			<div className='flex flex-col justify-between border-r border-slate-700 px-3 py-3 font-mono text-[10px] font-semibold text-blue-300'>
+				<span>01</span>
+				<span>02</span>
+				<span>03</span>
+			</div>
+			<div className='divide-y divide-slate-800'>
+				<div className='px-3 py-2.5'>
+					<p className='font-mono text-[10px] text-slate-400'>PLATFORM</p>
+					<p className='mt-1 text-xs font-medium text-slate-100'>{platform}</p>
 				</div>
-				<div className='rounded-md border border-blue-400/40 bg-blue-500/10 px-2 py-1.5 text-center text-[11px] text-blue-100'>
-					{analysis}
+				<div className='px-3 py-2.5'>
+					<p className='font-mono text-[10px] text-slate-400'>PROCESS</p>
+					<p className='mt-1 text-xs font-medium text-blue-100'>{analysis}</p>
 				</div>
-				<div className='text-center text-[11px] text-slate-300'>{outcome}</div>
+				<div className='px-3 py-2.5'>
+					<p className='font-mono text-[10px] text-slate-400'>OUTCOME</p>
+					<p className='mt-1 text-xs font-medium text-slate-100'>{outcome}</p>
+				</div>
 			</div>
 		</div>
 	);
@@ -86,16 +108,18 @@ function MobileFlow({ steps }: { steps: readonly string[] }) {
 function DocumentFlow({ label }: { label: string }) {
 	return (
 		<div className='grid grid-cols-[1fr_auto_1fr] items-center gap-3 text-xs text-slate-200'>
-			<div className='rounded-md border border-slate-700 bg-slate-900 p-3'>
-				<div className='mb-2 h-1.5 w-2/3 rounded bg-slate-600' />
-				<div className='mb-1 h-1 w-full rounded bg-slate-800' />
-				<div className='h-1 w-4/5 rounded bg-slate-800' />
+			<div className='border border-slate-700 bg-slate-950/85 p-3'>
+				<p className='font-mono text-[10px] text-slate-400'>SOURCE</p>
+				<div className='mt-3 space-y-1.5' aria-hidden='true'>
+					<div className='h-px w-2/3 bg-slate-500' />
+					<div className='h-px w-full bg-slate-700' />
+					<div className='h-px w-4/5 bg-slate-700' />
+				</div>
 			</div>
-			<span aria-hidden='true' className='text-blue-300'>
-				→
-			</span>
-			<div className='rounded-md border border-blue-400/40 bg-blue-500/10 p-3 text-center text-blue-100'>
-				{label}
+			<Connector />
+			<div className='border border-blue-400/40 bg-blue-500/10 p-3 text-center text-blue-100'>
+				<p className='font-mono text-[10px] text-blue-300'>OUTPUT</p>
+				<p className='mt-1.5 font-medium'>{label}</p>
 			</div>
 		</div>
 	);
@@ -141,23 +165,27 @@ export default function ProjectVisual({ project, className = '' }: ProjectVisual
 
 	return (
 		<figure
-			className={`overflow-hidden rounded-xl border border-slate-800 bg-slate-950 p-5 shadow-sm ${className}`}
+			className={`relative isolate overflow-hidden rounded-xl border border-slate-800 bg-slate-950 p-5 shadow-sm ${className}`}
 			aria-label={`Conceptual diagram: ${visual.label}`}>
-			<div className='mb-5 flex items-start justify-between gap-4'>
-				<div>
-					<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-blue-300'>
-						Conceptual project visual
-					</p>
-					<figcaption className='mt-1 text-sm font-medium text-slate-100'>{visual.label}</figcaption>
+			<div aria-hidden='true' className='pointer-events-none absolute inset-0 z-0 opacity-50 [background-image:linear-gradient(rgb(148_163_184_/_0.1)_1px,transparent_1px),linear-gradient(90deg,rgb(148_163_184_/_0.1)_1px,transparent_1px)] [background-size:22px_22px]' />
+			<div aria-hidden='true' className='absolute left-0 top-0 h-1 w-16 bg-blue-500' />
+			<div className='relative z-10'>
+				<div className='mb-6 flex items-start justify-between gap-4'>
+					<div>
+						<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-blue-300'>
+							Conceptual system map
+						</p>
+						<figcaption className='mt-1.5 text-sm font-medium leading-5 text-slate-100'>{visual.label}</figcaption>
+					</div>
+					<span aria-hidden='true' className='mt-1 grid size-3 grid-cols-2 gap-px border border-slate-700 p-px'>
+						<i className='bg-blue-400' />
+						<i className='bg-slate-600' />
+						<i className='bg-slate-600' />
+						<i className='bg-blue-400' />
+					</span>
 				</div>
-				<span aria-hidden='true' className='mt-1 grid size-2 grid-cols-2 gap-px'>
-					<i className='bg-blue-400' />
-					<i className='bg-slate-600' />
-					<i className='bg-slate-600' />
-					<i className='bg-blue-400' />
-				</span>
+				<ConceptualDiagram visual={visual} />
 			</div>
-			<ConceptualDiagram visual={visual} />
 		</figure>
 	);
 }

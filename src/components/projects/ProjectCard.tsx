@@ -10,62 +10,92 @@ import {
 export interface ProjectCardProps {
 	project: Project;
 	variant?: 'default' | 'featured';
+	layout?: 'stacked' | 'split' | 'split-reverse';
 	className?: string;
 }
 
 export default function ProjectCard({
 	project,
 	variant = 'default',
+	layout = 'stacked',
 	className = '',
 }: ProjectCardProps) {
 	const isFeatured = variant === 'featured';
+	const isSplit = isFeatured || layout !== 'stacked';
+	const isReversed = layout === 'split-reverse';
 	const visibleTech = project.tech.slice(0, isFeatured ? 7 : 5);
+	const projectNumber = String(project.id).padStart(2, '0');
 
 	return (
 		<article
-			className={`group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-shadow duration-200 hover:shadow-md ${
-				isFeatured ? 'lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]' : 'flex h-full flex-col'
+			className={`group relative h-full overflow-hidden border border-slate-300 bg-white transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-blue-500 hover:shadow-[0_16px_32px_-24px_rgba(15,23,42,0.45)] ${
+				isSplit ? 'md:grid md:grid-cols-[minmax(15rem,0.82fr)_minmax(0,1.18fr)]' : 'flex flex-col'
 			} ${className}`}>
 			<ProjectVisual
 				project={project}
 				className={
-					isFeatured
-						? 'min-h-72 rounded-none border-0 border-b border-slate-800 lg:min-h-full lg:border-b-0 lg:border-r'
+					isSplit
+						? `min-h-64 rounded-none border-0 border-b border-slate-800 md:min-h-full md:border-b-0 ${isReversed ? 'md:order-2 md:border-l' : 'md:border-r'}`
 						: 'min-h-52 rounded-none border-0 border-b border-slate-800'
 				}
 			/>
 
-			<div className='flex min-w-0 flex-1 flex-col p-6 sm:p-7'>
-				<div className='flex flex-wrap gap-2'>
+			<div className={`flex min-w-0 flex-1 flex-col p-5 sm:p-6 ${isReversed ? 'md:order-1' : ''}`}>
+				<div className='flex items-start justify-between gap-4'>
+					<p className='font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-700'>
+						<span className='text-slate-400'>Case / </span>
+						{projectNumber}
+					</p>
+					<p className='border-l border-slate-200 pl-3 text-right font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-slate-500'>
+						Project record
+					</p>
+				</div>
+
+				<div className='mt-5 flex flex-wrap gap-x-3 gap-y-2'>
 					{project.categories.map((category) => (
-						<Badge key={category} tone={category === 'machine-learning' ? 'accent' : 'subtle'}>
+						<span key={category} className={`text-[11px] font-semibold uppercase tracking-[0.1em] ${category === 'machine-learning' ? 'text-blue-700' : 'text-slate-500'}`}>
 							{projectCategoryLabels[category]}
-						</Badge>
+						</span>
 					))}
 				</div>
 
-				<div className='mt-5'>
-					<h3 className='text-xl font-bold tracking-tight text-slate-950 sm:text-2xl'>
+				<div className='mt-4'>
+					<h3 className='text-xl font-bold tracking-[-0.03em] text-slate-950 sm:text-2xl'>
 						{project.title}
 					</h3>
 					{project.subtitle ? (
-						<p className='mt-1 text-sm font-medium text-slate-600'>{project.subtitle}</p>
+						<p className='mt-2 text-sm font-medium leading-6 text-slate-600'>{project.subtitle}</p>
 					) : null}
 				</div>
 
 				<p className='mt-4 text-sm leading-6 text-slate-600'>{project.summary}</p>
 
 				{project.role || project.context || project.period ? (
-					<div className='mt-5 border-l-2 border-blue-200 pl-3 text-sm leading-6 text-slate-600'>
-						{project.role ? <p className='font-semibold text-slate-800'>{project.role}</p> : null}
-						{project.context ? <p>{project.context}</p> : null}
-						{project.period ? <p>{project.period}</p> : null}
-					</div>
+					<dl className='mt-5 grid gap-3 border-l-2 border-blue-200 pl-3 text-sm leading-5 text-slate-600'>
+						{project.role ? (
+							<div>
+								<dt className='sr-only'>Role</dt>
+								<dd className='font-semibold text-slate-800'>{project.role}</dd>
+							</div>
+						) : null}
+						{project.context ? (
+							<div>
+								<dt className='sr-only'>Context</dt>
+								<dd>{project.context}</dd>
+							</div>
+						) : null}
+						{project.period ? (
+							<div>
+								<dt className='sr-only'>Period</dt>
+								<dd>{project.period}</dd>
+							</div>
+						) : null}
+					</dl>
 				) : null}
 
-				<div className='mt-5 flex flex-wrap gap-2'>
+				<div className='mt-5 flex flex-wrap gap-1.5'>
 					{visibleTech.map((technology) => (
-						<Badge key={technology} tone='neutral'>
+						<Badge key={technology} tone='neutral' className='bg-slate-50'>
 							{technology}
 						</Badge>
 					))}
@@ -74,19 +104,19 @@ export default function ProjectCard({
 					) : null}
 				</div>
 
-				<div className='mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-slate-100 pt-5'>
+				<div className={`mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-slate-200 pt-5 ${isSplit ? 'md:mt-auto' : ''}`}>
 					<Link
 						href={`/projects/${project.slug}`}
-						className='inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition-colors hover:text-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
+						className='inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition-colors duration-200 hover:text-blue-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
 						View Case Study
-						<FiArrowRight aria-hidden='true' className='size-4 transition-transform duration-200 group-hover:translate-x-0.5' />
+						<FiArrowRight aria-hidden='true' className='size-4 transition-transform duration-200 group-hover:translate-x-1' />
 					</Link>
 					{project.githubUrl ? (
 						<a
 							href={project.githubUrl}
 							target='_blank'
 							rel='noreferrer noopener'
-							className='inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
+							className='inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
 							<FiGithub aria-hidden='true' className='size-4' />
 							Repository
 						</a>
@@ -96,7 +126,7 @@ export default function ProjectCard({
 							href={project.demoUrl ?? project.externalUrl}
 							target='_blank'
 							rel='noreferrer noopener'
-							className='inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
+							className='inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
 							View Source
 							<FiArrowUpRight aria-hidden='true' className='size-4' />
 						</a>

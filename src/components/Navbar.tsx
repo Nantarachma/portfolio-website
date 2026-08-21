@@ -26,17 +26,14 @@ export default function Navbar() {
 	}, [pathname]);
 
 	return (
-		<header className='sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md'>
-			<div className='mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8'>
-				<Link
-					href='/'
-					className='rounded-sm text-sm font-bold tracking-tight text-slate-950 outline-none transition-colors hover:text-blue-700 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:text-base'
-					aria-label={`${profile.name} home`}>
+		<header className='site-header'>
+			<div className='site-container site-header__inner'>
+				<Link href='/' className='site-brand' aria-label={`${profile.name} home`}>
 					<span className='sm:hidden'>{profile.shortName}</span>
 					<span className='hidden sm:inline'>{profile.name}</span>
 				</Link>
 
-				<nav className='hidden items-center gap-1 md:flex' aria-label='Primary navigation'>
+				<nav className='site-nav hidden md:flex' aria-label='Primary navigation'>
 					{navigation.map((item) => {
 						const isActive = isCurrentPath(pathname, item.href);
 
@@ -45,11 +42,7 @@ export default function Navbar() {
 								key={item.href}
 								href={item.href}
 								aria-current={isActive ? 'page' : undefined}
-								className={`rounded-md px-3 py-2 text-sm font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 ${
-									isActive
-										? 'bg-slate-100 text-slate-950'
-										: 'text-slate-600 hover:bg-slate-50 hover:text-slate-950'
-								}`}>
+								className='site-nav-link'>
 								{item.name}
 							</Link>
 						);
@@ -58,7 +51,7 @@ export default function Navbar() {
 						href={profile.links.resume.href}
 						target='_blank'
 						rel='noreferrer'
-						className='ml-2 rounded-md border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-800 outline-none transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'
+						className='site-resume-link'
 						aria-label='View resume in a new tab'>
 						View Resume
 					</a>
@@ -66,7 +59,7 @@ export default function Navbar() {
 
 				<button
 					type='button'
-					className='inline-flex size-10 items-center justify-center rounded-md text-slate-700 outline-none transition-colors hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 md:hidden'
+					className='site-menu-button md:hidden'
 					onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
 					aria-expanded={mobileMenuOpen}
 					aria-controls='mobile-navigation'
@@ -81,10 +74,8 @@ export default function Navbar() {
 				</button>
 			</div>
 
-			<div
-				id='mobile-navigation'
-				className={`${mobileMenuOpen ? 'block' : 'hidden'} border-t border-slate-200 bg-white md:hidden`}>
-				<nav className='mx-auto max-w-6xl space-y-1 px-4 py-3 sm:px-6' aria-label='Mobile navigation'>
+			<div id='mobile-navigation' className={`${mobileMenuOpen ? 'block' : 'hidden'} site-mobile-panel md:hidden`}>
+				<nav className='site-container site-mobile-nav' aria-label='Mobile navigation'>
 					{navigation.map((item) => {
 						const isActive = isCurrentPath(pathname, item.href);
 
@@ -94,11 +85,7 @@ export default function Navbar() {
 								href={item.href}
 								aria-current={isActive ? 'page' : undefined}
 								onClick={() => setMobileMenuOpen(false)}
-								className={`block rounded-md px-3 py-2.5 text-sm font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 ${
-									isActive
-										? 'bg-slate-100 text-slate-950'
-										: 'text-slate-600 hover:bg-slate-50 hover:text-slate-950'
-								}`}>
+								className='site-mobile-link'>
 								{item.name}
 							</Link>
 						);
@@ -107,7 +94,7 @@ export default function Navbar() {
 						href={profile.links.resume.href}
 						target='_blank'
 						rel='noreferrer'
-						className='mt-2 block rounded-md border border-slate-300 px-3 py-2.5 text-center text-sm font-semibold text-slate-800 outline-none transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'
+						className='site-mobile-resume'
 						aria-label='View resume in a new tab'>
 						View Resume
 					</a>
