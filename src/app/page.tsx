@@ -117,31 +117,31 @@ export default function HomePage() {
 					className='pointer-events-none absolute inset-0 opacity-60 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] [background-size:4rem_4rem] [mask-image:linear-gradient(to_bottom,black,transparent_76%)]'
 				/>
 				<div className='site-container relative py-14 sm:py-20 lg:py-24'>
-					<div className='grid items-center gap-12 lg:grid-cols-12 lg:gap-x-8'>
-						<div className='lg:col-span-7'>
-							<div className='flex flex-wrap items-center gap-x-4 gap-y-2'>
-								<p className='eyebrow'>{profile.eyebrow}</p>
+					<div className='grid min-w-0 items-center gap-12 lg:grid-cols-12 lg:gap-x-8'>
+						<div className='min-w-0 lg:col-span-7'>
+							<div className='flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2'>
+								<p className='eyebrow w-full sm:w-auto'>{profile.eyebrow}</p>
 								<span className='h-px w-8 bg-slate-300' aria-hidden='true' />
 								<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500'>Portfolio / 2026</p>
 							</div>
 							<h1 className='mt-7 max-w-4xl text-balance text-5xl font-bold leading-[0.94] tracking-[-0.065em] text-slate-950 sm:text-6xl lg:text-7xl xl:text-8xl'>
 								{profile.name}
 							</h1>
-							<p className='mt-6 max-w-2xl text-xl font-bold tracking-[-0.035em] text-blue-700 sm:text-2xl'>{profile.role}</p>
-							<p className='mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg'>{profile.intro}</p>
+							<p className='mt-6 max-w-2xl break-words text-balance text-xl font-bold leading-snug tracking-[-0.035em] text-blue-700 sm:text-2xl'>{profile.role}</p>
+							<p className='mt-5 max-w-2xl break-words text-base leading-7 text-slate-600 sm:text-lg'>{profile.intro}</p>
 
-							<dl className='mt-9 grid max-w-2xl grid-cols-2 border-y border-slate-200 text-sm sm:grid-cols-3'>
+							<dl className='mt-9 grid max-w-2xl grid-cols-1 border-y border-slate-200 text-sm sm:grid-cols-3'>
 								<div className='border-b border-slate-200 py-4 pr-4 sm:border-b-0 sm:border-r'>
 									<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500'>Based in</dt>
 									<dd className='mt-1 font-semibold text-slate-900'>{profile.location}</dd>
 								</div>
 								<div className='border-b border-slate-200 py-4 pl-4 sm:border-b-0 sm:border-r sm:px-4'>
-									<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500'>Study</dt>
-									<dd className='mt-1 font-semibold text-slate-900'>Final-year Informatics</dd>
+									<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500'>Education</dt>
+									<dd className='mt-1 font-semibold text-slate-900'>Informatics Graduate</dd>
 								</div>
-								<div className='col-span-2 py-4 sm:col-span-1 sm:pl-4'>
+								<div className='py-4 sm:pl-4'>
 									<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500'>Practice</dt>
-									<dd className='mt-1 font-semibold text-slate-900'>ML · CV · Software</dd>
+									<dd className='mt-1 font-semibold text-slate-900'>ML · CV · Mobile · Web</dd>
 								</div>
 							</dl>
 
@@ -163,7 +163,7 @@ export default function HomePage() {
 							</div>
 						</div>
 
-						<figure className='relative mx-auto w-full max-w-sm lg:col-span-4 lg:col-start-9 lg:max-w-none'>
+						<figure className='relative mx-auto min-w-0 w-full max-w-sm lg:col-span-4 lg:col-start-9 lg:max-w-none'>
 							<div className='absolute -right-3 -top-3 size-20 border-r border-t border-blue-700 sm:-right-5 sm:-top-5 sm:size-28' aria-hidden='true' />
 							<div className='relative aspect-[4/5] overflow-hidden border border-slate-950 bg-slate-200 p-3 shadow-[10px_10px_0_0_#dbeafe] sm:p-4'>
 								<div className='relative h-full overflow-hidden border border-white/70 bg-slate-300'>

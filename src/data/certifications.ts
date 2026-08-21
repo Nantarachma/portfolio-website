@@ -1,10 +1,6 @@
 import type { Certification } from './types';
 
-/**
- * All existing credential URLs are retained here. The EF SET record remains in
- * the full list but is deliberately not featured until its score/CEFR level is
- * manually reconciled.
- */
+/** All verified credential URLs are retained here, including CV-only entries without dates. */
 export const certifications: readonly Certification[] = [
 	{
 		title: 'Memulai Dasar Pemrograman untuk Menjadi Pengembang Software',
@@ -70,7 +66,7 @@ export const certifications: readonly Certification[] = [
 		title: 'Belajar Penerapan Machine Learning untuk Android',
 		issuer: 'Dicoding',
 		issueDate: 'Nov 2024 - Nov 2027',
-		url: 'https://www.dicoding.com/certificates/0LZ04D30QP65',
+		url: 'https://www.dicoding.com/certificates/6RPNY7QW9Z2M',
 		featured: true,
 	},
 	{
@@ -120,10 +116,11 @@ export const certifications: readonly Certification[] = [
 		featured: true,
 	},
 	{
-		title: 'Sertifikat EF SET Bahasa Inggris 61/100 (C1 Lanjut)',
+		title: 'EF SET English Certificate 74/100 (C2 Proficient)',
 		issuer: 'EF SET',
 		issueDate: 'Jan 2025 - Jan 2028',
 		url: 'https://cert.efset.org/id/MVjjRb',
+		featured: true,
 	},
 	{
 		title: 'Memulai Pemrograman dengan Python',
@@ -137,6 +134,16 @@ export const certifications: readonly Certification[] = [
 		issuer: 'Dicoding',
 		issueDate: 'Feb 2025 - Feb 2028',
 		url: 'https://www.dicoding.com/certificates/JMZVE963NPN9',
+	},
+	{
+		title: 'Belajar Dasar Data Science',
+		issuer: 'Dicoding Indonesia',
+		url: 'https://www.dicoding.com/certificates/KEXL7LYL4XG2',
+	},
+	{
+		title: 'Belajar Dasar Structured Query Language (SQL)',
+		issuer: 'Dicoding Indonesia',
+		url: 'https://www.dicoding.com/certificates/81P2L74JJZOY',
 	},
 ];
 

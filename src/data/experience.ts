@@ -14,20 +14,20 @@ export const experienceData: readonly ExperienceItem[] = [
 		period: 'Sep 2024 – Jan 2025',
 		context: 'JustiBot · AI-driven legal consultation and document automation platform',
 		contributions: [
-			'Contributed to software requirement specifications.',
-			'Supported budget and project planning.',
-			'Created UI/UX wireframes in Figma.',
-			'Helped initialize the backend server environment.',
+			'Contributed to software requirement specifications, budget allocation, and project planning.',
+			'Co-designed UI/UX wireframes in Figma for the legal consultation workflow.',
+			'Helped initialize the backend server environment for the platform.',
 		],
 	},
 	{
-		organization: 'Bangkit Academy 2024',
+		organization: 'Bangkit Academy led by Google, GoTo & Traveloka',
 		role: 'Mobile Developer Cohort',
+		location: 'Indonesia',
 		period: 'Sep 2024 – Jan 2025',
-		context: 'Mobile Development Cohort',
+		context: 'Mobile Development Cohort 2024',
 		contributions: [
-			'Focused on native Android development with Kotlin.',
-			'Worked on SHARA, an ML-integrated Android capstone project.',
+			'Completed intensive training in native Android development with Kotlin.',
+			'Co-developed SHARA, a machine learning-integrated skin analysis and skincare recommendation app, as the capstone project.',
 		],
 	},
 ];
@@ -38,12 +38,12 @@ export const leadershipData: readonly LeadershipItem[] = [
 		role: 'Head of Multimedia Department',
 		period: 'Mar 2025 – Jan 2026',
 		focus: [
-			'Media strategy',
-			'Brand identity',
+			'Faculty media strategy',
+			'Brand identity direction',
 			'Figma and Canva',
 			'Executive portrait photography',
-			'Event documentation',
-			'Visual communication',
+			'End-to-end event documentation',
+			'Public relations visual archives',
 		],
 	},
 	{
@@ -51,11 +51,11 @@ export const leadershipData: readonly LeadershipItem[] = [
 		role: 'Head of Regeneration Department',
 		period: 'Mar 2024 – Jan 2025',
 		focus: [
-			'Leadership development',
+			'Faculty regeneration initiatives',
+			'Leadership development and coaching',
 			'Student engagement',
-			'Coaching',
 			'Succession planning',
-			'Organizational development',
+			'Prospective board development',
 		],
 	},
 ];
@@ -146,7 +146,7 @@ export const additionalOrganizationalExperience: readonly AdditionalExperienceIt
 export const techGroups: readonly TechGroup[] = [
 	{
 		name: 'Machine Learning & AI',
-		items: ['Python', 'PyTorch', 'XGBoost', 'Optuna', 'SHAP', 'Scikit-Learn'],
+		items: ['Python', 'PyTorch', 'XGBoost', 'Optuna', 'SHAP', 'Scikit-Learn', 'Jupyter Notebook'],
 	},
 	{
 		name: 'Computer Vision',
@@ -154,11 +154,11 @@ export const techGroups: readonly TechGroup[] = [
 	},
 	{
 		name: 'Mobile Development',
-		items: ['Kotlin', 'Android SDK', 'Flutter'],
+		items: ['Kotlin', 'Android SDK', 'Android Studio', 'TensorFlow Lite', 'Flutter'],
 	},
 	{
 		name: 'Web & Backend',
-		items: ['React.js', 'Next.js', 'TypeScript', 'Node.js', 'Express.js', 'Laravel', 'PHP'],
+		items: ['React.js', 'Next.js', 'TypeScript', 'Node.js', 'Express.js', 'Laravel', 'PHP', 'HTML/CSS'],
 	},
 	{
 		name: 'Database & Engineering',
@@ -166,7 +166,11 @@ export const techGroups: readonly TechGroup[] = [
 	},
 	{
 		name: 'Design',
-		items: ['Figma', 'UI/UX'],
+		items: ['Figma', 'UI/UX', 'Adobe Illustrator', 'Framer', 'Canva'],
+	},
+	{
+		name: 'Languages',
+		items: ['Bahasa Indonesia — Native', 'English — C2 (EF SET 74/100)'],
 	},
 ];
 

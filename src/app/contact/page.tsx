@@ -26,6 +26,12 @@ const contactOptions = [
 		href: profile.links.github.href,
 		description: 'Explore available source code and development work.',
 	},
+	{
+		label: 'WhatsApp',
+		value: profile.phone,
+		href: profile.links.whatsapp.href,
+		description: 'Start a direct conversation about opportunities or collaboration.',
+	},
 ] as const;
 
 export default function ContactPage() {
@@ -53,6 +59,12 @@ export default function ContactPage() {
 							className='inline-flex items-center rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition-colors hover:border-slate-400 hover:bg-slate-50'>
 							View Resume
 						</a>
+						<a
+							href={profile.links.resumeDownload.href}
+							download
+							className='inline-flex items-center rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition-colors hover:border-slate-400 hover:bg-slate-50'>
+							Download CV
+						</a>
 					</div>
 				</div>
 
@@ -60,7 +72,7 @@ export default function ContactPage() {
 					<p className='text-sm font-semibold text-slate-950'>Based in</p>
 					<p className='mt-1 text-slate-600'>{profile.location}</p>
 					<p className='mt-7 border-t border-slate-200 pt-6 text-sm leading-6 text-slate-600'>
-						Best reached by email or LinkedIn. The resume link opens an external document in a new tab.
+						Reach me by email, LinkedIn, or WhatsApp. View the resume online or download the latest DOCX copy.
 					</p>
 				</aside>
 			</section>
@@ -69,7 +81,7 @@ export default function ContactPage() {
 				<h2 id='contact-methods-heading' className='text-2xl font-bold tracking-tight text-slate-950'>
 					Contact details
 				</h2>
-				<div className='mt-6 grid gap-4 md:grid-cols-3'>
+				<div className='mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4'>
 					{contactOptions.map((option) => (
 						<a
 							key={option.label}

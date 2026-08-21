@@ -163,7 +163,7 @@ function ResearchArticle({
 								target='_blank'
 								rel='noreferrer'
 								className='inline-flex items-center text-sm font-semibold text-slate-700 transition-colors hover:text-slate-950'>
-								{item.label} <span aria-hidden='true' className='ml-2'>&nearr;</span>
+								{item.label} <span aria-hidden='true' className='ml-2'>↗</span>
 							</a>
 						) : null,
 					)}

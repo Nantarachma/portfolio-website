@@ -21,11 +21,8 @@ const categoryLabel = (category: string) => category.replaceAll('-', ' ');
 
 export default function AboutPage() {
 	const selectedResearch = researchProjects.filter((project) => primaryResearchSlugs.has(project.slug));
-	const safeCertifications = certifications.filter((certification) => !/ef set/i.test(certification.title));
-	const selectedCertifications = featuredCertifications.filter(
-		(certification) => !/ef set/i.test(certification.title),
-	);
-	const additionalCertifications = safeCertifications.filter(
+	const selectedCertifications = featuredCertifications;
+	const additionalCertifications = certifications.filter(
 		(certification) => !selectedCertifications.some((selected) => selected.title === certification.title),
 	);
 
@@ -176,7 +173,12 @@ export default function AboutPage() {
 							<li key={certification.title} className='surface rounded-xl p-5'>
 								<h3 className='font-bold leading-6 text-slate-950'>{certification.title}</h3>
 								<p className='mt-2 text-sm text-slate-600'>
-									{certification.issuer} <span aria-hidden='true'>&middot;</span> {certification.issueDate}
+									{certification.issuer}
+									{certification.issueDate ? (
+										<>
+											{' '}<span aria-hidden='true'>&middot;</span> {certification.issueDate}
+										</>
+									) : null}
 								</p>
 								{certification.url ? (
 									<a
@@ -184,7 +186,7 @@ export default function AboutPage() {
 										target='_blank'
 										rel='noreferrer'
 										className='mt-4 inline-flex items-center text-sm font-semibold text-blue-700 transition-colors hover:text-blue-900'>
-										View credential <span aria-hidden='true' className='ml-2'>&nearr;</span>
+										View credential <span aria-hidden='true' className='ml-2'>↗</span>
 									</a>
 								) : null}
 							</li>

@@ -70,7 +70,7 @@ export const projects: readonly Project[] = [
 		title: 'JustiBot',
 		subtitle: 'AI-Driven Legal Consultation & Document Automation',
 		summary:
-			'Contributed to software requirement specifications, budget planning, UI/UX wireframes, and backend server environment initialization for an AI-powered legal consultation platform.',
+			'Contributed to software requirements and budget planning, co-designed UI/UX wireframes in Figma, and helped initialize the backend server environment for an AI-powered legal consultation platform.',
 		categories: ['web', 'ui-ux'],
 		role: 'Full-Stack Developer Intern',
 		period: 'Sep 2024 – Jan 2025',
@@ -106,7 +106,7 @@ export const projects: readonly Project[] = [
 		title: 'SHARA',
 		subtitle: 'Skin Health and Recommendation App',
 		summary:
-			'A native Android application integrating machine learning for skin condition analysis and personalized skincare recommendations.',
+			'Co-developed a native Android application that uses machine learning for skin condition analysis and personalized skincare recommendations within an MVVM clean architecture.',
 		categories: ['mobile', 'machine-learning'],
 		role: 'Mobile Developer',
 		period: 'Sep 2024 – Jan 2025',

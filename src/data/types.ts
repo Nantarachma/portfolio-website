@@ -83,6 +83,7 @@ export interface Profile {
 	intro: string;
 	bio: string;
 	email: string;
+	phone: string;
 	location: string;
 	portrait: {
 		src: string;
@@ -92,7 +93,9 @@ export interface Profile {
 		github: ProfileLink;
 		linkedin: ProfileLink;
 		email: ProfileLink;
+		whatsapp: ProfileLink;
 		resume: ProfileLink;
+		resumeDownload: ProfileLink;
 	};
 }
 
@@ -127,7 +130,7 @@ export interface TechGroup {
 export interface Certification {
 	title: string;
 	issuer: string;
-	issueDate: string;
+	issueDate?: string;
 	url?: string;
 	featured?: boolean;
 }
