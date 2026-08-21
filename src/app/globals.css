@@ -1,215 +1,91 @@
 @import 'tailwindcss';
 
-/* Typography Styles */
-.prose h3 {
-	@apply text-lg font-semibold mt-6 mb-2;
+:root {
+	--background: #f8fafc;
+	--foreground: #0f172a;
+	--muted: #475569;
+	--border: #e2e8f0;
+	--accent: #2563eb;
 }
 
-.prose ul {
-	@apply list-disc pl-6 my-4 space-y-2;
+* {
+	box-sizing: border-box;
 }
 
-.prose p {
-	@apply my-4;
+html {
+	scroll-behavior: smooth;
 }
 
-/* ===== TIMELINE STYLING ===== */
-.timeline-item {
-	position: relative;
-	opacity: 0;
-	animation: fadeIn 0.5s ease-out forwards;
-}
-
-.timeline-marker {
-	position: relative;
-	width: 20px;
-	height: 20px;
-	min-width: 20px;
-	border-radius: 50%;
-	background: white;
-	border: 3px solid #3b82f6;
-	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-	margin-top: 14px;
-	margin-left: 13px;
-	z-index: 2;
-	transition: box-shadow 0.3s ease;
-}
-
-/* Connecting vertical line */
-.timeline-item:not(:last-child)::before {
-	content: '';
-	position: absolute;
-	left: 10px;
-	top: 34px;
-	width: 2px;
-	height: calc(100% - 30px);
-	background: linear-gradient(to bottom, #3b82f6 0%, #6366f1 100%);
-	opacity: 0.3;
-	margin-left: 12px;
-	z-index: 1;
-}
-
-/* Timeline stagger animation */
-.timeline-item:nth-child(2) {
-	animation-delay: 0.2s;
-}
-
-.timeline-item:nth-child(3) {
-	animation-delay: 0.4s;
-}
-
-/* Glow effect for markers on hover */
-.timeline-item:hover .timeline-marker {
-	box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.2);
-}
-
-/* ===== LAYOUT UTILITIES ===== */
-/* Fix for sticky positioning */
-html,
 body {
 	min-height: 100vh;
 	overflow-x: hidden;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
-.sticky {
-	position: sticky;
-	top: 24px; /* Adjust based on your header height */
-	height: max-content; /* Allow content to determine height */
-	max-height: calc(100vh - 48px); /* Prevent overflowing viewport */
-	overflow-y: auto; /* Allow scrolling if content is too tall */
+a,
+button {
+	-webkit-tap-highlight-color: transparent;
 }
 
-@media (max-width: 768px) {
-	.container {
-		padding-top: 0.5rem;
-		padding-bottom: 0.5rem;
+:focus-visible {
+	outline: 3px solid #93c5fd;
+	outline-offset: 3px;
+}
+
+::selection {
+	background: #bfdbfe;
+	color: #172554;
+}
+
+.site-container {
+	width: min(100% - 2rem, 72rem);
+	margin-inline: auto;
+}
+
+.page-section {
+	padding-block: 4.5rem;
+}
+
+.eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.11em;
+	text-transform: uppercase;
+	color: #2563eb;
+}
+
+.surface {
+	border: 1px solid var(--border);
+	background: #ffffff;
+	box-shadow: 0 1px 2px rgb(15 23 42 / 0.03);
+}
+
+.text-balance {
+	text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+	.site-container {
+		width: min(100% - 4rem, 72rem);
+	}
+
+	.page-section {
+		padding-block: 6rem;
 	}
 }
 
-/* ===== ANIMATION KEYFRAMES ===== */
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-		transform: translateY(10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-/* Standard gradient animation - slow */
-@keyframes gradient-shift-slow {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-
-/* Standard gradient animation - medium */
-@keyframes gradient-shift {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-
-/* Border color animation */
-@keyframes border-color-flow {
-	0%,
-	100% {
-		border-color: rgba(59, 130, 246, 0.3);
-	}
-	50% {
-		border-color: rgba(139, 92, 246, 0.3);
-	}
-}
-
-/* Shine effect animation */
-@keyframes shine {
-	to {
-		left: 200%;
-	}
-}
-
-.animate-shine {
-	animation: shine 1.5s ease-in-out;
-}
-
-/* ===== ANIMATION UTILITY CLASSES ===== */
-/* Slow gradient animation (8s) */
-.animate-gradient-slow {
-	background-size: 300% 300%;
-	animation: gradient-shift-slow 8s ease infinite;
-}
-
-/* Medium gradient animation (6s) */
-.animate-gradient,
-.animate-gradient-xy {
-	background-size: 200% 200%;
-	animation: gradient-shift 6s ease infinite;
-}
-
-/* Fast gradient animation (4s) */
-.animate-gradient-x {
-	background-size: 200% 200%;
-	animation: gradient-shift 4s ease infinite;
-}
-
-/* Button shine effect */
-.animate-shine {
-	animation: shine 1.5s ease;
-}
-
-/* Animated border gradient */
-.animate-border-flow {
-	background: linear-gradient(
-		90deg,
-		rgba(255, 255, 255, 0.1),
-		rgba(255, 255, 255, 0.3),
-		rgba(255, 255, 255, 0.1)
-	);
-	background-size: 200% 200%;
-	animation: gradient-shift 3s ease infinite;
-}
-
-/* Border with animated color */
-.bg-gradient-border {
-	border-width: 2px;
-	border-style: solid;
-	border-image: linear-gradient(to right, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3)) 1;
-	animation: border-color-flow 4s ease infinite;
-}
-
-/* Skills background gradient */
-.bg-skill-gradient {
-	background: linear-gradient(
-		90deg,
-		rgba(59, 130, 246, 0.2),
-		rgba(99, 102, 241, 0.2),
-		rgba(139, 92, 246, 0.2)
-	);
-	background-size: 200% 200%;
-	animation: gradient-shift 6s ease infinite;
-}
-
-/* ===== TAILWIND COMPONENTS ===== */
-@layer components {
-	/* Skill progress bar animation */
-	.skill-progress-bar {
-		@apply h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500;
-		width: 0;
-		animation: fillBar 2s ease-out forwards;
-		animation-delay: 0.5s;
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+		transition-duration: 0.01ms !important;
 	}
 }

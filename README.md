@@ -1,17 +1,45 @@
-# Portfolio Website
+# Rachmananta Ibnu Fajar Portfolio
 
-This is a personal portfolio website project built with [Next.js](https://nextjs.org). The purpose of this project is to showcase my projects, skills, and experiences in a modern and responsive web application.
+A Next.js technical portfolio for Rachmananta Ibnu Fajar, a final-year Informatics student focused on machine learning, computer vision, Android development, and software engineering.
 
-## Features
+## Stack
 
-- **TypeScript**: The project is primarily written in TypeScript to ensure type safety and enhance developer experience.
-- **Tailwind CSS**: Utilizes Tailwind CSS for styling to create a responsive and modern design.
-- **React**: Built with React to create interactive and dynamic user interfaces.
-- **Next.js**: Leverages the features of Next.js such as server-side rendering (SSR) and static site generation (SSG) for performance optimization.
+- Next.js 15, React 19, TypeScript
+- Tailwind CSS
+- Framer Motion (used only for restrained interactive motion where needed)
 
-## Project Structure
+## Local development
 
-- `src/pages`: Contains the pages of the website.
-- `src/components`: Contains reusable React components.
-- `src/styles`: Contains the global and component-specific styles.
-- `public`: Contains static assets like images and icons.
+```bash
+npm install
+npm run dev
+```
+
+Create a production build with:
+
+```bash
+npm run build
+```
+
+## Content structure
+
+Portfolio content lives in `src/data/` so project, experience, research, and certification details can be updated without rewriting route components. Project artwork is optional: the site uses conceptual technical panels until genuine project assets are supplied.
+
+## Portfolio Content TODO
+
+- Add NIDS experiment metrics.
+- Add NIDS architecture or result visuals.
+- Add a SANTIKA paper or presentation URL if available.
+- Add JustiBot screenshots if company policy allows.
+- Add JustiBot case-study evidence.
+- Add SHARA screenshots.
+- Add Corn Leaf evaluation results.
+- Add Bone Fracture evaluation results.
+- Verify the EF SET score and CEFR level before displaying it.
+- Add a local resume PDF at `public/rachmananta-ibnu-fajar-resume.pdf` if a download link is desired.
+- Optionally add genuine project covers under `public/projects/`:
+  - `nids-cover.webp`
+  - `justibot-cover.webp`
+  - `shara-cover.webp`
+  - `corn-leaf-cover.webp`
+  - `bone-fracture-cover.webp`

@@ -2,150 +2,116 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { profile } from '@/data/profile';
+
+const navigation = [
+	{ name: 'Home', href: '/' },
+	{ name: 'Projects', href: '/projects' },
+	{ name: 'Research', href: '/research' },
+	{ name: 'About', href: '/about' },
+	{ name: 'Contact', href: '/contact' },
+] as const;
+
+function isCurrentPath(pathname: string, href: string) {
+	return href === '/' ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export default function Navbar() {
 	const pathname = usePathname();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-	const [isScrolled, setIsScrolled] = useState(false);
 
-	const navigation = [
-		{ name: 'Home', href: '/' },
-		{ name: 'About', href: '/about' },
-		{ name: 'Projects', href: '/projects' },
-		{ name: 'Contact', href: '/contact' },
-	];
-
-	// Track scroll position
 	useEffect(() => {
-		const handleScroll = () => {
-			if (window.scrollY > 10) {
-				setIsScrolled(true);
-			} else {
-				setIsScrolled(false);
-			}
-		};
-
-		window.addEventListener('scroll', handleScroll);
-
-		// Clean up the event listener
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, []);
+		setMobileMenuOpen(false);
+	}, [pathname]);
 
 	return (
-		<header
-			className={`${
-				isScrolled
-					? 'fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-b border-gray-200/30 shadow-lg'
-					: 'relative bg-white/95 shadow-sm'
-			} transition-all duration-500 z-50`}>
-			<div className='absolute inset-0 bg-gradient-to-r from-blue-50/40 to-indigo-50/40 opacity-50'></div>
+		<header className='sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md'>
+			<div className='mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8'>
+				<Link
+					href='/'
+					className='rounded-sm text-sm font-bold tracking-tight text-slate-950 outline-none transition-colors hover:text-blue-700 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 sm:text-base'
+					aria-label={`${profile.name} home`}>
+					<span className='sm:hidden'>{profile.shortName}</span>
+					<span className='hidden sm:inline'>{profile.name}</span>
+				</Link>
 
-			{/* Top border accent */}
-			<div
-				className={`h-1 w-full bg-gradient-to-r from-blue-500 to-indigo-600 ${
-					isScrolled ? 'opacity-100' : 'opacity-0'
-				} transition-opacity duration-500`}></div>
-
-			<nav className='container mx-auto px-4 py-4 flex justify-between items-center relative'>
-				{/* Logo / Brand with animated gradient */}
-				<div className='flex items-center relative group'>
-					<div className='absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg opacity-0 blur group-hover:opacity-30 transition duration-300'></div>
-					<Link href='/' className='relative px-2 py-1 rounded-md'>
-						<span className='text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent'>
-							Rachmananta
-						</span>
-						<span className='text-xl font-medium text-gray-700 hidden sm:inline'> Portfolio</span>
-					</Link>
-				</div>
-
-				{/* Desktop Navigation */}
-				<div className='hidden md:flex items-center space-x-1'>
+				<nav className='hidden items-center gap-1 md:flex' aria-label='Primary navigation'>
 					{navigation.map((item) => {
-						const isActive = pathname === item.href;
+						const isActive = isCurrentPath(pathname, item.href);
+
 						return (
 							<Link
-								key={item.name}
+								key={item.href}
 								href={item.href}
-								className={`relative px-4 py-2 rounded-lg group transition-all duration-300 ${
-									isActive ? 'text-blue-600 font-medium' : 'text-gray-600 hover:text-blue-600'
-								}`}>
-								{/* Active background indicator */}
-								{isActive && <span className='absolute inset-0 bg-blue-50 rounded-lg'></span>}
-
-								{/* Text content */}
-								<span className='relative'>{item.name}</span>
-
-								{/* Animated underline */}
-								<span
-									className={`absolute bottom-1 left-1/2 h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500 transform -translate-x-1/2 transition-all duration-300 rounded-full ${
-										isActive ? 'w-12' : 'w-0 group-hover:w-12'
-									}`}></span>
-							</Link>
-						);
-					})}
-				</div>
-
-				{/* Mobile Menu Button - Enhanced */}
-				<button
-					type='button'
-					className='md:hidden relative w-10 h-10 flex items-center justify-center text-gray-600 z-20'
-					onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-					aria-label='Toggle menu'>
-					<div className='absolute w-5 h-5'>
-						<span
-							className={`absolute h-0.5 w-5 bg-current transform transition duration-300 ease-in-out ${
-								mobileMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-1.5'
-							}`}></span>
-
-						<span
-							className={`absolute h-0.5 bg-current transform transition-all duration-200 ease-in-out ${
-								mobileMenuOpen ? 'w-0 opacity-0' : 'w-5 opacity-100'
-							}`}></span>
-
-						<span
-							className={`absolute h-0.5 w-5 bg-current transform transition duration-300 ease-in-out ${
-								mobileMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-1.5'
-							}`}></span>
-					</div>
-				</button>
-			</nav>
-
-			{/* Mobile Navigation - Animated slide down */}
-			<div
-				className={`md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-200/30 shadow-lg transform origin-top transition-all duration-300 ${
-					mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
-				}`}>
-				<div className='container mx-auto px-4 py-2 space-y-1'>
-					{navigation.map((item) => {
-						const isActive = pathname === item.href;
-						return (
-							<Link
-								key={item.name}
-								href={item.href}
-								className={`flex items-center px-4 py-3 rounded-lg transition-all duration-200 ${
+								aria-current={isActive ? 'page' : undefined}
+								className={`rounded-md px-3 py-2 text-sm font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 ${
 									isActive
-										? 'bg-blue-50 text-blue-600 font-medium'
-										: 'text-gray-600 hover:bg-gray-50 hover:text-blue-600'
-								}`}
-								onClick={() => setMobileMenuOpen(false)}>
-								{/* Icon placeholder - you can add actual icons here */}
-								<span
-									className={`mr-3 w-5 h-5 rounded-full flex items-center justify-center ${
-										isActive ? 'bg-blue-100' : 'bg-gray-100'
-									}`}>
-									<span
-										className={`block w-1.5 h-1.5 rounded-full ${
-											isActive ? 'bg-blue-500' : 'bg-gray-400'
-										}`}></span>
-								</span>
+										? 'bg-slate-100 text-slate-950'
+										: 'text-slate-600 hover:bg-slate-50 hover:text-slate-950'
+								}`}>
 								{item.name}
 							</Link>
 						);
 					})}
-				</div>
+					<a
+						href={profile.links.resume.href}
+						target='_blank'
+						rel='noreferrer'
+						className='ml-2 rounded-md border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-800 outline-none transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'
+						aria-label='View resume in a new tab'>
+						View Resume
+					</a>
+				</nav>
+
+				<button
+					type='button'
+					className='inline-flex size-10 items-center justify-center rounded-md text-slate-700 outline-none transition-colors hover:bg-slate-100 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 md:hidden'
+					onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
+					aria-expanded={mobileMenuOpen}
+					aria-controls='mobile-navigation'
+					aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}>
+					<svg aria-hidden='true' className='size-5' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+						{mobileMenuOpen ? (
+							<path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='m6 6 12 12M6 18 18 6' />
+						) : (
+							<path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M4 6h16M4 12h16M4 18h16' />
+						)}
+					</svg>
+				</button>
+			</div>
+
+			<div
+				id='mobile-navigation'
+				className={`${mobileMenuOpen ? 'block' : 'hidden'} border-t border-slate-200 bg-white md:hidden`}>
+				<nav className='mx-auto max-w-6xl space-y-1 px-4 py-3 sm:px-6' aria-label='Mobile navigation'>
+					{navigation.map((item) => {
+						const isActive = isCurrentPath(pathname, item.href);
+
+						return (
+							<Link
+								key={item.href}
+								href={item.href}
+								aria-current={isActive ? 'page' : undefined}
+								onClick={() => setMobileMenuOpen(false)}
+								className={`block rounded-md px-3 py-2.5 text-sm font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 ${
+									isActive
+										? 'bg-slate-100 text-slate-950'
+										: 'text-slate-600 hover:bg-slate-50 hover:text-slate-950'
+								}`}>
+								{item.name}
+							</Link>
+						);
+					})}
+					<a
+						href={profile.links.resume.href}
+						target='_blank'
+						rel='noreferrer'
+						className='mt-2 block rounded-md border border-slate-300 px-3 py-2.5 text-center text-sm font-semibold text-slate-800 outline-none transition-colors hover:border-slate-400 hover:bg-slate-50 focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'
+						aria-label='View resume in a new tab'>
+						View Resume
+					</a>
+				</nav>
 			</div>
 		</header>
 	);
