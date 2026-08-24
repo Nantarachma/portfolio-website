@@ -9,16 +9,14 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-	"seed:portfolio": "tsx scripts/seed-portfolio.ts",
-	"smoke:responsive": "node scripts/check-responsive.mjs"
+    "seed:portfolio": "tsx scripts/seed-portfolio.ts",
+    "smoke:responsive": "node scripts/check-responsive.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
     "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.112.3",
-    "@tailwindcss/cli": "^4.0.12",
     "autoprefixer": "^10.4.20",
-    "framer-motion": "^12.4.10",
     "next": "^15.5.23",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
