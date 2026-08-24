@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { researchProjects } from '@/data/projects';
+import { getPortfolioContent } from '@/lib/portfolio/repository';
+import { getResearchProjects } from '@/lib/portfolio/selectors';
+import type { PortfolioProject } from '@/lib/portfolio/schema';
 
 export const metadata: Metadata = {
 	title: 'Research',
@@ -16,7 +18,9 @@ const researchSlugs = new Set([
 
 const categoryLabel = (category: string) => category.replaceAll('-', ' ');
 
-export default function ResearchPage() {
+export default async function ResearchPage() {
+	const content = await getPortfolioContent();
+	const researchProjects = getResearchProjects(content);
 	const selectedResearch = researchProjects.filter((project) => researchSlugs.has(project.slug));
 	const thesisProject = selectedResearch.find((project) => project.slug === 'nids-optimization');
 	const computerVisionProjects = selectedResearch.filter((project) => project.slug !== 'nids-optimization');
@@ -82,7 +86,7 @@ function ResearchArticle({
 	project,
 	featured = false,
 }: {
-	project: (typeof researchProjects)[number];
+	project: PortfolioProject;
 	featured?: boolean;
 }) {
 	const workflow = project.caseStudy?.workflow ?? project.visual?.steps;

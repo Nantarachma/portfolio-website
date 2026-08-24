@@ -2,13 +2,11 @@ import Link from 'next/link';
 import { FiArrowRight, FiArrowUpRight, FiGithub } from 'react-icons/fi';
 import Badge from '@/components/ui/Badge';
 import ProjectVisual from '@/components/projects/ProjectVisual';
-import {
-	projectCategoryLabels,
-	type Project,
-} from '@/data/projects';
+import type { PortfolioProject, PortfolioProjectCategory } from '@/lib/portfolio/schema';
 
 export interface ProjectCardProps {
-	project: Project;
+	project: PortfolioProject;
+	categoryLabels: Record<PortfolioProjectCategory, string>;
 	variant?: 'default' | 'featured';
 	layout?: 'stacked' | 'split' | 'split-reverse';
 	className?: string;
@@ -16,6 +14,7 @@ export interface ProjectCardProps {
 
 export default function ProjectCard({
 	project,
+	categoryLabels,
 	variant = 'default',
 	layout = 'stacked',
 	className = '',
@@ -54,7 +53,7 @@ export default function ProjectCard({
 				<div className='mt-5 flex flex-wrap gap-x-3 gap-y-2'>
 					{project.categories.map((category) => (
 						<span key={category} className={`text-[11px] font-semibold uppercase tracking-[0.1em] ${category === 'machine-learning' ? 'text-blue-700' : 'text-slate-500'}`}>
-							{projectCategoryLabels[category]}
+							{categoryLabels[category]}
 						</span>
 					))}
 				</div>

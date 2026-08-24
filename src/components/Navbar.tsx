@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { profile } from '@/data/profile';
+import type { PortfolioProfile } from '@/lib/portfolio/schema';
 
 const navigation = [
 	{ name: 'Home', href: '/' },
@@ -17,7 +17,7 @@ function isCurrentPath(pathname: string, href: string) {
 	return href === '/' ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export default function Navbar() {
+export default function Navbar({ profile }: { profile: PortfolioProfile }) {
 	const pathname = usePathname();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 

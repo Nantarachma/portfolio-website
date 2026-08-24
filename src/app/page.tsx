@@ -1,14 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import ProjectVisual from '@/components/projects/ProjectVisual';
-import { experienceData, techGroups } from '@/data/experience';
-import { credibilityHighlights, profile } from '@/data/profile';
 import {
-	featuredProjects,
-	projectCategoryLabels,
-	researchProjects,
-	type Project,
-} from '@/data/projects';
+	getCategoryLabels,
+	getFeaturedProjects,
+	getResearchProjects,
+} from '@/lib/portfolio/selectors';
+import { getPortfolioContent } from '@/lib/portfolio/repository';
+import type { PortfolioProject, PortfolioProjectCategory } from '@/lib/portfolio/schema';
 
 function Arrow() {
 	return <span className='ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1' aria-hidden='true'>&rarr;</span>;
@@ -26,7 +25,7 @@ function TechPills({ items }: { items: readonly string[] }) {
 	);
 }
 
-function ProjectMeta({ project }: { project: Project }) {
+function ProjectMeta({ project }: { project: PortfolioProject }) {
 	return (
 		<dl className='mt-6 grid gap-4 border-y border-slate-200 py-4 text-sm sm:grid-cols-2'>
 			{project.role ? (
@@ -45,7 +44,15 @@ function ProjectMeta({ project }: { project: Project }) {
 	);
 }
 
-function FeaturedWork({ project, index }: { project: Project; index: number }) {
+function FeaturedWork({
+	project,
+	index,
+	categoryLabels,
+}: {
+	project: PortfolioProject;
+	index: number;
+	categoryLabels: Record<PortfolioProjectCategory, string>;
+}) {
 	const number = String(index + 1).padStart(2, '0');
 	const layout = [
 		{
@@ -71,7 +78,7 @@ function FeaturedWork({ project, index }: { project: Project; index: number }) {
 						<div className='flex flex-wrap gap-x-3 gap-y-1'>
 							{project.categories.slice(0, 3).map((category) => (
 								<span key={category} className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500'>
-									{projectCategoryLabels[category]}
+									{categoryLabels[category]}
 								</span>
 							))}
 						</div>
@@ -108,7 +115,13 @@ function FeaturedWork({ project, index }: { project: Project; index: number }) {
 	);
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+	const content = await getPortfolioContent();
+	const { profile, credibilityHighlights, experience: experienceData, techGroups } = content;
+	const featuredProjects = getFeaturedProjects(content);
+	const researchProjects = getResearchProjects(content);
+	const projectCategoryLabels = getCategoryLabels(content);
+
 	return (
 		<>
 			<section className='relative isolate overflow-hidden border-b border-slate-200 bg-[#fbfbf7]'>
@@ -219,7 +232,14 @@ export default function HomePage() {
 				</div>
 
 				<div>
-					{featuredProjects.map((project, index) => <FeaturedWork key={project.slug} project={project} index={index} />)}
+					{featuredProjects.map((project, index) => (
+						<FeaturedWork
+							key={project.slug}
+							project={project}
+							index={index}
+							categoryLabels={projectCategoryLabels}
+						/>
+					))}
 				</div>
 				<Link href='/projects' className='group inline-flex items-center border-b border-slate-950 pb-1 text-sm font-bold text-slate-950 transition-colors duration-200 hover:border-blue-700 hover:text-blue-700'>
 					View all projects <Arrow />

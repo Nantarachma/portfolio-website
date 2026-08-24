@@ -1,8 +1,10 @@
 import Image from 'next/image';
-import type { Project, ProjectVisual as ProjectVisualData } from '@/data/projects';
+import type { PortfolioProject } from '@/lib/portfolio/schema';
+
+type ProjectVisualData = NonNullable<PortfolioProject['visual']>;
 
 export interface ProjectVisualProps {
-	project: Project;
+	project: PortfolioProject;
 	className?: string;
 }
 

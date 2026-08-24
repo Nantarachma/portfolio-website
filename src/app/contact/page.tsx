@@ -1,40 +1,20 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { profile } from '@/data/profile';
+import { getPortfolioContent } from '@/lib/portfolio/repository';
 
 export const metadata: Metadata = {
 	title: 'Contact',
 	description: 'Contact Rachmananta Ibnu Fajar about machine learning, software engineering, and mobile development opportunities.',
 };
 
-const contactOptions = [
-	{
-		label: 'Email',
-		value: profile.email,
-		href: profile.links.email.href,
-		description: 'For opportunities, collaborations, and project conversations.',
-	},
-	{
-		label: 'LinkedIn',
-		value: 'linkedin.com/in/nantarachma',
-		href: profile.links.linkedin.href,
-		description: 'Connect professionally and view the latest profile updates.',
-	},
-	{
-		label: 'GitHub',
-		value: 'github.com/NantaRachma',
-		href: profile.links.github.href,
-		description: 'Explore available source code and development work.',
-	},
-	{
-		label: 'WhatsApp',
-		value: profile.phone,
-		href: profile.links.whatsapp.href,
-		description: 'Start a direct conversation about opportunities or collaboration.',
-	},
-] as const;
-
-export default function ContactPage() {
+export default async function ContactPage() {
+	const { profile } = await getPortfolioContent();
+	const contactOptions = [
+		{ label: 'Email', value: profile.email, href: profile.links.email.href, description: 'For opportunities, collaborations, and project conversations.' },
+		{ label: 'LinkedIn', value: 'linkedin.com/in/nantarachma', href: profile.links.linkedin.href, description: 'Connect professionally and view the latest profile updates.' },
+		{ label: 'GitHub', value: 'github.com/NantaRachma', href: profile.links.github.href, description: 'Explore available source code and development work.' },
+		{ label: 'WhatsApp', value: profile.phone, href: profile.links.whatsapp.href, description: 'Start a direct conversation about opportunities or collaboration.' },
+	] as const;
 	return (
 		<div className='site-container page-section'>
 			<section className='grid gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(20rem,0.75fr)] lg:items-start'>

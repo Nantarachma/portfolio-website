@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { certifications, featuredCertifications } from '@/data/certifications';
-import { experienceData, leadershipData } from '@/data/experience';
-import { education, profile } from '@/data/profile';
-import { researchProjects } from '@/data/projects';
+import { getPortfolioContent } from '@/lib/portfolio/repository';
+import { getFeaturedCertifications, getResearchProjects } from '@/lib/portfolio/selectors';
 
 export const metadata: Metadata = {
 	title: 'About',
@@ -19,9 +17,13 @@ const primaryResearchSlugs = new Set([
 
 const categoryLabel = (category: string) => category.replaceAll('-', ' ');
 
-export default function AboutPage() {
+
+export default async function AboutPage() {
+	const content = await getPortfolioContent();
+	const { profile, education, certifications, experience: experienceData, leadership: leadershipData } = content;
+	const researchProjects = getResearchProjects(content);
 	const selectedResearch = researchProjects.filter((project) => primaryResearchSlugs.has(project.slug));
-	const selectedCertifications = featuredCertifications;
+	const selectedCertifications = getFeaturedCertifications(content);
 	const additionalCertifications = certifications.filter(
 		(certification) => !selectedCertifications.some((selected) => selected.title === certification.title),
 	);

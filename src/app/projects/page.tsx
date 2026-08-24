@@ -1,13 +1,19 @@
 import type { Metadata } from 'next';
 import ProjectFilters from '@/components/projects/ProjectFilters';
-import { projects } from '@/data/projects';
+import { getPortfolioContent } from '@/lib/portfolio/repository';
+import { getCategoryLabels, getFilterCategories } from '@/lib/portfolio/selectors';
 
 export const metadata: Metadata = {
 	title: 'Projects',
 	description: 'Machine learning, computer vision, Android, web, research, and UI/UX work by Rachmananta Ibnu Fajar.',
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+	const content = await getPortfolioContent();
+	const { projects } = content;
+	const categoryLabels = getCategoryLabels(content);
+	const filterCategories = getFilterCategories(content);
+
 	return (
 		<div className='site-container page-section'>
 			<header className='grid gap-8 border-b border-slate-300 pb-10 lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-end lg:gap-12'>
@@ -37,7 +43,11 @@ export default function ProjectsPage() {
 			</header>
 
 			<section className='mt-10 sm:mt-12' aria-label='Project catalogue'>
-				<ProjectFilters projects={projects} />
+				<ProjectFilters
+					projects={projects}
+					filterCategories={filterCategories}
+					categoryLabels={categoryLabels}
+				/>
 			</section>
 		</div>
 	);

@@ -2,22 +2,19 @@
 
 import { useMemo, useState } from 'react';
 import ProjectCard from '@/components/projects/ProjectCard';
-import {
-	projectCategoryLabels,
-	projectFilterCategories,
-	type Project,
-	type ProjectCategory,
-} from '@/data/projects';
+import type { PortfolioProject, PortfolioProjectCategory } from '@/lib/portfolio/schema';
 
-type ProjectFilter = 'all' | ProjectCategory;
+type ProjectFilter = 'all' | PortfolioProjectCategory;
 
 const cardLayouts = ['split', 'stacked', 'stacked', 'split-reverse', 'stacked', 'stacked'] as const;
 
 export interface ProjectFiltersProps {
-	projects: readonly Project[];
+	projects: readonly PortfolioProject[];
+	filterCategories: readonly PortfolioProjectCategory[];
+	categoryLabels: Record<PortfolioProjectCategory, string>;
 }
 
-export default function ProjectFilters({ projects }: ProjectFiltersProps) {
+export default function ProjectFilters({ projects, filterCategories, categoryLabels }: ProjectFiltersProps) {
 	const [selectedFilter, setSelectedFilter] = useState<ProjectFilter>('all');
 	const filterOptions = useMemo(
 		() => [
@@ -26,13 +23,13 @@ export default function ProjectFilters({ projects }: ProjectFiltersProps) {
 				label: 'All',
 				count: projects.length,
 			},
-			...projectFilterCategories.map((category) => ({
+			...filterCategories.map((category) => ({
 				value: category,
-				label: projectCategoryLabels[category],
+				label: categoryLabels[category],
 				count: projects.filter((project) => project.categories.includes(category)).length,
 			})),
 		],
-		[projects],
+		[categoryLabels, filterCategories, projects],
 	);
 
 	const filteredProjects = useMemo(
@@ -101,6 +98,7 @@ export default function ProjectFilters({ projects }: ProjectFiltersProps) {
 						<ProjectCard
 							key={project.slug}
 							project={project}
+							categoryLabels={categoryLabels}
 							layout={layout}
 							className={layout === 'stacked' ? '' : 'md:col-span-2'}
 						/>

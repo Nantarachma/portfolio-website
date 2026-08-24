@@ -1,10 +1,9 @@
 import Link from 'next/link';
-import { profile } from '@/data/profile';
+import type { PortfolioProfile } from '@/lib/portfolio/schema';
 
-const profileLinks = [profile.links.github, profile.links.linkedin, profile.links.email] as const;
-
-export default function Footer() {
+export default function Footer({ profile }: { profile: PortfolioProfile }) {
 	const currentYear = new Date().getFullYear();
+	const profileLinks = [profile.links.github, profile.links.linkedin, profile.links.email] as const;
 
 	return (
 		<footer className='site-footer'>

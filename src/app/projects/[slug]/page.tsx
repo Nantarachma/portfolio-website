@@ -1,24 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import {
-	getProjectBySlug,
-	getRelatedProjects,
-	projectCategoryLabels,
-	projectSlugs,
-} from '@/data/projects';
+import { notFound, permanentRedirect } from 'next/navigation';
+import { getPortfolioContent } from '@/lib/portfolio/repository';
+import { getCategoryLabels, getProjectBySlug, getRelatedProjects } from '@/lib/portfolio/selectors';
 
 type PageProps = {
 	params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-	return projectSlugs;
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
 	const { slug } = await params;
-	const project = getProjectBySlug(slug);
+	const content = await getPortfolioContent();
+	const project = getProjectBySlug(content, slug);
 
 	if (!project) {
 		return { title: 'Project Not Found' };
@@ -70,11 +63,16 @@ function DetailList({ title, items }: { title: string; items?: readonly string[]
 
 export default async function ProjectCaseStudyPage({ params }: PageProps) {
 	const { slug } = await params;
-	const project = getProjectBySlug(slug);
+	const content = await getPortfolioContent();
+	const redirect = content.projectRedirects.find((item) => item.from === slug);
+	if (redirect) permanentRedirect(`/projects/${redirect.to}`);
+
+	const project = getProjectBySlug(content, slug);
 
 	if (!project) notFound();
 
-	const relatedProjects = getRelatedProjects(project.slug);
+	const relatedProjects = getRelatedProjects(content, project.slug);
+	const projectCategoryLabels = getCategoryLabels(content);
 	const caseStudy = project.caseStudy;
 
 	return (
