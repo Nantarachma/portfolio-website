@@ -154,7 +154,7 @@ export default async function HomePage() {
 								</div>
 								<div className='py-4 sm:pl-4'>
 									<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500'>Practice</dt>
-									<dd className='mt-1 font-semibold text-slate-900'>ML · CV · Mobile · Web</dd>
+									<dd className='mt-1 font-semibold text-slate-900'>ML · Data · Mobile · Web</dd>
 								</div>
 							</dl>
 
