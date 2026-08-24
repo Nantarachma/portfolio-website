@@ -7,6 +7,7 @@ import { draftMode } from 'next/headers';
 import { getAdmin } from '@/lib/auth/admin';
 import { getPortfolioContent } from '@/lib/portfolio/repository';
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const plusJakarta = Plus_Jakarta_Sans({
 	subsets: ['latin'],
@@ -55,6 +56,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				</main>
 				<Footer profile={profile} />
 				<Analytics />
+				<SpeedInsights />
 			</body>
 		</html>
 	);
