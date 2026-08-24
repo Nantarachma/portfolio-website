@@ -13,7 +13,7 @@ export const profile = {
 	phone: '+62 895-4015-96986',
 	location: 'Surabaya, Indonesia',
 	portrait: {
-		src: '/profile.JPG',
+		src: '/profile.jpeg',
 		alt: 'Rachmananta Ibnu Fajar',
 	},
 	links: {
