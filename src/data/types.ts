@@ -94,8 +94,8 @@ export interface Profile {
 		linkedin: ProfileLink;
 		email: ProfileLink;
 		whatsapp: ProfileLink;
-		resume: ProfileLink;
-		resumeDownload: ProfileLink;
+		resumeEnglish: ProfileLink;
+		resumeIndonesian: ProfileLink;
 	};
 }
 

@@ -150,11 +150,18 @@ export default function HomePage() {
 									Explore projects <Arrow />
 								</Link>
 								<a
-									href={profile.links.resume.href}
+									href={profile.links.resumeEnglish.href}
 									target='_blank'
 									rel='noreferrer'
 									className='group inline-flex items-center border border-slate-300 bg-white/80 px-5 py-3 text-sm font-bold text-slate-900 transition-[border-color,background-color] duration-200 hover:border-blue-700 hover:bg-white'>
-									View resume <Arrow />
+									Resume EN <Arrow />
+								</a>
+								<a
+									href={profile.links.resumeIndonesian.href}
+									target='_blank'
+									rel='noreferrer'
+									className='group inline-flex items-center border border-slate-300 bg-white/80 px-5 py-3 text-sm font-bold text-slate-900 transition-[border-color,background-color] duration-200 hover:border-blue-700 hover:bg-white'>
+									Resume ID <Arrow />
 								</a>
 							</div>
 							<div className='mt-6 flex items-center gap-5 text-sm font-semibold'>

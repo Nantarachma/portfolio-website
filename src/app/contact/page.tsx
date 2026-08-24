@@ -53,17 +53,18 @@ export default function ContactPage() {
 							Email Rachmananta
 						</a>
 						<a
-							href={profile.links.resume.href}
+							href={profile.links.resumeEnglish.href}
 							target='_blank'
 							rel='noreferrer'
 							className='inline-flex items-center rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition-colors hover:border-slate-400 hover:bg-slate-50'>
-							View Resume
+							English Resume
 						</a>
 						<a
-							href={profile.links.resumeDownload.href}
-							download
+							href={profile.links.resumeIndonesian.href}
+							target='_blank'
+							rel='noreferrer'
 							className='inline-flex items-center rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition-colors hover:border-slate-400 hover:bg-slate-50'>
-							Download CV
+							Indonesian Resume
 						</a>
 					</div>
 				</div>
@@ -72,7 +73,7 @@ export default function ContactPage() {
 					<p className='text-sm font-semibold text-slate-950'>Based in</p>
 					<p className='mt-1 text-slate-600'>{profile.location}</p>
 					<p className='mt-7 border-t border-slate-200 pt-6 text-sm leading-6 text-slate-600'>
-						Reach me by email, LinkedIn, or WhatsApp. View the resume online or download the latest DOCX copy.
+						Reach me by email, LinkedIn, or WhatsApp. Both English and Indonesian resumes are available online.
 					</p>
 				</aside>
 			</section>

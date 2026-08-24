@@ -33,7 +33,7 @@ export default function Navbar() {
 					<span className='hidden sm:inline'>{profile.name}</span>
 				</Link>
 
-				<nav className='site-nav hidden md:flex' aria-label='Primary navigation'>
+				<nav className='site-nav hidden lg:flex' aria-label='Primary navigation'>
 					{navigation.map((item) => {
 						const isActive = isCurrentPath(pathname, item.href);
 
@@ -48,18 +48,26 @@ export default function Navbar() {
 						);
 					})}
 					<a
-						href={profile.links.resume.href}
+						href={profile.links.resumeEnglish.href}
 						target='_blank'
 						rel='noreferrer'
 						className='site-resume-link'
-						aria-label='View resume in a new tab'>
-						View Resume
+						aria-label='View English resume in a new tab'>
+						Resume EN
+					</a>
+					<a
+						href={profile.links.resumeIndonesian.href}
+						target='_blank'
+						rel='noreferrer'
+						className='site-resume-link'
+						aria-label='View Indonesian resume in a new tab'>
+						Resume ID
 					</a>
 				</nav>
 
 				<button
 					type='button'
-					className='site-menu-button md:hidden'
+					className='site-menu-button lg:hidden'
 					onClick={() => setMobileMenuOpen((isOpen) => !isOpen)}
 					aria-expanded={mobileMenuOpen}
 					aria-controls='mobile-navigation'
@@ -74,7 +82,7 @@ export default function Navbar() {
 				</button>
 			</div>
 
-			<div id='mobile-navigation' className={`${mobileMenuOpen ? 'block' : 'hidden'} site-mobile-panel md:hidden`}>
+			<div id='mobile-navigation' className={`${mobileMenuOpen ? 'block' : 'hidden'} site-mobile-panel lg:hidden`}>
 				<nav className='site-container site-mobile-nav' aria-label='Mobile navigation'>
 					{navigation.map((item) => {
 						const isActive = isCurrentPath(pathname, item.href);
@@ -91,12 +99,20 @@ export default function Navbar() {
 						);
 					})}
 					<a
-						href={profile.links.resume.href}
+						href={profile.links.resumeEnglish.href}
 						target='_blank'
 						rel='noreferrer'
 						className='site-mobile-resume'
-						aria-label='View resume in a new tab'>
-						View Resume
+						aria-label='View English resume in a new tab'>
+						English Resume
+					</a>
+					<a
+						href={profile.links.resumeIndonesian.href}
+						target='_blank'
+						rel='noreferrer'
+						className='site-mobile-resume'
+						aria-label='View Indonesian resume in a new tab'>
+						Indonesian Resume
 					</a>
 				</nav>
 			</div>

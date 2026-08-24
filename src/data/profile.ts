@@ -36,15 +36,15 @@ export const profile = {
 			href: 'https://wa.me/62895401596986',
 			external: true,
 		},
-		// This is an existing external document, not a local downloadable PDF.
-		resume: {
-			label: 'View Resume',
-			href: 'https://docs.google.com/document/d/1NUPJMhSuKkHa9q0KpZLsg4VuFLgTzP2V/edit?usp=sharing&ouid=107100240825558006264&rtpof=true&sd=true',
+		resumeEnglish: {
+			label: 'English Resume',
+			href: 'https://docs.google.com/document/d/1QKVr8r7UyLRJfRBViIDWcn2ZU-VadEzh/edit',
 			external: true,
 		},
-		resumeDownload: {
-			label: 'Download CV',
-			href: '/Rachmananta-Ibnu-Fajar-CV.docx',
+		resumeIndonesian: {
+			label: 'Indonesian Resume',
+			href: 'https://docs.google.com/document/d/1eE22zp6suBwlodPSVpbavcn0KXzlYcrH/edit',
+			external: true,
 		},
 	},
 } satisfies Profile;
