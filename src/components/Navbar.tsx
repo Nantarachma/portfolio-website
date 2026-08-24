@@ -20,10 +20,13 @@ function isCurrentPath(pathname: string, href: string) {
 export default function Navbar({ profile }: { profile: PortfolioProfile }) {
 	const pathname = usePathname();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const isAdminRoute = pathname.startsWith('/admin') || pathname.startsWith('/auth');
 
 	useEffect(() => {
 		setMobileMenuOpen(false);
 	}, [pathname]);
+
+	if (isAdminRoute) return null;
 
 	return (
 		<header className='site-header'>

@@ -1,9 +1,16 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import type { PortfolioProfile } from '@/lib/portfolio/schema';
 
 export default function Footer({ profile }: { profile: PortfolioProfile }) {
+	const pathname = usePathname();
 	const currentYear = new Date().getFullYear();
 	const profileLinks = [profile.links.github, profile.links.linkedin, profile.links.email] as const;
+	const isAdminRoute = pathname.startsWith('/admin') || pathname.startsWith('/auth');
+
+	if (isAdminRoute) return null;
 
 	return (
 		<footer className='site-footer'>
