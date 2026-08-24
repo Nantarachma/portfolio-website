@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { draftMode } from 'next/headers';
 import { getAdmin } from '@/lib/auth/admin';
 import { getPortfolioContent } from '@/lib/portfolio/repository';
+import { Analytics } from '@vercel/analytics/next';
 
 const plusJakarta = Plus_Jakarta_Sans({
 	subsets: ['latin'],
@@ -53,6 +54,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 					{children}
 				</main>
 				<Footer profile={profile} />
+				<Analytics />
 			</body>
 		</html>
 	);
