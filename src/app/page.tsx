@@ -70,7 +70,7 @@ function FeaturedWork({
 	][index % 3];
 
 	return (
-		<article className='grid gap-8 border-t border-slate-200 py-10 first:border-t-slate-950 first:pt-7 md:gap-10 md:py-14 lg:grid-cols-12 lg:items-center lg:gap-x-8'>
+		<article className='featured-work grid border-t border-slate-200 first:border-t-slate-950 first:pt-7 lg:grid-cols-12 lg:items-center lg:gap-x-8'>
 			<div className={`relative ${layout.copy}`}>
 				<div className='flex items-start gap-4'>
 					<p className='w-9 shrink-0 border-t-2 border-blue-700 pt-2 font-mono text-xs font-bold tracking-[0.12em] text-blue-700'>{number}</p>
@@ -82,7 +82,7 @@ function FeaturedWork({
 								</span>
 							))}
 						</div>
-						<h3 className='mt-4 text-balance text-2xl font-bold tracking-[-0.045em] text-slate-950 sm:text-3xl'>
+						<h3 className='safe-wrap mt-4 text-balance text-2xl font-bold tracking-[-0.045em] text-slate-950 sm:text-3xl'>
 							{project.shortTitle ?? project.title}
 						</h3>
 						{project.subtitle ? <p className='mt-2 font-medium text-blue-700'>{project.subtitle}</p> : null}
@@ -129,19 +129,19 @@ export default async function HomePage() {
 					aria-hidden='true'
 					className='pointer-events-none absolute inset-0 opacity-60 [background-image:linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] [background-size:4rem_4rem] [mask-image:linear-gradient(to_bottom,black,transparent_76%)]'
 				/>
-				<div className='site-container relative py-14 sm:py-20 lg:py-24'>
-					<div className='grid min-w-0 items-center gap-12 lg:grid-cols-12 lg:gap-x-8'>
+				<div className='site-container hero-section relative'>
+					<div className='hero-layout grid min-w-0 items-center lg:grid-cols-12 lg:gap-x-8'>
 						<div className='min-w-0 lg:col-span-7'>
 							<div className='flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2'>
 								<p className='eyebrow w-full sm:w-auto'>{profile.eyebrow}</p>
 								<span className='h-px w-8 bg-slate-300' aria-hidden='true' />
 								<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500'>Portfolio / 2026</p>
 							</div>
-							<h1 className='mt-7 max-w-4xl text-balance text-5xl font-bold leading-[0.94] tracking-[-0.065em] text-slate-950 sm:text-6xl lg:text-7xl xl:text-8xl'>
+							<h1 className='display-title safe-wrap mt-7 max-w-4xl text-balance font-bold text-slate-950'>
 								{profile.name}
 							</h1>
-							<p className='mt-6 max-w-2xl break-words text-balance text-xl font-bold leading-snug tracking-[-0.035em] text-blue-700 sm:text-2xl'>{profile.role}</p>
-							<p className='mt-5 max-w-2xl break-words text-base leading-7 text-slate-600 sm:text-lg'>{profile.intro}</p>
+							<p className='hero-role mt-6 max-w-2xl break-words text-balance font-bold leading-snug tracking-[-0.035em] text-blue-700'>{profile.role}</p>
+							<p className='lead-text mt-5 break-words text-slate-600'>{profile.intro}</p>
 
 							<dl className='mt-9 grid max-w-2xl grid-cols-1 border-y border-slate-200 text-sm sm:grid-cols-3'>
 								<div className='border-b border-slate-200 py-4 pr-4 sm:border-b-0 sm:border-r'>
@@ -158,24 +158,10 @@ export default async function HomePage() {
 								</div>
 							</dl>
 
-							<div className='mt-8 flex flex-wrap gap-3'>
+							<div className='hero-actions mt-8'>
 								<Link href='/projects' className='group inline-flex items-center border border-slate-950 bg-slate-950 px-5 py-3 text-sm font-bold text-white transition-colors duration-200 hover:border-blue-700 hover:bg-blue-700'>
 									Explore projects <Arrow />
 								</Link>
-								<a
-									href={profile.links.resumeEnglish.href}
-									target='_blank'
-									rel='noreferrer'
-									className='group inline-flex items-center border border-slate-300 bg-white/80 px-5 py-3 text-sm font-bold text-slate-900 transition-[border-color,background-color] duration-200 hover:border-blue-700 hover:bg-white'>
-									Resume EN <Arrow />
-								</a>
-								<a
-									href={profile.links.resumeIndonesian.href}
-									target='_blank'
-									rel='noreferrer'
-									className='group inline-flex items-center border border-slate-300 bg-white/80 px-5 py-3 text-sm font-bold text-slate-900 transition-[border-color,background-color] duration-200 hover:border-blue-700 hover:bg-white'>
-									Resume ID <Arrow />
-								</a>
 							</div>
 							<div className='mt-6 flex items-center gap-5 text-sm font-semibold'>
 								<a href={profile.links.github.href} target='_blank' rel='noreferrer' className='border-b border-transparent pb-0.5 text-slate-600 transition-colors duration-200 hover:border-blue-700 hover:text-blue-700'>GitHub</a>
@@ -183,7 +169,7 @@ export default async function HomePage() {
 							</div>
 						</div>
 
-						<figure className='relative mx-auto min-w-0 w-full max-w-sm lg:col-span-4 lg:col-start-9 lg:max-w-none'>
+						<figure className='hero-portrait relative min-w-0 lg:col-span-4 lg:col-start-9'>
 							<div className='absolute -right-3 -top-3 size-20 border-r border-t border-blue-700 sm:-right-5 sm:-top-5 sm:size-28' aria-hidden='true' />
 							<div className='relative aspect-[4/5] overflow-hidden border border-slate-950 bg-slate-200 p-3 shadow-[10px_10px_0_0_#dbeafe] sm:p-4'>
 								<div className='relative h-full overflow-hidden border border-white/70 bg-slate-300'>
@@ -207,9 +193,9 @@ export default async function HomePage() {
 			</section>
 
 			<section className='border-b border-slate-200 bg-white' aria-label='Profile highlights'>
-				<div className='site-container grid divide-y divide-slate-200 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4'>
+				<div className='site-container highlight-grid'>
 					{credibilityHighlights.map((item, index) => (
-						<div key={item.value} className='relative px-0 py-6 sm:px-5 lg:px-6'>
+						<div key={item.value} className='highlight-item relative'>
 							<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400'>0{index + 1}</p>
 							<p className='mt-2 text-base font-bold tracking-[-0.03em] text-slate-950'>{item.value}</p>
 							<p className='mt-1 text-sm leading-5 text-slate-600'>{item.label}</p>
@@ -222,7 +208,7 @@ export default async function HomePage() {
 				<div className='grid gap-6 border-b border-slate-200 pb-9 md:grid-cols-12 md:items-end'>
 					<div className='md:col-span-7'>
 						<p className='eyebrow'>Selected work</p>
-						<h2 id='selected-work-heading' className='mt-4 max-w-3xl text-balance text-3xl font-bold tracking-[-0.05em] text-slate-950 sm:text-4xl lg:text-5xl'>
+						<h2 id='selected-work-heading' className='section-title mt-4 max-w-3xl text-balance font-bold text-slate-950'>
 							Case studies shaped by method, implementation, and evidence.
 						</h2>
 					</div>
@@ -251,7 +237,7 @@ export default async function HomePage() {
 					<div className='flex flex-col justify-between gap-5 border-b border-slate-200 pb-8 sm:flex-row sm:items-end'>
 						<div className='max-w-2xl'>
 							<p className='eyebrow'>Research &amp; computer vision</p>
-							<h2 className='mt-4 text-3xl font-bold tracking-[-0.045em] text-slate-950 sm:text-4xl'>Additional applied research.</h2>
+							<h2 className='section-title mt-4 font-bold text-slate-950'>Additional applied research.</h2>
 						</div>
 						<Link href='/research' className='group inline-flex shrink-0 items-center text-sm font-bold text-slate-950 transition-colors duration-200 hover:text-blue-700'>
 							View research <Arrow />
@@ -259,7 +245,7 @@ export default async function HomePage() {
 					</div>
 					<div className='mt-8 grid border-l border-t border-slate-200 md:grid-cols-2'>
 						{researchProjects.filter((project) => project.slug !== 'nids-optimization').map((project, index) => (
-							<article key={project.slug} className='group border-b border-r border-slate-200 bg-[#fbfbf7] p-6 transition-[background-color,box-shadow] duration-200 hover:bg-white hover:shadow-[6px_6px_0_0_#dbeafe] sm:p-7'>
+							<article key={project.slug} className='card-pad group border-b border-r border-slate-200 bg-[#fbfbf7] transition-[background-color,box-shadow] duration-200 hover:bg-white hover:shadow-[6px_6px_0_0_#dbeafe]'>
 								<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400'>Research / {String(index + 1).padStart(2, '0')}</p>
 								<div className='mt-5 flex flex-wrap gap-x-3 gap-y-1'>
 									{project.categories.slice(0, 2).map((category) => (
@@ -282,7 +268,7 @@ export default async function HomePage() {
 			<section className='site-container page-section grid gap-12 lg:grid-cols-12' aria-labelledby='experience-heading'>
 				<div className='lg:col-span-4'>
 					<p className='eyebrow'>Technical experience</p>
-					<h2 id='experience-heading' className='mt-4 text-3xl font-bold tracking-[-0.045em] text-slate-950 sm:text-4xl'>Professional and cohort experience.</h2>
+					<h2 id='experience-heading' className='section-title mt-4 font-bold text-slate-950'>Professional and cohort experience.</h2>
 					<Link href='/about' className='group mt-6 inline-flex items-center text-sm font-bold text-slate-950 transition-colors duration-200 hover:text-blue-700'>
 						View background <Arrow />
 					</Link>
@@ -308,11 +294,11 @@ export default async function HomePage() {
 				<div className='site-container page-section'>
 					<div className='max-w-2xl'>
 						<p className='eyebrow'>Technical toolkit</p>
-						<h2 className='mt-4 text-3xl font-bold tracking-[-0.045em] text-slate-950 sm:text-4xl'>Grouped by practice area.</h2>
+						<h2 className='section-title mt-4 font-bold text-slate-950'>Grouped by practice area.</h2>
 					</div>
 					<div className='mt-8 grid border-l border-t border-slate-200 md:grid-cols-2 lg:grid-cols-3'>
 						{techGroups.map((group, index) => (
-							<article key={group.name} className='border-b border-r border-slate-200 bg-[#fbfbf7] p-5 sm:p-6'>
+							<article key={group.name} className='card-pad border-b border-r border-slate-200 bg-[#fbfbf7]'>
 								<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400'>0{index + 1}</p>
 								<h3 className='mt-3 font-bold text-slate-950'>{group.name}</h3>
 								<TechPills items={group.items} />
@@ -323,19 +309,19 @@ export default async function HomePage() {
 			</section>
 
 			<section className='site-container page-section'>
-				<div className='relative overflow-hidden border border-slate-950 bg-slate-950 px-6 py-10 text-white sm:px-10 sm:py-12'>
+				<div className='cta-panel relative overflow-hidden border border-slate-950 bg-slate-950 text-white'>
 					<div aria-hidden='true' className='absolute inset-y-0 right-0 hidden w-1/3 border-l border-white/15 bg-[linear-gradient(to_bottom,transparent,rgba(37,99,235,0.35))] lg:block' />
 					<div className='relative max-w-2xl'>
 						<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-300'>Start a conversation</p>
-						<h2 className='mt-4 text-balance text-3xl font-bold tracking-[-0.05em] sm:text-4xl'>Interested in working together?</h2>
+						<h2 className='section-title mt-4 text-balance font-bold'>Interested in working together?</h2>
 						<p className='mt-4 max-w-xl leading-7 text-slate-300'>
 							I&apos;m open to software engineering, machine learning, and mobile development opportunities.
 						</p>
 						<div className='mt-7 flex flex-wrap gap-3'>
-							<Link href='/contact' className='group inline-flex items-center bg-white px-5 py-3 text-sm font-bold text-slate-950 transition-colors duration-200 hover:bg-blue-100'>
+							<Link href='/contact' className='touch-target group inline-flex items-center bg-white px-5 py-3 text-sm font-bold text-slate-950 transition-colors duration-200 hover:bg-blue-100'>
 								Get in touch <Arrow />
 							</Link>
-							<a href={profile.links.linkedin.href} target='_blank' rel='noreferrer' className='group inline-flex items-center border border-slate-600 px-5 py-3 text-sm font-bold text-white transition-colors duration-200 hover:border-blue-300 hover:text-blue-200'>
+							<a href={profile.links.linkedin.href} target='_blank' rel='noreferrer' className='touch-target group inline-flex items-center border border-slate-600 px-5 py-3 text-sm font-bold text-white transition-colors duration-200 hover:border-blue-300 hover:text-blue-200'>
 								LinkedIn <Arrow />
 							</a>
 						</div>

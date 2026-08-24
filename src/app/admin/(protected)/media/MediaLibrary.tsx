@@ -85,11 +85,11 @@ export default function MediaLibrary({ initialAssets }: { initialAssets: MediaAs
 				{message ? <p role='status' className='text-sm text-slate-700 md:col-span-2'>{message}</p> : null}
 			</form>
 
-			<div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+			<div className='card-grid grid sm:grid-cols-2 lg:grid-cols-3'>
 				{initialAssets.map((asset) => (
 					<article key={asset.id} className='admin-panel overflow-hidden p-0'>
 						<div className='relative aspect-video bg-slate-200'><Image src={asset.public_url} alt={asset.alt_text} fill sizes='(min-width:1024px) 33vw, 50vw' className='object-cover' /></div>
-						<div className='p-4'><p className='font-semibold'>{asset.alt_text}</p><p className='mt-1 break-all text-xs text-slate-500'>{asset.storage_path}</p><p className='mt-2 text-xs text-slate-500'>{(asset.size_bytes / 1024).toFixed(1)} KB · {asset.mime_type}</p><div className='mt-4 flex flex-wrap gap-2'><button type='button' className='admin-mini-button' onClick={() => navigator.clipboard.writeText(asset.public_url)}>Salin URL</button><button type='button' disabled={pending} className='admin-mini-button text-red-700' onClick={() => remove(asset)}>Hapus</button></div></div>
+						<div className='p-4'><p className='font-semibold'>{asset.alt_text}</p><p className='safe-wrap mt-1 text-xs text-slate-500'>{asset.storage_path}</p><p className='mt-2 text-xs text-slate-500'>{(asset.size_bytes / 1024).toFixed(1)} KB · {asset.mime_type}</p><div className='mt-4 flex flex-wrap gap-2'><button type='button' className='admin-mini-button' onClick={() => navigator.clipboard.writeText(asset.public_url)}>Salin URL</button><button type='button' disabled={pending} className='admin-mini-button text-red-700' onClick={() => remove(asset)}>Hapus</button></div></div>
 					</article>
 				))}
 			</div>

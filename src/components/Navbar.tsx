@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { FaWhatsapp } from 'react-icons/fa';
 import type { PortfolioProfile } from '@/lib/portfolio/schema';
 
 const navigation = [
@@ -50,23 +51,17 @@ export default function Navbar({ profile }: { profile: PortfolioProfile }) {
 							</Link>
 						);
 					})}
-					<a
-						href={profile.links.resumeEnglish.href}
-						target='_blank'
-						rel='noreferrer'
-						className='site-resume-link'
-						aria-label='View English resume in a new tab'>
-						Resume EN
-					</a>
-					<a
-						href={profile.links.resumeIndonesian.href}
-						target='_blank'
-						rel='noreferrer'
-						className='site-resume-link'
-						aria-label='View Indonesian resume in a new tab'>
-						Resume ID
-					</a>
 				</nav>
+
+				<a
+					href={profile.links.whatsapp.href}
+					target='_blank'
+					rel='noreferrer'
+					className='site-header-action hidden lg:inline-flex'
+					aria-label='Open WhatsApp chat in a new tab'>
+					<FaWhatsapp className='site-whatsapp-icon' aria-hidden='true' />
+					<span>WhatsApp</span>
+				</a>
 
 				<button
 					type='button'
@@ -102,20 +97,13 @@ export default function Navbar({ profile }: { profile: PortfolioProfile }) {
 						);
 					})}
 					<a
-						href={profile.links.resumeEnglish.href}
+						href={profile.links.whatsapp.href}
 						target='_blank'
 						rel='noreferrer'
-						className='site-mobile-resume'
-						aria-label='View English resume in a new tab'>
-						English Resume
-					</a>
-					<a
-						href={profile.links.resumeIndonesian.href}
-						target='_blank'
-						rel='noreferrer'
-						className='site-mobile-resume'
-						aria-label='View Indonesian resume in a new tab'>
-						Indonesian Resume
+						className='site-mobile-action'
+						aria-label='Open WhatsApp chat in a new tab'>
+						<FaWhatsapp className='site-whatsapp-icon' aria-hidden='true' />
+						<span>WhatsApp</span>
 					</a>
 				</nav>
 			</div>

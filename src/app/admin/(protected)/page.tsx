@@ -13,7 +13,7 @@ export default async function AdminDashboardPage() {
 	] as const;
 
 	return (
-		<main className='site-container py-10 sm:py-14'>
+		<main className='site-container admin-page'>
 			<div className='flex flex-col gap-6 border-b border-slate-300 pb-8 md:flex-row md:items-end md:justify-between'>
 				<div>
 					<p className='font-mono text-xs font-bold uppercase tracking-widest text-blue-700'>Dashboard</p>
@@ -26,7 +26,7 @@ export default async function AdminDashboardPage() {
 				</div>
 			</div>
 
-			<section className='mt-8 grid gap-4 md:grid-cols-3'>
+			<section className='card-grid mt-8 grid md:grid-cols-3'>
 				<div className='admin-panel md:col-span-2'>
 					<h2 className='text-lg font-bold text-slate-950'>Status publikasi</h2>
 					<dl className='mt-5 grid gap-5 sm:grid-cols-3'>
@@ -41,7 +41,7 @@ export default async function AdminDashboardPage() {
 				</div>
 			</section>
 
-			<section className='mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4' aria-label='Jumlah konten'>
+			<section className='card-grid mt-6 grid sm:grid-cols-2 lg:grid-cols-4' aria-label='Jumlah konten'>
 				{counts.map(([label, count]) => (
 					<div key={label} className='admin-panel'><p className='admin-label'>{label}</p><p className='mt-2 text-3xl font-bold'>{count}</p></div>
 				))}

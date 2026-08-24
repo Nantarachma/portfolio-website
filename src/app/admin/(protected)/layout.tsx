@@ -22,12 +22,12 @@ export default async function ProtectedAdminLayout({ children }: { children: Rea
 					</div>
 					<nav className='flex flex-wrap items-center gap-2' aria-label='Navigasi admin'>
 						{links.map((link) => (
-							<Link key={link.href} href={link.href} className='rounded px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800 hover:text-white'>
+							<Link key={link.href} href={link.href} className='touch-target inline-flex items-center rounded px-3 py-2 text-sm font-semibold text-slate-200 hover:bg-slate-800 hover:text-white'>
 								{link.label}
 							</Link>
 						))}
 						<form action={logoutAction}>
-							<button type='submit' className='rounded border border-slate-600 px-3 py-2 text-sm font-semibold hover:border-white'>Keluar</button>
+							<button type='submit' className='touch-target rounded border border-slate-600 px-3 py-2 text-sm font-semibold hover:border-white'>Keluar</button>
 						</form>
 					</nav>
 				</div>
@@ -36,4 +36,3 @@ export default async function ProtectedAdminLayout({ children }: { children: Rea
 		</div>
 	);
 }
-

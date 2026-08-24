@@ -9,8 +9,8 @@ export default async function LoginPage() {
 	const configured = hasSupabaseEnvironment();
 
 	return (
-		<div className='site-container flex min-h-[70vh] items-center justify-center py-16'>
-			<section className='w-full max-w-md border border-slate-300 bg-white p-7 shadow-sm sm:p-9'>
+		<div className='site-container admin-auth-page flex min-h-[70vh] items-center justify-center'>
+			<section className='card-pad w-full max-w-md border border-slate-300 bg-white shadow-sm'>
 				<p className='font-mono text-xs font-bold uppercase tracking-widest text-blue-700'>Portfolio CMS</p>
 				<h1 className='mt-3 text-3xl font-bold tracking-tight text-slate-950'>Masuk admin</h1>
 				<p className='mt-3 text-sm leading-6 text-slate-600'>Gunakan akun Supabase Auth yang sudah dimasukkan ke allowlist admin.</p>

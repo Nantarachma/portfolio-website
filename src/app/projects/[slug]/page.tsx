@@ -27,7 +27,7 @@ function ProjectWorkflow({ steps, label }: { steps?: readonly string[]; label?: 
 	if (!steps?.length) return null;
 
 	return (
-		<div className='rounded-xl border border-slate-800 bg-slate-950 p-5 sm:p-7'>
+		<div className='card-pad rounded-xl border border-slate-800 bg-slate-950'>
 			<p className='text-xs font-semibold uppercase tracking-[0.14em] text-blue-300'>{label ?? 'Workflow'}</p>
 			<ol className='mt-6 grid gap-3 sm:grid-cols-2'>
 				{steps.map((step, index) => (
@@ -89,14 +89,14 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 						</span>
 					))}
 				</div>
-				<h1 className='mt-5 text-balance text-4xl font-bold tracking-[-0.035em] text-slate-950 sm:text-5xl'>
+				<h1 className='page-title safe-wrap mt-5 text-balance font-bold text-slate-950'>
 					{project.title}
 				</h1>
 				{project.subtitle && <p className='mt-4 text-xl font-medium text-slate-600'>{project.subtitle}</p>}
-				<p className='mt-6 max-w-3xl text-lg leading-8 text-slate-600'>{project.summary}</p>
+				<p className='lead-text mt-6 text-slate-600'>{project.summary}</p>
 			</header>
 
-			<section className='mt-12 grid gap-px overflow-hidden rounded-xl border border-slate-200 bg-slate-200 sm:grid-cols-2 lg:grid-cols-4' aria-label='Project details'>
+			<section className='mt-10 grid gap-px overflow-hidden rounded-xl border border-slate-200 bg-slate-200 sm:grid-cols-2 lg:grid-cols-4' aria-label='Project details'>
 				{[
 					{ label: 'Role', value: project.role },
 					{ label: 'Context', value: project.context },
@@ -112,7 +112,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 					))}
 			</section>
 
-			<section className='mt-8 rounded-xl border border-slate-200 bg-white p-6 sm:p-8'>
+			<section className='card-pad mt-8 rounded-xl border border-slate-200 bg-white'>
 				<h2 className='text-lg font-bold text-slate-950'>Tech stack</h2>
 				<div className='mt-4 flex flex-wrap gap-2'>
 					{project.tech.map((technology) => (
@@ -123,7 +123,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 				</div>
 			</section>
 
-			<div className='mt-14 grid gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(17rem,0.42fr)]'>
+			<div className='content-split mt-12 grid lg:grid-cols-[minmax(0,0.82fr)_minmax(17rem,0.42fr)]'>
 				<div>
 					{caseStudy?.overview && (
 						<section>
@@ -165,11 +165,11 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 			</div>
 
 			{relatedProjects.length > 0 && (
-				<section className='mt-20 border-t border-slate-200 pt-10' aria-labelledby='related-projects-heading'>
+				<section className='mt-[var(--space-section-compact)] border-t border-slate-200 pt-10' aria-labelledby='related-projects-heading'>
 					<h2 id='related-projects-heading' className='text-2xl font-bold tracking-tight text-slate-950'>Related projects</h2>
-					<div className='mt-6 grid gap-4 md:grid-cols-3'>
+					<div className='card-grid mt-6 grid md:grid-cols-2 lg:grid-cols-3'>
 						{relatedProjects.map((related) => (
-							<Link key={related.slug} href={`/projects/${related.slug}`} className='surface rounded-xl p-5 transition-[border-color,box-shadow] hover:border-blue-300 hover:shadow-sm'>
+							<Link key={related.slug} href={`/projects/${related.slug}`} className='surface card-pad min-w-0 rounded-xl transition-[border-color,box-shadow] hover:border-blue-300 hover:shadow-sm'>
 								<p className='text-xs font-semibold uppercase tracking-[0.09em] text-blue-700'>{related.categories.map((category) => projectCategoryLabels[category]).slice(0, 2).join(' / ')}</p>
 								<h3 className='mt-3 font-bold text-slate-950'>{related.shortTitle ?? related.title}</h3>
 								<p className='mt-3 line-clamp-3 text-sm leading-6 text-slate-600'>{related.summary}</p>

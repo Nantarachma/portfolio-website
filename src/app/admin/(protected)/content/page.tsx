@@ -8,7 +8,7 @@ export default async function ContentPage() {
 	);
 
 	return (
-		<main className='site-container py-10 sm:py-14'>
+		<main className='site-container admin-page'>
 			<div className='max-w-3xl'>
 				<p className='font-mono text-xs font-bold uppercase tracking-widest text-blue-700'>Editor draft</p>
 				<h1 className='mt-3 text-4xl font-bold tracking-tight text-slate-950'>Konten portfolio</h1>

@@ -30,20 +30,20 @@ export default async function AboutPage() {
 
 	return (
 		<>
-			<header className='site-container page-section border-b border-slate-200 pb-12 md:pb-16'>
+			<header className='site-container page-section page-header border-b border-slate-200'>
 				<p className='eyebrow'>About</p>
 				<div className='mt-5 max-w-3xl'>
-					<h1 className='text-balance text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl'>
+					<h1 className='page-title safe-wrap text-balance font-bold text-slate-950'>
 						{profile.name}
 					</h1>
 					<p className='mt-4 text-lg font-medium text-slate-800'>{profile.role}</p>
-					<p className='mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg'>
+					<p className='lead-text mt-5 text-slate-600'>
 						{profile.intro}
 					</p>
 				</div>
 			</header>
 
-			<div className='site-container page-section space-y-20 md:space-y-28'>
+			<div className='site-container page-section section-stack'>
 				<section aria-labelledby='experience-heading'>
 					<SectionIntro
 						eyebrow='Technical experience'
@@ -51,9 +51,9 @@ export default async function AboutPage() {
 						id='experience-heading'
 						description='Applied software engineering and native Android development experience.'
 					/>
-					<div className='mt-8 grid gap-5 lg:grid-cols-2'>
+					<div className='card-grid mt-8 grid lg:grid-cols-2'>
 						{experienceData.map((experience) => (
-							<article key={experience.organization + experience.role} className='surface rounded-xl p-6'>
+							<article key={experience.organization + experience.role} className='surface card-pad rounded-xl'>
 								<header>
 									<p className='text-sm font-semibold text-blue-700'>{experience.period}</p>
 									<h3 className='mt-2 text-xl font-bold tracking-tight text-slate-950'>{experience.role}</h3>
@@ -78,7 +78,7 @@ export default async function AboutPage() {
 					</div>
 				</section>
 
-				<section aria-labelledby='education-heading' className='border-y border-slate-200 py-12 md:py-16'>
+				<section aria-labelledby='education-heading' className='compact-section border-y border-slate-200'>
 					<div className='grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.72fr)] lg:items-start'>
 						<div>
 							<SectionIntro eyebrow='Academic foundation' heading='Education' id='education-heading' />
@@ -113,9 +113,9 @@ export default async function AboutPage() {
 							View research <span aria-hidden='true' className='ml-2'>&rarr;</span>
 						</Link>
 					</div>
-					<div className='mt-8 grid gap-5 lg:grid-cols-3'>
+					<div className='card-grid mt-8 grid md:grid-cols-2 lg:grid-cols-3'>
 						{selectedResearch.map((project) => (
-							<article key={project.slug} className='surface flex flex-col rounded-xl p-6'>
+							<article key={project.slug} className='surface card-pad flex min-w-0 flex-col rounded-xl'>
 								<div className='flex flex-wrap gap-2'>
 									{project.categories.slice(0, 2).map((category) => (
 										<span
@@ -145,9 +145,9 @@ export default async function AboutPage() {
 						id='leadership-heading'
 						description='Leadership is presented separately from technical experience to keep each role in context.'
 					/>
-					<div className='mt-8 grid gap-5 lg:grid-cols-2'>
+					<div className='card-grid mt-8 grid lg:grid-cols-2'>
 						{leadershipData.map((role) => (
-							<article key={role.organization + role.role} className='surface rounded-xl p-6'>
+							<article key={role.organization + role.role} className='surface card-pad rounded-xl'>
 								<p className='text-sm font-semibold text-blue-700'>{role.period}</p>
 								<h3 className='mt-2 text-xl font-bold tracking-tight text-slate-950'>{role.role}</h3>
 								<p className='mt-1 font-medium text-slate-700'>{role.organization}</p>
@@ -163,16 +163,16 @@ export default async function AboutPage() {
 					</div>
 				</section>
 
-				<section aria-labelledby='certifications-heading' className='border-t border-slate-200 pt-12 md:pt-16'>
+				<section aria-labelledby='certifications-heading' className='border-t border-slate-200 pt-[var(--space-section-compact)]'>
 					<SectionIntro
 						eyebrow='Continued learning'
 						heading='Selected certifications'
 						id='certifications-heading'
 						description='Relevant Android, machine learning, cloud, backend, and programming credentials.'
 					/>
-					<ul className='mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
+					<ul className='card-grid mt-8 grid md:grid-cols-2 lg:grid-cols-3'>
 						{selectedCertifications.map((certification) => (
-							<li key={certification.title} className='surface rounded-xl p-5'>
+							<li key={certification.title} className='surface card-pad min-w-0 rounded-xl'>
 								<h3 className='font-bold leading-6 text-slate-950'>{certification.title}</h3>
 								<p className='mt-2 text-sm text-slate-600'>
 									{certification.issuer}
@@ -196,7 +196,7 @@ export default async function AboutPage() {
 					</ul>
 
 					{additionalCertifications.length > 0 ? (
-						<details className='surface mt-6 rounded-xl px-5 py-4'>
+						<details className='surface card-pad mt-6 rounded-xl'>
 							<summary className='cursor-pointer font-semibold text-slate-800'>View additional certifications</summary>
 							<ul className='mt-5 grid gap-3 border-t border-slate-200 pt-5 sm:grid-cols-2'>
 								{additionalCertifications.map((certification) => (
@@ -239,7 +239,7 @@ function SectionIntro({
 	return (
 		<div className='max-w-2xl'>
 			<p className='eyebrow'>{eyebrow}</p>
-			<h2 id={id} className='mt-3 text-3xl font-bold tracking-tight text-slate-950'>
+		<h2 id={id} className='section-title mt-3 font-bold text-slate-950'>
 				{heading}
 			</h2>
 			{description ? <p className='mt-3 leading-7 text-slate-600'>{description}</p> : null}

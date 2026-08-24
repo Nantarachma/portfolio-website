@@ -43,7 +43,7 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 
 	return (
 		<div className='relative'>
-			<div className='sticky top-[4.5rem] z-20 -mx-1 border-y border-slate-300 bg-slate-50/95 px-1 py-4 backdrop-blur sm:-mx-2 sm:px-2'>
+			<div className='project-filter-bar sticky z-20 -mx-1 border-y border-slate-300 bg-slate-50/95 px-1 py-3.5 backdrop-blur sm:-mx-2 sm:px-2'>
 				<div className='flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between'>
 					<div className='flex items-center justify-between gap-4 lg:block'>
 						<p id='project-filter-label' className='font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-slate-500'>
@@ -53,7 +53,7 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 							{String(filteredProjects.length).padStart(2, '0')} records
 						</p>
 					</div>
-					<div className='-mx-1 overflow-x-auto px-1 pb-1 [scrollbar-width:thin]'>
+					<div className='project-filter-scroll -mx-1 overflow-x-auto px-1 pb-1 [scrollbar-width:thin]'>
 						<div className='flex w-max gap-2' role='group' aria-labelledby='project-filter-label'>
 							{filterOptions.map((option) => {
 								const isSelected = selectedFilter === option.value;
@@ -65,7 +65,7 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 										onClick={() => setSelectedFilter(option.value)}
 										aria-pressed={isSelected}
 										aria-controls='project-results'
-										className={`inline-flex items-center gap-2 border px-3 py-2 text-sm font-semibold whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 ${
+										className={`touch-target inline-flex items-center gap-2 border px-3 py-2 text-sm font-semibold whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 ${
 											isSelected
 												? 'border-blue-700 bg-blue-700 text-white shadow-sm'
 												: 'border-slate-300 bg-white text-slate-700 hover:border-blue-400 hover:text-blue-800'
@@ -90,7 +90,7 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 				Showing <span className='font-semibold text-slate-900'>{filteredProjects.length}</span> {filteredProjects.length === 1 ? 'project' : 'projects'} in <span className='font-semibold text-slate-900'>{selectedLabel}</span>
 			</p>
 
-			<div id='project-results' className='mt-7 grid gap-5 md:grid-cols-2 lg:gap-6'>
+			<div id='project-results' className='card-grid mt-7 grid md:grid-cols-2'>
 				{filteredProjects.map((project, index) => {
 					const layout = cardLayouts[index % cardLayouts.length];
 

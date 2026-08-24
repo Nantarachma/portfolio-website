@@ -90,8 +90,21 @@ try {
 		features: [{ name: 'prefers-reduced-motion', value: 'reduce' }],
 	});
 
-	const routes = ['/', '/projects', '/projects/shara', '/about', '/contact', '/research', '/admin/login'];
-	const widths = [360, 768, 1024, 1440];
+	const routes = [
+		'/',
+		'/projects',
+		'/projects/shara',
+		'/about',
+		'/contact',
+		'/research',
+		'/does-not-exist',
+		'/admin/login',
+		'/admin',
+		'/admin/content',
+		'/admin/media',
+		'/admin/history',
+	];
+	const widths = [320, 360, 390, 768, 1024, 1280, 1440];
 	const failures = [];
 
 	for (const width of widths) {
@@ -108,19 +121,53 @@ try {
 			await command('Page.navigate', { url: `${baseUrl}${route}` });
 			await delay(450);
 			const evaluation = await command('Runtime.evaluate', {
-				expression: `({
+				expression: `(() => {
+					const isVisible = (element) => {
+						const rect = element.getBoundingClientRect();
+						return rect.width > 0 && rect.height > 0 && getComputedStyle(element).visibility !== 'hidden';
+					};
+					const clippedText = [...document.querySelectorAll('h1, h2, h3, p, dd')]
+						.filter((element) => isVisible(element) && !element.closest('.project-filter-scroll') && element.scrollWidth > element.clientWidth + 1)
+						.slice(0, 5)
+						.map((element) => ({ tag: element.tagName, text: element.textContent?.trim().slice(0, 48), clientWidth: element.clientWidth, scrollWidth: element.scrollWidth }));
+					const undersizedTargets = [...document.querySelectorAll('.touch-target, .admin-button, .admin-mini-button, .site-menu-button, .site-mobile-link, .site-mobile-action, .site-header-action')]
+						.filter((element) => isVisible(element) && element.getBoundingClientRect().height < 43.5)
+						.slice(0, 5)
+						.map((element) => ({ text: element.textContent?.trim().slice(0, 32), height: element.getBoundingClientRect().height }));
+					const actions = document.querySelector('.hero-actions');
+					const actionChildren = actions ? [...actions.children] : [];
+					const actionWidth = actions?.getBoundingClientRect().width ?? 0;
+					const heroActionsValid = !actions || innerWidth >= 640 || actionChildren.every((element, index) => {
+						const childWidth = element.getBoundingClientRect().width;
+						if (innerWidth < 360 || index === 0) return Math.abs(childWidth - actionWidth) < 2;
+						return childWidth < actionWidth * 0.55;
+					});
+
+					return ({
 					path: location.pathname,
 					innerWidth,
 					documentWidth: document.documentElement.scrollWidth,
 					bodyWidth: document.body.scrollWidth,
 					reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
+					clippedText,
+					undersizedTargets,
+					heroActionsValid,
 					heading: document.querySelector('h1')?.textContent?.trim() ?? '',
 					focusables: document.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled])').length
-				})`,
+					});
+				})()`,
 				returnByValue: true,
 			});
 			const metrics = evaluation.result.value;
-			const passed = metrics.innerWidth === width && metrics.documentWidth <= width && metrics.bodyWidth <= width && metrics.reducedMotion && metrics.heading && metrics.focusables > 0;
+			const passed = metrics.innerWidth === width
+				&& metrics.documentWidth <= width
+				&& metrics.bodyWidth <= width
+				&& metrics.reducedMotion
+				&& metrics.clippedText.length === 0
+				&& metrics.undersizedTargets.length === 0
+				&& metrics.heroActionsValid
+				&& metrics.heading
+				&& metrics.focusables > 0;
 			console.log(`${passed ? 'PASS' : 'FAIL'} ${width}px ${route} viewport=${metrics.innerWidth} document=${metrics.documentWidth} body=${metrics.bodyWidth}`);
 			if (!passed) failures.push({ width, route, metrics });
 		}
@@ -141,6 +188,51 @@ try {
 	}
 	console.log('Keyboard focus:', JSON.stringify(focusSequence));
 	if (focusSequence.filter(({ tag }) => tag === 'A' || tag === 'BUTTON').length < 6) failures.push({ focusSequence });
+
+	await command('Emulation.setDeviceMetricsOverride', { width: 360, height: 900, deviceScaleFactor: 1, mobile: true });
+	await command('Page.navigate', { url: `${baseUrl}/` });
+	await delay(450);
+	const mobileMenuOpened = await command('Runtime.evaluate', {
+		expression: `(() => {
+			const trigger = document.querySelector('button[aria-label="Open navigation menu"]');
+			trigger?.click();
+			return Boolean(trigger);
+		})()`,
+		returnByValue: true,
+	});
+	await delay(100);
+	const mobileMenuState = await command('Runtime.evaluate', {
+		expression: `({
+			visible: Boolean(document.querySelector('#mobile-navigation')?.getBoundingClientRect().height),
+			links: document.querySelectorAll('#mobile-navigation a[href]').length,
+			expanded: document.querySelector('button[aria-controls="mobile-navigation"]')?.getAttribute('aria-expanded')
+		})`,
+		returnByValue: true,
+	});
+	console.log('Mobile menu:', JSON.stringify(mobileMenuState.result.value));
+	if (!mobileMenuOpened.result.value || !mobileMenuState.result.value.visible || mobileMenuState.result.value.links < 6 || mobileMenuState.result.value.expanded !== 'true') failures.push({ mobileMenu: mobileMenuState.result.value });
+
+	await command('Emulation.setDeviceMetricsOverride', { width: 768, height: 900, deviceScaleFactor: 1, mobile: false });
+	await command('Page.navigate', { url: `${baseUrl}/projects` });
+	await delay(450);
+	const filterActivated = await command('Runtime.evaluate', {
+		expression: `(() => {
+			const button = document.querySelectorAll('button[aria-controls="project-results"]')[1];
+			button?.click();
+			return Boolean(button);
+		})()`,
+		returnByValue: true,
+	});
+	await delay(200);
+	const filterState = await command('Runtime.evaluate', {
+		expression: `({
+			selected: document.querySelectorAll('button[aria-controls="project-results"][aria-pressed="true"]').length,
+			cards: document.querySelectorAll('#project-results article').length
+		})`,
+		returnByValue: true,
+	});
+	console.log('Project filter:', JSON.stringify(filterState.result.value));
+	if (!filterActivated.result.value || filterState.result.value.selected !== 1 || filterState.result.value.cards <= 0 || filterState.result.value.cards >= 9) failures.push({ projectFilter: filterState.result.value });
 
 	socket.close();
 	if (failures.length) {

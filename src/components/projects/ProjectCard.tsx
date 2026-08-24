@@ -28,18 +28,18 @@ export default function ProjectCard({
 	return (
 		<article
 			className={`group relative h-full overflow-hidden border border-slate-300 bg-white transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-blue-500 hover:shadow-[0_16px_32px_-24px_rgba(15,23,42,0.45)] ${
-				isSplit ? 'md:grid md:grid-cols-[minmax(15rem,0.82fr)_minmax(0,1.18fr)]' : 'flex flex-col'
+				isSplit ? 'lg:grid lg:grid-cols-[minmax(15rem,0.82fr)_minmax(0,1.18fr)]' : 'flex flex-col'
 			} ${className}`}>
 			<ProjectVisual
 				project={project}
 				className={
 					isSplit
-						? `min-h-64 rounded-none border-0 border-b border-slate-800 md:min-h-full md:border-b-0 ${isReversed ? 'md:order-2 md:border-l' : 'md:border-r'}`
+						? `min-h-64 rounded-none border-0 border-b border-slate-800 lg:min-h-full lg:border-b-0 ${isReversed ? 'lg:order-2 lg:border-l' : 'lg:border-r'}`
 						: 'min-h-52 rounded-none border-0 border-b border-slate-800'
 				}
 			/>
 
-			<div className={`flex min-w-0 flex-1 flex-col p-5 sm:p-6 ${isReversed ? 'md:order-1' : ''}`}>
+			<div className={`card-pad flex min-w-0 flex-1 flex-col ${isReversed ? 'lg:order-1' : ''}`}>
 				<div className='flex items-start justify-between gap-4'>
 					<p className='font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-blue-700'>
 						<span className='text-slate-400'>Case / </span>
@@ -59,7 +59,7 @@ export default function ProjectCard({
 				</div>
 
 				<div className='mt-4'>
-					<h3 className='text-xl font-bold tracking-[-0.03em] text-slate-950 sm:text-2xl'>
+					<h3 className='safe-wrap text-xl font-bold tracking-[-0.03em] text-slate-950 sm:text-2xl'>
 						{project.title}
 					</h3>
 					{project.subtitle ? (
@@ -103,10 +103,10 @@ export default function ProjectCard({
 					) : null}
 				</div>
 
-				<div className={`mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-slate-200 pt-5 ${isSplit ? 'md:mt-auto' : ''}`}>
+				<div className={`mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-slate-200 pt-5 ${isSplit ? 'lg:mt-auto' : ''}`}>
 					<Link
 						href={`/projects/${project.slug}`}
-						className='inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition-colors duration-200 hover:text-blue-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
+						className='touch-target inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition-colors duration-200 hover:text-blue-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
 						View Case Study
 						<FiArrowRight aria-hidden='true' className='size-4 transition-transform duration-200 group-hover:translate-x-1' />
 					</Link>
@@ -115,7 +115,7 @@ export default function ProjectCard({
 							href={project.githubUrl}
 							target='_blank'
 							rel='noreferrer noopener'
-							className='inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
+							className='touch-target inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
 							<FiGithub aria-hidden='true' className='size-4' />
 							Repository
 						</a>
@@ -125,7 +125,7 @@ export default function ProjectCard({
 							href={project.demoUrl ?? project.externalUrl}
 							target='_blank'
 							rel='noreferrer noopener'
-							className='inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
+							className='touch-target inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2'>
 							View Source
 							<FiArrowUpRight aria-hidden='true' className='size-4' />
 						</a>

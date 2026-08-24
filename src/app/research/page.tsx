@@ -28,18 +28,18 @@ export default async function ResearchPage() {
 	return (
 		<>
 			<header className='border-b border-slate-200'>
-				<div className='site-container page-section pb-12 md:pb-16'>
+				<div className='site-container page-section page-header'>
 					<p className='eyebrow'>Research</p>
-					<h1 className='text-balance mt-5 max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl'>
+					<h1 className='page-title safe-wrap text-balance mt-5 max-w-3xl font-bold text-slate-950'>
 						Research &amp; Computer Vision
 					</h1>
-					<p className='mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg'>
+					<p className='lead-text mt-5 text-slate-600'>
 						Machine learning and computer vision work focused on transparent technical approaches rather than unverified performance claims.
 					</p>
 				</div>
 			</header>
 
-			<div className='site-container page-section space-y-20 md:space-y-28'>
+			<div className='site-container page-section section-stack'>
 				<section aria-labelledby='thesis-heading'>
 					<SectionIntro
 						eyebrow='Undergraduate thesis'
@@ -57,15 +57,15 @@ export default async function ResearchPage() {
 						id='computer-vision-heading'
 						description='Research projects involving hybrid visual features, deep learning, and image preprocessing.'
 					/>
-					<div className='mt-8 grid gap-6 lg:grid-cols-2'>
+					<div className='card-grid mt-8 grid lg:grid-cols-2'>
 						{computerVisionProjects.map((project) => (
 							<ResearchArticle key={project.slug} project={project} />
 						))}
 					</div>
 				</section>
 
-				<section aria-labelledby='research-navigation-heading' className='border-t border-slate-200 pt-12 md:pt-16'>
-					<h2 id='research-navigation-heading' className='text-2xl font-bold tracking-tight text-slate-950'>
+				<section aria-labelledby='research-navigation-heading' className='border-t border-slate-200 pt-[var(--space-section-compact)]'>
+					<h2 id='research-navigation-heading' className='section-title font-bold text-slate-950'>
 						Explore technical work
 					</h2>
 					<p className='mt-3 max-w-2xl leading-7 text-slate-600'>
@@ -73,7 +73,7 @@ export default async function ResearchPage() {
 					</p>
 					<Link
 						href='/projects'
-						className='mt-6 inline-flex items-center rounded-lg bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800'>
+						className='touch-target mt-6 inline-flex items-center rounded-lg bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-slate-800'>
 						View all projects <span aria-hidden='true' className='ml-2'>&rarr;</span>
 					</Link>
 				</section>
@@ -99,7 +99,7 @@ function ResearchArticle({
 				'surface mt-8 overflow-hidden rounded-xl ' +
 				(featured ? 'lg:grid lg:grid-cols-[1.05fr_0.95fr]' : '')
 			}>
-			<div className='p-6 sm:p-8'>
+			<div className='card-pad'>
 				<div className='flex flex-wrap gap-2'>
 					{project.categories.map((category) => (
 						<span
@@ -175,7 +175,7 @@ function ResearchArticle({
 			</div>
 
 			{workflow?.length ? (
-				<div className='border-t border-slate-200 bg-slate-50 p-6 sm:p-8 lg:border-l lg:border-t-0'>
+				<div className='card-pad border-t border-slate-200 bg-slate-50 lg:border-l lg:border-t-0'>
 					<p className='text-xs font-bold uppercase tracking-[0.14em] text-slate-500'>Conceptual workflow</p>
 					<ol className='mt-6 space-y-3' aria-label={project.title + ' conceptual workflow'}>
 						{workflow.map((step, index) => (
@@ -207,7 +207,7 @@ function SectionIntro({
 	return (
 		<div className='max-w-2xl'>
 			<p className='eyebrow'>{eyebrow}</p>
-			<h2 id={id} className='mt-3 text-3xl font-bold tracking-tight text-slate-950'>
+			<h2 id={id} className='section-title mt-3 font-bold text-slate-950'>
 				{heading}
 			</h2>
 			<p className='mt-3 leading-7 text-slate-600'>{description}</p>

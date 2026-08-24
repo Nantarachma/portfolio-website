@@ -26,17 +26,17 @@ function Connector({ direction = 'horizontal' }: { direction?: 'horizontal' | 'v
 
 function FlowSteps({ steps }: { steps: readonly string[] }) {
 	return (
-		<ol className='flex flex-col items-stretch gap-1.5 sm:flex-row sm:items-stretch'>
+		<ol className='project-flow-list flex items-stretch gap-1.5'>
 			{steps.map((step, index) => (
-				<li key={`${step}-${index}`} className='flex min-w-0 flex-1 flex-col sm:flex-row sm:items-center'>
+				<li key={`${step}-${index}`} className='project-flow-step flex min-w-0 flex-1'>
 					<div className='min-w-0 flex-1 border border-slate-700 bg-slate-950/85 px-2.5 py-2.5'>
 						<p className='font-mono text-[10px] font-semibold text-blue-300'>{String(index + 1).padStart(2, '0')}</p>
-						<p className='mt-1 text-xs font-medium leading-4 text-slate-100'>{step}</p>
+						<p className='safe-wrap mt-1 text-xs font-medium leading-4 text-slate-100'>{step}</p>
 					</div>
 					{index < steps.length - 1 ? (
 						<>
-							<span className='sm:hidden'><Connector direction='vertical' /></span>
-							<span className='hidden sm:inline-flex'><Connector /></span>
+							<span className='project-flow-connector-vertical'><Connector direction='vertical' /></span>
+							<span className='project-flow-connector-horizontal'><Connector /></span>
 						</>
 					) : null}
 				</li>
@@ -167,7 +167,7 @@ export default function ProjectVisual({ project, className = '' }: ProjectVisual
 
 	return (
 		<figure
-			className={`relative isolate overflow-hidden rounded-xl border border-slate-800 bg-slate-950 p-5 shadow-sm ${className}`}
+			className={`project-visual relative isolate overflow-hidden rounded-xl border border-slate-800 bg-slate-950 p-5 shadow-sm ${className}`}
 			aria-label={`Conceptual diagram: ${visual.label}`}>
 			<div aria-hidden='true' className='pointer-events-none absolute inset-0 z-0 opacity-50 [background-image:linear-gradient(rgb(148_163_184_/_0.1)_1px,transparent_1px),linear-gradient(90deg,rgb(148_163_184_/_0.1)_1px,transparent_1px)] [background-size:22px_22px]' />
 			<div aria-hidden='true' className='absolute left-0 top-0 h-1 w-16 bg-blue-500' />

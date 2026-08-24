@@ -17,16 +17,16 @@ export default async function ContactPage() {
 	] as const;
 	return (
 		<div className='site-container page-section'>
-			<section className='grid gap-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(20rem,0.75fr)] lg:items-start'>
+			<section className='content-split grid lg:grid-cols-[minmax(0,0.95fr)_minmax(20rem,0.75fr)] lg:items-start'>
 				<div>
 					<p className='eyebrow'>Contact</p>
-					<h1 className='mt-4 max-w-2xl text-balance text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl'>
+					<h1 className='page-title safe-wrap mt-4 max-w-2xl text-balance font-bold text-slate-950'>
 						Let&apos;s work together.
 					</h1>
-					<p className='mt-6 max-w-xl text-lg leading-8 text-slate-600'>
+					<p className='lead-text mt-6 text-slate-600'>
 						I&apos;m open to software engineering, machine learning, mobile development, and collaborative project opportunities.
 					</p>
-					<div className='mt-8 flex flex-wrap gap-3'>
+					<div className='hero-actions mt-8'>
 						<a
 							href={profile.links.email.href}
 							className='inline-flex items-center rounded-lg bg-blue-700 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-800'>
@@ -49,7 +49,7 @@ export default async function ContactPage() {
 					</div>
 				</div>
 
-				<aside className='surface rounded-2xl p-6 sm:p-8' aria-label='Contact details'>
+				<aside className='surface card-pad rounded-2xl' aria-label='Contact details'>
 					<p className='text-sm font-semibold text-slate-950'>Based in</p>
 					<p className='mt-1 text-slate-600'>{profile.location}</p>
 					<p className='mt-7 border-t border-slate-200 pt-6 text-sm leading-6 text-slate-600'>
@@ -58,20 +58,20 @@ export default async function ContactPage() {
 				</aside>
 			</section>
 
-			<section className='mt-20' aria-labelledby='contact-methods-heading'>
-				<h2 id='contact-methods-heading' className='text-2xl font-bold tracking-tight text-slate-950'>
+			<section className='mt-[var(--space-section-compact)]' aria-labelledby='contact-methods-heading'>
+				<h2 id='contact-methods-heading' className='section-title font-bold text-slate-950'>
 					Contact details
 				</h2>
-				<div className='mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4'>
+				<div className='card-grid mt-6 grid md:grid-cols-2 xl:grid-cols-4'>
 					{contactOptions.map((option) => (
 						<a
 							key={option.label}
 							href={option.href}
 							target={option.href.startsWith('mailto:') ? undefined : '_blank'}
 							rel={option.href.startsWith('mailto:') ? undefined : 'noreferrer'}
-							className='surface group rounded-xl p-5 transition-[border-color,box-shadow] duration-200 hover:border-blue-300 hover:shadow-sm'>
+							className='surface card-pad group min-w-0 rounded-xl transition-[border-color,box-shadow] duration-200 hover:border-blue-300 hover:shadow-sm'>
 							<p className='text-sm font-semibold text-slate-950'>{option.label}</p>
-							<p className='mt-3 break-all text-sm font-medium text-blue-700 group-hover:text-blue-800'>
+							<p className='safe-wrap mt-3 text-sm font-medium text-blue-700 group-hover:text-blue-800'>
 								{option.value}
 							</p>
 							<p className='mt-3 text-sm leading-6 text-slate-600'>{option.description}</p>
@@ -80,7 +80,7 @@ export default async function ContactPage() {
 				</div>
 			</section>
 
-			<div className='mt-16 border-t border-slate-200 pt-8 text-sm text-slate-600'>
+			<div className='mt-[var(--space-section-compact)] border-t border-slate-200 pt-8 text-sm text-slate-600'>
 				<Link href='/projects' className='font-semibold text-blue-700 hover:text-blue-800'>
 					View selected work
 				</Link>

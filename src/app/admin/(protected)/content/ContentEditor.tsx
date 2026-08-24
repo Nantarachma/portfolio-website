@@ -180,7 +180,7 @@ export default function ContentEditor({ initialContent, publishedSlugs }: { init
 	return (
 		<FormProvider {...methods}>
 		<form onSubmit={submit} className='mt-8'>
-			<div className='sticky top-[4.5rem] z-30 -mx-4 border-y border-slate-300 bg-slate-100/95 px-4 py-3 backdrop-blur'>
+			<div className='admin-editor-toolbar sticky z-30 -mx-4 border-y border-slate-300 bg-slate-100/95 px-4 py-3 backdrop-blur'>
 				<div className='flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between'>
 					<nav className='flex gap-1 overflow-x-auto' aria-label='Bagian editor'>
 						{navigation.map(([href, label]) => <a key={href} href={`#${href}`} className='shrink-0 rounded px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-white'>{label}</a>)}

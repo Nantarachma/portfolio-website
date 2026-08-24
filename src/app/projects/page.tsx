@@ -16,16 +16,16 @@ export default async function ProjectsPage() {
 
 	return (
 		<div className='site-container page-section'>
-			<header className='grid gap-8 border-b border-slate-300 pb-10 lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-end lg:gap-12'>
+			<header className='page-header grid gap-8 border-b border-slate-300 lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-end lg:gap-12'>
 				<div className='max-w-4xl'>
 					<p className='flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-700'>
 						<span aria-hidden='true' className='h-px w-8 bg-blue-700' />
 						Project index
 					</p>
-					<h1 className='mt-5 max-w-3xl text-balance text-4xl font-bold tracking-[-0.045em] text-slate-950 sm:text-5xl lg:text-6xl'>
+					<h1 className='page-title safe-wrap mt-5 max-w-3xl text-balance font-bold text-slate-950'>
 						Technical work across research and product development.
 					</h1>
-					<p className='mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg'>
+					<p className='lead-text mt-5 text-slate-600'>
 						Explore machine learning, computer vision, mobile, web, research, and UI/UX work. Every card links to a focused case study; external links appear only when they are verified.
 					</p>
 				</div>
@@ -42,7 +42,7 @@ export default async function ProjectsPage() {
 				</dl>
 			</header>
 
-			<section className='mt-10 sm:mt-12' aria-label='Project catalogue'>
+			<section className='mt-8 sm:mt-10' aria-label='Project catalogue'>
 				<ProjectFilters
 					projects={projects}
 					filterCategories={filterCategories}
