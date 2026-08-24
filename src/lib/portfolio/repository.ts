@@ -2,7 +2,7 @@ import 'server-only';
 
 import { unstable_cache, unstable_noStore } from 'next/cache';
 import { draftMode } from 'next/headers';
-import { requireAdmin } from '@/lib/auth/admin';
+import { getAdmin, requireAdmin } from '@/lib/auth/admin';
 import { hasSupabaseEnvironment } from '@/lib/supabase/env';
 import { createPublicClient } from '@/lib/supabase/public';
 import { createClient } from '@/lib/supabase/server';
@@ -53,7 +53,7 @@ export async function getDraftPortfolio(): Promise<PortfolioContent> {
 
 export async function getPortfolioContent(): Promise<PortfolioContent> {
 	const preview = await draftMode();
-	if (preview.isEnabled) return getDraftPortfolio();
+	if (preview.isEnabled && (await getAdmin())) return getDraftPortfolio();
 	return getPublishedPortfolio();
 }
 

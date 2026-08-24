@@ -4,6 +4,7 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { draftMode } from 'next/headers';
+import { getAdmin } from '@/lib/auth/admin';
 import { getPortfolioContent } from '@/lib/portfolio/repository';
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -30,6 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	const [{ profile }, preview] = await Promise.all([getPortfolioContent(), draftMode()]);
+	const hasAuthorizedPreview = preview.isEnabled && Boolean(await getAdmin());
 
 	return (
 		<html lang='en'>
@@ -40,7 +42,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 					className='sr-only fixed left-4 top-4 z-[60] rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'>
 					Skip to content
 				</a>
-				{preview.isEnabled ? (
+				{hasAuthorizedPreview ? (
 					<div className='bg-amber-300 px-4 py-2 text-center text-sm font-bold text-slate-950'>
 						Preview draft aktif. Perubahan ini belum dipublikasikan.{' '}
 						<a href='/admin/preview/disable' className='underline underline-offset-2'>Keluar dari preview</a>

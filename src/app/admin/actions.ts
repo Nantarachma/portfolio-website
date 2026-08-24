@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath, revalidateTag } from 'next/cache';
+import { draftMode } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { requireAdmin } from '@/lib/auth/admin';
@@ -50,10 +51,13 @@ export async function loginAction(
 }
 
 export async function logoutAction() {
-	await requireAdmin();
+	// Logout must remain usable even when the Supabase session has expired.
+	// Otherwise stale auth or Draft Mode cookies can trap the browser on /admin/login.
+	const preview = await draftMode();
+	preview.disable();
 	const supabase = await createClient();
-	await supabase.auth.signOut();
-	redirect('/admin/login');
+	await supabase.auth.signOut({ scope: 'local' });
+	redirect('/');
 }
 
 export async function requestPasswordResetAction(

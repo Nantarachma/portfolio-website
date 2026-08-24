@@ -6,6 +6,7 @@ const publicAdminPaths = [
 	'/admin/login',
 	'/admin/forgot-password',
 	'/admin/update-password',
+	'/admin/preview/disable',
 	'/auth/callback',
 ];
 
@@ -40,4 +41,3 @@ export async function updateSession(request: NextRequest) {
 
 	return response;
 }
-
