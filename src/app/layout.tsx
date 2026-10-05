@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
+import './scrollcraft.css';
+import './sc-theme.css';
 import Navbar from '@/components/Navbar';
 import ScrollEffects from '@/components/effects/ScrollEffects';
+import ScrollCraftMount from '@/components/effects/ScrollCraftMount';
 import Footer from '@/components/Footer';
 import { getPortfolioContent } from '@/lib/portfolio/repository';
 import { Analytics } from '@vercel/analytics/next';
@@ -37,12 +40,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 		<html lang='en' suppressHydrationWarning>
 			<body
 				className={`${plusJakarta.className} flex min-h-screen flex-col bg-slate-50 text-slate-950 antialiased`}>
-				{/* Enable scroll reveals before first paint (all devices get the effects). */}
-				<script
-					dangerouslySetInnerHTML={{
-						__html: "document.documentElement.classList.add('reveal-enabled');",
-					}}
-				/>
+				<script src='/scrollcraft.js' defer />
+				<span data-sc-progress aria-hidden='true' />
 				<a
 					href='#main-content'
 					className='sr-only fixed left-4 top-4 z-[60] rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'>
@@ -54,6 +53,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				</main>
 				<Footer profile={profile} />
 				<ScrollEffects />
+				<ScrollCraftMount />
 				<Analytics />
 				<SpeedInsights />
 			</body>

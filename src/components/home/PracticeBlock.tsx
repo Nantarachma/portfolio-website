@@ -1,5 +1,3 @@
-import type { CSSProperties } from 'react';
-
 const practiceAreas = [
 	{
 		title: 'Machine learning & computer vision',
@@ -25,7 +23,7 @@ export default function PracticeBlock() {
 	return (
 		<section className='page-block border-b border-slate-200 bg-white' aria-labelledby='practice-heading'>
 			<div className='site-container page-section'>
-				<div className='max-w-3xl'>
+				<div className='max-w-3xl' data-sc-in>
 					<h2 id='practice-heading' className='section-title font-bold text-slate-950'>
 						What I build.
 					</h2>
@@ -33,13 +31,9 @@ export default function PracticeBlock() {
 						Three practice areas, backed by shipped projects and published research from this portfolio.
 					</p>
 				</div>
-				<div className='mt-9 grid gap-5 lg:grid-cols-5'>
-					{practiceAreas.map((area, index) => (
-						<article
-							key={area.title}
-							className={`surface card-pad flex flex-col justify-between gap-6 rounded-xl ${area.className}`}
-							data-reveal
-							style={{ '--reveal-delay': `${index * 70}ms` } as CSSProperties}>
+				<div className='mt-9 grid gap-5 lg:grid-cols-5' data-sc-in data-sc-stagger='70'>
+					{practiceAreas.map((area) => (
+						<article key={area.title} className={`surface card-pad flex flex-col justify-between gap-6 rounded-xl ${area.className}`}>
 							<div>
 								<h3 className='text-xl font-bold tracking-[-0.035em] text-slate-950 sm:text-2xl'>{area.title}</h3>
 								<p className='mt-3 max-w-2xl leading-7 text-slate-600'>{area.description}</p>

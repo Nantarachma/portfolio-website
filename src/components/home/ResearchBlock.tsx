@@ -29,8 +29,7 @@ function ResearchCard({
 		<article
 			className={`card-pad group border border-slate-200 bg-[#fbfbf7] transition-[border-color,box-shadow] duration-200 hover:border-blue-400 hover:shadow-[6px_6px_0_0_#dbeafe] ${
 				featured ? 'lg:col-span-2' : ''
-			}`}
-			data-reveal>
+			}`}>
 			<div className='flex flex-wrap gap-x-3 gap-y-1'>
 				{project.categories.slice(0, 2).map((category) => (
 					<span
@@ -53,12 +52,15 @@ function ResearchCard({
 						View case study <Arrow />
 					</Link>
 				</div>
-				<ProjectVisual project={project} className='min-h-44' />
+				<div data-sc-parallax='0.12'>
+					<ProjectVisual project={project} className='min-h-44' />
+				</div>
 			</div>
 		</article>
 	);
 }
 
+/** Chapter: research. Visuals drift slower than their text (parallax layer). */
 export default function ResearchBlock({ projects, thesis, categoryLabels }: ResearchBlockProps) {
 	const others = projects.filter((project) => project.slug !== thesis?.slug);
 
@@ -68,18 +70,15 @@ export default function ResearchBlock({ projects, thesis, categoryLabels }: Rese
 			data-nav-section='research'
 			className='page-block block-overlap border-b border-slate-200 bg-[#f2f5fa]'>
 			<div className='site-container page-section'>
-				<div className='flex flex-col justify-between gap-5 border-b border-slate-200 pb-8 sm:flex-row sm:items-end'>
-					<div className='max-w-2xl'>
-						<p className='eyebrow'>Research &amp; computer vision</p>
-						<h2 className='section-title mt-4 font-bold text-slate-950'>Additional applied research.</h2>
-					</div>
-					<p className='max-w-sm leading-7 text-slate-600'>
+				<div className='border-b border-slate-200 pb-8' data-sc-in>
+					<h2 className='section-title max-w-3xl font-bold text-slate-950'>Additional applied research.</h2>
+					<p className='mt-4 max-w-[65ch] leading-7 text-slate-600'>
 						Machine learning and computer vision work focused on transparent technical approaches rather than
 						unverified performance claims.
 					</p>
 				</div>
 
-				<div className='mt-8 grid gap-5 lg:grid-cols-2'>
+				<div className='mt-8 grid gap-5 lg:grid-cols-2' data-sc-in data-sc-stagger='80'>
 					{thesis ? <ResearchCard project={thesis} categoryLabels={categoryLabels} featured /> : null}
 					{others.map((project) => (
 						<ResearchCard key={project.slug} project={project} categoryLabels={categoryLabels} />

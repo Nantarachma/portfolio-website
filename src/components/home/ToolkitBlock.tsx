@@ -9,21 +9,16 @@ export default function ToolkitBlock({ techGroups }: { techGroups: readonly Tech
 			data-header-theme='dark'
 			className='page-block block-overlap bg-[#14161a] text-[#eef1f6]'>
 			<div className='site-container page-section'>
-				<div className='flex flex-col justify-between gap-5 border-b border-white/15 pb-8 sm:flex-row sm:items-end'>
-					<div className='max-w-2xl'>
-						<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-blue-300'>
-							Technical toolkit
-						</p>
-						<h2 className='section-title mt-4 text-balance font-bold text-white'>
-							Grouped by practice area.
-						</h2>
-					</div>
-					<p className='max-w-sm text-sm leading-6 text-slate-400'>
+				<div className='border-b border-white/15 pb-8' data-sc-in>
+					<h2 className='section-title max-w-3xl text-balance font-bold text-white'>
+						Grouped by practice area.
+					</h2>
+					<p className='mt-4 max-w-[65ch] leading-7 text-slate-400'>
 						The stack used across research pipelines, Android applications, and web products.
 					</p>
 				</div>
 
-				<div className='mt-8 grid border-l border-t border-white/15 md:grid-cols-2 lg:grid-cols-3'>
+				<div className='mt-8 grid border-l border-t border-white/15 md:grid-cols-2 lg:grid-cols-3' data-sc-in data-sc-stagger='60'>
 					{techGroups.map((group, index) => (
 						<article
 							key={group.contentId}

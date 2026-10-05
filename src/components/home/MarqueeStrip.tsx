@@ -7,7 +7,7 @@ type TechGroup = PortfolioContent['techGroups'][number];
  * decorative for assistive tech (the toolkit block lists the same skills).
  */
 export default function MarqueeStrip({ techGroups }: { techGroups: readonly TechGroup[] }) {
-	const items = [...new Set(techGroups.flatMap((group) => group.items))].filter((item) => !item.includes('—'));
+	const items = [...new Set(techGroups.flatMap((group) => group.items))];
 
 	return (
 		<div className='page-block block-overlap bg-[#14161a] py-4' aria-hidden='true'>

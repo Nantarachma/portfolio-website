@@ -4,7 +4,7 @@ export const profile = {
 	name: 'Rachmananta Ibnu Fajar',
 	shortName: 'Rachmananta',
 	role: 'Software Engineer & Machine Learning Practitioner',
-	eyebrow: 'Machine Learning · Computer Vision · Mobile · Full-stack',
+	eyebrow: 'Machine Learning, Computer Vision, Mobile, Full-stack',
 	intro:
 		'Informatics graduate building machine learning, computer vision, mobile, and full-stack web products.',
 	bio:
@@ -59,7 +59,7 @@ export const credibilityHighlights = [
 export const education = {
 	institution: 'UPN "Veteran" Jawa Timur',
 	degree: 'Bachelor of Computer Science in Informatics',
-	period: 'August 2022 – October 2026',
+	period: 'August 2022 - October 2026',
 	gpa: '3.89 / 4.00',
 	thesis:
 		'Accuracy and Inference Time Optimization using Multi-Objective XGBoost on the NF-UNSW-NB15 Dataset',

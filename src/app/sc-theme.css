@@ -1,0 +1,13 @@
+/* Rebrand of the copied scrollcraft engine tokens. Imported AFTER
+ * scrollcraft.css so these six roles win without touching the engine. */
+
+:root {
+	--sc-canvas: #f7f6f1;
+	--sc-surface: #fffefb;
+	--sc-ink: #14161a;
+	--sc-ink-soft: #5b6270;
+	--sc-accent: #1e46c8;
+	--sc-accent-ink: #ffffff;
+	--sc-font-display: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+	--sc-font-text: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
