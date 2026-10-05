@@ -34,7 +34,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	const { profile } = await getPortfolioContent();
 
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning>
 			<body
 				className={`${plusJakarta.className} flex min-h-screen flex-col bg-slate-50 text-slate-950 antialiased`}>
 				{/* Enable scroll reveals before first paint (all devices get the effects). */}
