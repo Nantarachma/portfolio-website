@@ -1,0 +1,7 @@
+/* Copied scrollcraft engine CSS, then this project's token overrides.
+   Order matters: sc-theme.css comes last so its :root values win over the
+   engine's own defaults. The engine's two `color: inherit` resets were
+   vendored out (see notes in scrollcraft.css) so Tailwind text-* utilities
+   keep authority over link and button colors. */
+@import './scrollcraft.css';
+@import './sc-theme.css';

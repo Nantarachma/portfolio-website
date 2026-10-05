@@ -50,6 +50,7 @@ export default async function HomePage() {
 				categoryLabels={categoryLabels}
 			/>
 			<AboutTabs
+				intro={content.profile.intro}
 				content={{
 					experience: content.experience,
 					education: content.education,

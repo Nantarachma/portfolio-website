@@ -272,6 +272,11 @@
 		background: rgb(247 246 241 / 0.9);
 		box-shadow: 0 1px 0 rgb(255 255 255 / 0.72);
 		backdrop-filter: blur(16px);
+		/* Sync with the 180ms color transitions on nav children so background
+		   and text switch together — no black-bar/black-text flash mid-theme. */
+		transition:
+			background-color 180ms ease,
+			border-color 180ms ease;
 	}
 
 	.site-header__inner {
@@ -365,10 +370,10 @@
 	.site-header-action {
 		gap: 0.5rem;
 		justify-content: center;
-		border: 1px solid #076b37;
+		border: 1px solid var(--accent-strong);
 		border-radius: 0.1875rem;
-		background: #0ea152;
-		box-shadow: 0 1px 2px rgb(6 78 43 / 0.2);
+		background: var(--accent);
+		box-shadow: 0 1px 2px rgb(22 55 159 / 0.25);
 		padding: 0.625rem 1rem;
 		color: white;
 		font-size: 0.8125rem;
@@ -386,9 +391,9 @@
 	}
 
 	.site-header-action:hover {
-		border-color: #055a2e;
-		background: #066b36;
-		box-shadow: 0 4px 10px rgb(6 78 43 / 0.2);
+		border-color: var(--accent-strong);
+		background: var(--accent-strong);
+		box-shadow: 0 4px 10px rgb(22 55 159 / 0.25);
 		color: white;
 		transform: translateY(-1px);
 	}
@@ -425,6 +430,9 @@
 		border-top: 1px solid var(--border);
 		background: rgb(255 254 251 / 0.98);
 		box-shadow: 0 12px 24px rgb(15 23 42 / 0.05);
+		transition:
+			background-color 180ms ease,
+			border-color 180ms ease;
 	}
 
 	.site-mobile-nav {
@@ -467,10 +475,10 @@
 		justify-content: center;
 		gap: 0.5rem;
 		margin-top: 0.5rem;
-		border: 1px solid #076b37;
+		border: 1px solid var(--accent-strong);
 		border-radius: 0.1875rem;
-		background: #0ea152;
-		box-shadow: 0 1px 2px rgb(6 78 43 / 0.2);
+		background: var(--accent);
+		box-shadow: 0 1px 2px rgb(22 55 159 / 0.25);
 		padding: 0.75rem 0.875rem;
 		color: white;
 		font-size: 0.875rem;
@@ -485,8 +493,8 @@
 	}
 
 	.site-mobile-action:hover {
-		border-color: #055a2e;
-		background: #066b36;
+		border-color: var(--accent-strong);
+		background: var(--accent-strong);
 		color: white;
 	}
 
@@ -759,7 +767,9 @@ body.bg-slate-50 {
 	}
 }
 
-/* ── Single-page scroll: stacking blocks, marquee, reveal, header theme ── */
+/* ── Single-page scroll: stacking blocks, marquee, header theme ─────────────
+   Radius system (locked): UI, cards, buttons = 0 (sharp). Plates use the one
+   .block-overlap top radius. Circles only for list bullets and trail nodes. */
 @layer components {
 
 	.page-block {
@@ -837,6 +847,11 @@ body.bg-slate-50 {
 		border-bottom-color: rgb(255 255 255 / 0.14);
 		background: rgb(20 22 26 / 0.92);
 		box-shadow: none;
+		/* Token flip: every descendant (current and future) that reads
+		   --foreground / --muted / --border turns light automatically. */
+		--foreground: #f4f6fa;
+		--muted: #aeb6c4;
+		--border: rgb(255 255 255 / 0.14);
 	}
 
 	.site-header[data-theme='dark'] .site-brand {
@@ -927,14 +942,15 @@ body.bg-slate-50 {
 	position: absolute;
 	inset: 0;
 	background: var(--accent);
-	transform: scaleY(var(--sc-trail-p, 0));
+	transform: scaleY(0);
 	transform-origin: top center;
 }
 
-.trail__node {
-	position: absolute;
-	left: 50%;
-	width: 0.625rem;
+trail__node {
+position: absolute;
+left: 50%;
+top: calc(var(--at) * 100%);
+width: 0.625rem;
 	height: 0.625rem;
 	transform: translate(-50%, -50%);
 	border-radius: 999px;
@@ -943,11 +959,6 @@ body.bg-slate-50 {
 	transition:
 		background-color 220ms ease,
 		border-color 220ms ease;
-}
-
-.trail__node.is-passed {
-	background: var(--accent);
-	border-color: var(--accent);
 }
 
 .trail__label {
@@ -968,9 +979,46 @@ body.bg-slate-50 {
 		transform 220ms ease;
 }
 
-.trail__node.is-passed .trail__label {
-	opacity: 1;
-	transform: translateY(-50%);
+/* Scroll-driven trail: fill + node lighting keyed to page scroll, zero JS.
+   Static rail under engines without animation-timeline (aria-hidden decor). */
+@supports (animation-timeline: scroll()) {
+	.trail__fill {
+		animation: trail-fill linear both;
+		animation-timeline: scroll(root block);
+	}
+	.trail__node {
+		animation: trail-light linear both;
+		animation-timeline: scroll(root block);
+		animation-range: calc(var(--at) * 100% - 1.5%) calc(var(--at) * 100% + 1.5%);
+	}
+	.trail__label {
+		animation: trail-label linear both;
+		animation-timeline: scroll(root block);
+		animation-range: calc(var(--at) * 100% - 1.5%) calc(var(--at) * 100% + 1.5%);
+	}
+}
+
+@keyframes trail-fill {
+	from {
+		transform: scaleY(0);
+	}
+	to {
+		transform: scaleY(1);
+	}
+}
+
+@keyframes trail-light {
+	to {
+		background: var(--accent);
+		border-color: var(--accent);
+	}
+}
+
+@keyframes trail-label {
+	to {
+		opacity: 1;
+		transform: translateY(-50%);
+	}
 }
 
 @media (min-width: 1440px) {

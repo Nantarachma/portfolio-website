@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
-import './scrollcraft.css';
-import './sc-theme.css';
+import './sc-load.css';
 import Navbar from '@/components/Navbar';
 import ScrollEffects from '@/components/effects/ScrollEffects';
 import ScrollCraftMount from '@/components/effects/ScrollCraftMount';

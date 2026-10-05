@@ -17,7 +17,7 @@ const tabs = [
 
 type TabKey = (typeof tabs)[number]['key'];
 
-export default function AboutTabs({ content }: { content: AboutContent }) {
+export default function AboutTabs({ content, intro }: { content: AboutContent; intro: string }) {
 	const [active, setActive] = useState<TabKey>('experience');
 	const tabRefs = useRef<Record<TabKey, HTMLButtonElement | null>>({
 		experience: null,
@@ -41,14 +41,13 @@ export default function AboutTabs({ content }: { content: AboutContent }) {
 			className='page-block block-overlap border-b border-slate-200 bg-white'
 			aria-labelledby='background-heading'>
 			<div className='site-container page-section'>
-				<div className='grid gap-6 border-b border-slate-200 pb-8 md:grid-cols-12 md:items-end'>
-					<div className='md:col-span-7'>
-						<h2 id='background-heading' className='section-title text-balance font-bold text-slate-950'>
-							Background.
-						</h2>
-					</div>
-					<p className='leading-7 text-slate-600 md:col-span-4 md:col-start-9 md:border-l md:border-slate-200 md:pl-6'>
-						Professional and cohort experience, education record, leadership work, and verified credentials.
+				<div className='border-b border-slate-200 pb-8'>
+					<h2 id='background-heading' className='section-title text-balance font-bold text-slate-950'>
+						Background.
+					</h2>
+					<p className='mt-4 max-w-[65ch] leading-7 text-slate-600'>
+						{intro} Professional and cohort experience, education record, leadership work, and verified
+						credentials.
 					</p>
 				</div>
 
@@ -82,7 +81,7 @@ export default function AboutTabs({ content }: { content: AboutContent }) {
 						<div role='tabpanel' id='panel-experience' aria-labelledby='tab-experience' tabIndex={0} className='pt-7'>
 							<div className='grid gap-5 lg:grid-cols-2'>
 								{content.experience.map((item) => (
-									<article key={item.contentId} className='surface card-pad rounded-xl'>
+									<article key={item.contentId} className='surface card-pad'>
 										<p className='text-sm font-semibold text-blue-700'>{item.period}</p>
 										<h3 className='mt-2 text-xl font-bold tracking-tight text-slate-950'>{item.role}</h3>
 										<p className='mt-1 font-medium text-slate-700'>{item.organization}</p>
@@ -104,7 +103,7 @@ export default function AboutTabs({ content }: { content: AboutContent }) {
 
 					{active === 'education' ? (
 						<div role='tabpanel' id='panel-education' aria-labelledby='tab-education' tabIndex={0} className='pt-7'>
-							<article className='surface card-pad max-w-3xl rounded-xl'>
+							<article className='surface card-pad max-w-3xl'>
 								<p className='text-sm font-semibold text-blue-700'>{content.education.period}</p>
 								<h3 className='mt-2 text-xl font-bold tracking-tight text-slate-950'>
 									{content.education.degree}
@@ -132,7 +131,7 @@ export default function AboutTabs({ content }: { content: AboutContent }) {
 						<div role='tabpanel' id='panel-leadership' aria-labelledby='tab-leadership' tabIndex={0} className='pt-7'>
 							<div className='grid gap-5 lg:grid-cols-2'>
 								{content.leadership.map((item) => (
-									<article key={item.contentId} className='surface card-pad rounded-xl'>
+									<article key={item.contentId} className='surface card-pad'>
 										<p className='text-sm font-semibold text-blue-700'>{item.period}</p>
 										<h3 className='mt-2 text-xl font-bold tracking-tight text-slate-950'>{item.role}</h3>
 										<p className='mt-1 font-medium text-slate-700'>{item.organization}</p>

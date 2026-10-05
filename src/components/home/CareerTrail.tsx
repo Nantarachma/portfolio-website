@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+
 export interface TrailMilestone {
 	label: string;
 	short: string;
@@ -5,9 +7,9 @@ export interface TrailMilestone {
 }
 
 /**
- * Signature move: a fixed rail in the page margin that draws itself with page
- * progress (--sc-trail-p, written by ScrollEffects). Each node is a real
- * career milestone; its label lights once the line passes.
+ * Signature move: a fixed rail in the margin that draws itself with page
+ * scroll. Fill and node lighting are pure CSS scroll-driven animations keyed
+ * to each milestone's --at fraction (no JavaScript in the loop).
  */
 export default function CareerTrail({ milestones }: { milestones: readonly TrailMilestone[] }) {
 	return (
@@ -18,8 +20,7 @@ export default function CareerTrail({ milestones }: { milestones: readonly Trail
 					<span
 						key={milestone.label}
 						className='trail__node'
-						data-at={milestone.at}
-						style={{ top: `${milestone.at * 100}%` }}>
+						style={{ '--at': milestone.at } as CSSProperties}>
 						<span className='trail__label'>{milestone.short}</span>
 					</span>
 				))}

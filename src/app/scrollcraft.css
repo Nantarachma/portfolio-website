@@ -111,7 +111,9 @@ body {
   overflow-x: clip;
 }
 img, video, canvas, svg { display: block; max-width: 100%; }
-button, input, select, textarea { font: inherit; color: inherit; }
+/* VENDORED PATCH: dropped `color: inherit` here — unlayered engine CSS beat
+   Tailwind text-* utilities on buttons/links and flattened every custom color. */
+button, input, select, textarea { font: inherit; }
 
 /* ------------------------------------------------- the browser surfaces --
    The parts you did not draw still carry the design. Selection, caret, focus
@@ -125,7 +127,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
   outline-offset: 3px;
   border-radius: var(--sc-r-sm);
 }
-:where(a) { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+/* VENDORED PATCH: dropped `color: inherit` (same reason as above). */
+:where(a) { text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
 @supports (scrollbar-color: auto) {
   html { scrollbar-color: color-mix(in oklab, var(--sc-ink) 26%, transparent) transparent; scrollbar-width: thin; }
 }
