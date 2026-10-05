@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import ScrollEffects from '@/components/effects/ScrollEffects';
 import Footer from '@/components/Footer';
 import { draftMode } from 'next/headers';
 import { getAdmin } from '@/lib/auth/admin';
@@ -39,6 +40,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 		<html lang='en'>
 			<body
 				className={`${plusJakarta.className} flex min-h-screen flex-col bg-slate-50 text-slate-950 antialiased`}>
+				{/* Enable scroll reveals before first paint (all devices get the effects). */}
+				<script
+					dangerouslySetInnerHTML={{
+						__html: "document.documentElement.classList.add('reveal-enabled');",
+					}}
+				/>
 				<a
 					href='#main-content'
 					className='sr-only fixed left-4 top-4 z-[60] rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'>
@@ -55,6 +62,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 					{children}
 				</main>
 				<Footer profile={profile} />
+				<ScrollEffects />
 				<Analytics />
 				<SpeedInsights />
 			</body>

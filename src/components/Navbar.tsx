@@ -4,24 +4,37 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
+import { SECTION_EVENT } from '@/components/effects/ScrollEffects';
 import type { PortfolioProfile } from '@/lib/portfolio/schema';
 
 const navigation = [
-	{ name: 'Home', href: '/' },
-	{ name: 'Projects', href: '/projects' },
-	{ name: 'Research', href: '/research' },
-	{ name: 'About', href: '/about' },
-	{ name: 'Contact', href: '/contact' },
+	{ name: 'Home', href: '/', key: 'home' },
+	{ name: 'Work', href: '/#work', key: 'work' },
+	{ name: 'Research', href: '/#research', key: 'research' },
+	{ name: 'About', href: '/#about', key: 'about' },
+	{ name: 'Contact', href: '/#contact', key: 'contact' },
 ] as const;
 
-function isCurrentPath(pathname: string, href: string) {
-	return href === '/' ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
+/** Section in view on the home page, kept in sync by ScrollEffects. */
+function isCurrentPath(pathname: string, key: (typeof navigation)[number]['key'], activeSection: string) {
+	// The projects index is the full "Work" listing.
+	if (pathname.startsWith('/projects')) return key === 'work';
+	if (pathname !== '/') return false;
+	if (key === 'home') return activeSection === 'home';
+	return activeSection === key;
 }
 
 export default function Navbar({ profile }: { profile: PortfolioProfile }) {
 	const pathname = usePathname();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const [activeSection, setActiveSection] = useState('');
 	const isAdminRoute = pathname.startsWith('/admin') || pathname.startsWith('/auth');
+
+	useEffect(() => {
+		const onSectionChange = (event: Event) => setActiveSection((event as CustomEvent<string>).detail);
+		window.addEventListener(SECTION_EVENT, onSectionChange);
+		return () => window.removeEventListener(SECTION_EVENT, onSectionChange);
+	}, []);
 
 	useEffect(() => {
 		setMobileMenuOpen(false);
@@ -39,7 +52,7 @@ export default function Navbar({ profile }: { profile: PortfolioProfile }) {
 
 				<nav className='site-nav hidden lg:flex' aria-label='Primary navigation'>
 					{navigation.map((item) => {
-						const isActive = isCurrentPath(pathname, item.href);
+						const isActive = isCurrentPath(pathname, item.key, activeSection);
 
 						return (
 							<Link
@@ -83,7 +96,7 @@ export default function Navbar({ profile }: { profile: PortfolioProfile }) {
 			<div id='mobile-navigation' className={`${mobileMenuOpen ? 'block' : 'hidden'} site-mobile-panel lg:hidden`}>
 				<nav className='site-container site-mobile-nav' aria-label='Mobile navigation'>
 					{navigation.map((item) => {
-						const isActive = isCurrentPath(pathname, item.href);
+						const isActive = isCurrentPath(pathname, item.key, activeSection);
 
 						return (
 							<Link

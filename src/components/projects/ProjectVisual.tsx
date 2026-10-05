@@ -52,28 +52,28 @@ function FeatureFusion({ steps }: { steps: readonly string[] }) {
 		<div className='grid gap-2.5 text-center text-xs font-medium text-slate-100'>
 			<div className='mx-auto border border-slate-700 bg-slate-950/85 px-4 py-2.5'>
 				<p className='font-mono text-[10px] text-blue-300'>INPUT</p>
-				<p className='mt-1'>{input}</p>
+				<p className='safe-wrap mt-1'>{input}</p>
 			</div>
 			<div className='flex justify-center'><Connector direction='vertical' /></div>
 			<div className='grid grid-cols-2 gap-3'>
 				<div className='border border-slate-700 bg-slate-950/85 px-3 py-2.5'>
 					<p className='font-mono text-[10px] text-slate-400'>DEEP</p>
-					<p className='mt-1'>{deepFeatures}</p>
+					<p className='safe-wrap mt-1'>{deepFeatures}</p>
 				</div>
 				<div className='border border-slate-700 bg-slate-950/85 px-3 py-2.5'>
 					<p className='font-mono text-[10px] text-slate-400'>TEXTURE</p>
-					<p className='mt-1'>{textureFeatures}</p>
+					<p className='safe-wrap mt-1'>{textureFeatures}</p>
 				</div>
 			</div>
 			<div className='flex justify-center'><Connector direction='vertical' /></div>
 			<div className='mx-auto border border-blue-400/50 bg-blue-500/15 px-4 py-2.5 text-blue-100'>
 				<p className='font-mono text-[10px] text-blue-300'>FUSION</p>
-				<p className='mt-1'>{fusion}</p>
+				<p className='safe-wrap mt-1'>{fusion}</p>
 			</div>
 			<div className='flex justify-center'><Connector direction='vertical' /></div>
 			<div className='mx-auto border border-slate-700 bg-slate-950/85 px-4 py-2.5'>
 				<p className='font-mono text-[10px] text-slate-400'>OUTPUT</p>
-				<p className='mt-1'>{output}</p>
+				<p className='safe-wrap mt-1'>{output}</p>
 			</div>
 		</div>
 	);
@@ -92,15 +92,15 @@ function MobileFlow({ steps }: { steps: readonly string[] }) {
 			<div className='divide-y divide-slate-800'>
 				<div className='px-3 py-2.5'>
 					<p className='font-mono text-[10px] text-slate-400'>PLATFORM</p>
-					<p className='mt-1 text-xs font-medium text-slate-100'>{platform}</p>
+					<p className='safe-wrap mt-1 text-xs font-medium text-slate-100'>{platform}</p>
 				</div>
 				<div className='px-3 py-2.5'>
 					<p className='font-mono text-[10px] text-slate-400'>PROCESS</p>
-					<p className='mt-1 text-xs font-medium text-blue-100'>{analysis}</p>
+					<p className='safe-wrap mt-1 text-xs font-medium text-blue-100'>{analysis}</p>
 				</div>
 				<div className='px-3 py-2.5'>
 					<p className='font-mono text-[10px] text-slate-400'>OUTCOME</p>
-					<p className='mt-1 text-xs font-medium text-slate-100'>{outcome}</p>
+					<p className='safe-wrap mt-1 text-xs font-medium text-slate-100'>{outcome}</p>
 				</div>
 			</div>
 		</div>
@@ -121,7 +121,7 @@ function DocumentFlow({ label }: { label: string }) {
 			<Connector />
 			<div className='border border-blue-400/40 bg-blue-500/10 p-3 text-center text-blue-100'>
 				<p className='font-mono text-[10px] text-blue-300'>OUTPUT</p>
-				<p className='mt-1.5 font-medium'>{label}</p>
+				<p className='safe-wrap mt-1.5 font-medium'>{label}</p>
 			</div>
 		</div>
 	);

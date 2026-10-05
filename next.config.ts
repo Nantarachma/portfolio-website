@@ -5,6 +5,11 @@ const supabaseHostname = process.env.NEXT_PUBLIC_SUPABASE_URL
 	: undefined;
 
 const nextConfig: NextConfig = {
+	redirects: async () => [
+		{ source: '/about', destination: '/#about', permanent: true },
+		{ source: '/contact', destination: '/#contact', permanent: true },
+		{ source: '/research', destination: '/#research', permanent: true },
+	],
 	images: {
 		remotePatterns: supabaseHostname
 			? [{ protocol: 'https', hostname: supabaseHostname, pathname: '/storage/v1/object/public/**' }]
