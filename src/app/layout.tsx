@@ -4,8 +4,6 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import ScrollEffects from '@/components/effects/ScrollEffects';
 import Footer from '@/components/Footer';
-import { draftMode } from 'next/headers';
-import { getAdmin } from '@/lib/auth/admin';
 import { getPortfolioContent } from '@/lib/portfolio/repository';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -33,8 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-	const [{ profile }, preview] = await Promise.all([getPortfolioContent(), draftMode()]);
-	const hasAuthorizedPreview = preview.isEnabled && Boolean(await getAdmin());
+	const { profile } = await getPortfolioContent();
 
 	return (
 		<html lang='en'>
@@ -51,12 +48,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 					className='sr-only fixed left-4 top-4 z-[60] rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'>
 					Skip to content
 				</a>
-				{hasAuthorizedPreview ? (
-					<div className='bg-amber-300 px-4 py-2 text-center text-sm font-bold text-slate-950'>
-						Preview draft aktif. Perubahan ini belum dipublikasikan.{' '}
-						<a href='/admin/preview/disable' className='underline underline-offset-2'>Keluar dari preview</a>
-					</div>
-				) : null}
 				<Navbar profile={profile} />
 				<main id='main-content' className='flex-1'>
 					{children}

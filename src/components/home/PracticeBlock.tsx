@@ -16,7 +16,7 @@ const practiceAreas = [
 	{
 		title: 'Web & full-stack',
 		description:
-			'Next.js, TypeScript, Node.js, and Laravel builds, from the JustiBot legal-consultation platform internship to a Supabase-backed publishing workflow.',
+			'Next.js, TypeScript, Node.js, and Laravel builds, from the JustiBot legal-consultation platform internship to this single-page portfolio.',
 		className: 'lg:col-span-5',
 	},
 ] as const;

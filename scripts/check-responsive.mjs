@@ -98,11 +98,6 @@ try {
 		'/contact',
 		'/research',
 		'/does-not-exist',
-		'/admin/login',
-		'/admin',
-		'/admin/content',
-		'/admin/media',
-		'/admin/history',
 	];
 	const widths = [320, 360, 390, 768, 1024, 1280, 1440];
 	const failures = [];

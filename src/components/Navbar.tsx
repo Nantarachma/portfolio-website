@@ -28,7 +28,6 @@ export default function Navbar({ profile }: { profile: PortfolioProfile }) {
 	const pathname = usePathname();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const [activeSection, setActiveSection] = useState('');
-	const isAdminRoute = pathname.startsWith('/admin') || pathname.startsWith('/auth');
 
 	useEffect(() => {
 		const onSectionChange = (event: Event) => setActiveSection((event as CustomEvent<string>).detail);
@@ -40,7 +39,7 @@ export default function Navbar({ profile }: { profile: PortfolioProfile }) {
 		setMobileMenuOpen(false);
 	}, [pathname]);
 
-	if (isAdminRoute) return null;
+	
 
 	return (
 		<header className='site-header'>
