@@ -27,6 +27,9 @@ export default function ProjectCard({
 
 	return (
 		<article
+			/* Same pointer-tilt as the Selected Works rack (engine gates it to
+			   hover + fine pointers, so touch devices never get it). */
+			data-sc-tilt='6'
 			className={`surface group relative h-full overflow-hidden ${
 				isSplit ? 'lg:grid lg:grid-cols-[minmax(15rem,0.82fr)_minmax(0,1.18fr)]' : 'flex flex-col'
 			} ${className}`}>
