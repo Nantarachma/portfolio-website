@@ -31,20 +31,14 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 				<div className='site-container flex h-full flex-col justify-center py-8 [@media(max-height:760px)]:justify-start [@media(max-height:760px)]:pt-[calc(var(--site-header-h,3.25rem)+1.5rem)] [@media(max-height:760px)]:pb-4'>
 					<header className='border-b border-rule pb-5'>
 						<p className='eyebrow'>Selected work</p>
-						{/* Kinetic headline: lines assemble on the way in and clear
-						    out near the end of the pan — scroll-driven both ways.
-						    The wrapper cue carries the whole-block opacity (kinetic
-						    elements keep the parent at opacity 1 and only stagger the
-						    line units, so without this the block stays bright while
-						    sliding under the bar). */}
-						<div data-sc-cue='0.04 0.76 0.3 0.08'>
-							<h2
-								className='section-title mt-3 max-w-3xl text-balance text-ink'
-								data-sc-cue='0.04 0.76 0.3 0.08'
-								data-sc-kinetic='lines'>
-								Case studies shaped by method, implementation, and evidence.
-							</h2>
-						</div>
+						{/* Time-driven entrance only (user call): a plain one-shot
+						    reveal with a fixed duration, no scroll scrubbing and no
+						    kinetic line assembly on this headline. */}
+						<h2
+							className='section-title mt-3 max-w-3xl text-balance text-ink'
+							data-sc-in>
+							Case studies shaped by method, implementation, and evidence.
+						</h2>
 						<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim [@media(max-height:760px)]:hidden'>
 							Machine learning research, product delivery, and an ML-integrated Android capstone.
 						</p>

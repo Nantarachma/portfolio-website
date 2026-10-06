@@ -21,6 +21,12 @@ export default function SmoothScroll() {
 			lerp: 0.12,
 			smoothWheel: true,
 			syncTouch: false,
+			/* Project rule: every device gets the effects (BRIEF.md —
+			   prefers-reduced-motion is ignored site-wide). Lenis defaults
+			   this to true, which silently drops the easing to native
+			   instant scrolling whenever the OS/Chrome reports reduce —
+			   that is why the smooth scroll "had no effect". */
+			respectReducedMotion: false,
 		});
 
 		const tick = (time: number) => lenis.raf(time * 1000);
