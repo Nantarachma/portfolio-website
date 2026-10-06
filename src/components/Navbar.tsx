@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import type { PortfolioProfile } from '@/lib/portfolio/schema';
 
@@ -48,10 +49,13 @@ export default function Navbar({ profile }: { profile: PortfolioProfile }) {
 	return (
 		<header className='site-header'>
 			<div className='site-container site-header__inner site-header__inner--minimal'>
-				<a href='#top' className='site-brand' aria-label={`${profile.name} home`}>
+				{/* Always home (root), not #top: #top only exists on the home
+				    hero, so on /projects this link must navigate, not anchor.
+				    The footer's "Back to top" keeps #top. */}
+				<Link href='/' className='site-brand' aria-label={`${profile.name} home`}>
 					<span className='sm:hidden'>{profile.shortName}</span>
 					<span className='hidden sm:inline'>{profile.name}</span>
-				</a>
+				</Link>
 				<p className='font-mono text-[10px] font-semibold tabular-nums uppercase tracking-[0.14em] sm:text-xs'>
 					{time ? `${time} WIB` : '--:-- WIB'}
 				</p>
