@@ -32,7 +32,7 @@ export const projects: readonly Project[] = [
 		role: 'Lead Machine Learning Researcher',
 		context: 'Undergraduate thesis · Presented at SANTIKA 2026',
 		tech: ['Python', 'XGBoost', 'Optuna', 'SHAP', 'Scikit-Learn', 'NF-UNSW-NB15'],
-		featured: true,
+		featured: false,
 		caseStudy: {
 			overview:
 				'A research pipeline for network intrusion detection using the NF-UNSW-NB15 dataset, with explainability included alongside model optimization.',
@@ -210,6 +210,7 @@ export const projects: readonly Project[] = [
 		categories: ['mobile', 'machine-learning'],
 		tech: ['Kotlin', 'TensorFlow Lite', 'Android'],
 		githubUrl: 'https://github.com/Nantarachma/Asclepius-Submission-Dicoding',
+		featured: true,
 		caseStudy: {
 			overview:
 				'An Android and TensorFlow Lite learning project. This project is described as image classification and is not presented as a clinical diagnostic product.',
@@ -235,6 +236,7 @@ export const projects: readonly Project[] = [
 			'A UI/UX concept for a recipe application with an AI-powered feature for personal recipes.',
 		categories: ['ui-ux', 'mobile'],
 		tech: ['UI/UX', 'Mobile Design', 'AI'],
+		featured: true,
 		externalUrl: 'https://docs.google.com/document/d/1B8l3calG9jy7FHUavRZc3MO2McZ_cxsg/edit',
 		caseStudy: {
 			overview:

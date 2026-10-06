@@ -38,21 +38,21 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 		<section
 			id='about'
 			data-nav-section='about'
-			className='page-block block-overlap border-b border-slate-200 bg-white'
+			className='page-block block-overlap border-b border-rule bg-void'
 			aria-labelledby='background-heading'>
 			<div className='site-container page-section'>
-				<div className='border-b border-slate-200 pb-8'>
-					<h2 id='background-heading' className='section-title text-balance font-bold text-slate-950'>
+				<div className='border-b border-rule pb-4'>
+					<h2 id='background-heading' className='section-title text-balance text-ink'>
 						Background.
 					</h2>
-					<p className='mt-4 max-w-[65ch] leading-7 text-slate-600'>
+					<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim'>
 						{intro} Professional and cohort experience, education record, leadership work, and verified
 						credentials.
 					</p>
 				</div>
 
-				<div className='mt-8'>
-					<div role='tablist' aria-label='Background sections' className='flex flex-wrap gap-x-2 gap-y-1 border-b border-slate-200'>
+				<div className='mt-4'>
+					<div role='tablist' aria-label='Background sections' className='flex flex-wrap gap-x-2 gap-y-1 border-b border-rule'>
 						{tabs.map((tab, index) => (
 							<button
 								key={tab.key}
@@ -67,10 +67,10 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 								tabIndex={active === tab.key ? 0 : -1}
 								onClick={() => setActive(tab.key)}
 								onKeyDown={(event) => onKeyDown(event, index)}
-								className={`-mb-px inline-flex min-h-11 items-center border-b-2 px-3 text-sm font-bold transition-colors duration-200 ${
+								className={`-mb-px inline-flex min-h-11 items-center border-b-2 px-3 font-mono text-xs font-bold uppercase tracking-[0.1em] transition-colors duration-200 ${
 									active === tab.key
-										? 'border-blue-700 text-slate-950'
-										: 'border-transparent text-slate-500 hover:text-slate-950'
+										? 'border-signal text-ink'
+										: 'border-transparent text-dim hover:text-ink'
 								}`}>
 								{tab.label}
 							</button>
@@ -78,19 +78,19 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					</div>
 
 					{active === 'experience' ? (
-						<div role='tabpanel' id='panel-experience' aria-labelledby='tab-experience' tabIndex={0} className='pt-7'>
-							<div className='grid gap-5 lg:grid-cols-2'>
+						<div role='tabpanel' id='panel-experience' aria-labelledby='tab-experience' tabIndex={0} className='pt-3'>
+							<div className='grid gap-2 lg:grid-cols-2'>
 								{content.experience.map((item) => (
 									<article key={item.contentId} className='surface card-pad'>
-										<p className='text-sm font-semibold text-blue-700'>{item.period}</p>
-										<h3 className='mt-2 text-xl font-bold tracking-tight text-slate-950'>{item.role}</h3>
-										<p className='mt-1 font-medium text-slate-700'>{item.organization}</p>
-										{item.location ? <p className='mt-1 text-sm text-slate-500'>{item.location}</p> : null}
-										{item.context ? <p className='mt-4 leading-7 text-slate-600'>{item.context}</p> : null}
-										<ul className='mt-4 space-y-2.5 border-t border-slate-200 pt-4 text-sm leading-6 text-slate-600'>
+										<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{item.period}</p>
+										<h3 className='mt-1 text-lg font-bold tracking-tight text-ink'>{item.role}</h3>
+										<p className='mt-1 font-medium text-ink'>{item.organization}</p>
+										{item.location ? <p className='mt-1 text-sm text-dim'>{item.location}</p> : null}
+										{item.context ? <p className='mt-2.5 text-sm leading-5 text-dim'>{item.context}</p> : null}
+										<ul className='mt-2.5 space-y-1 border-t border-rule pt-2.5 text-sm leading-5 text-dim'>
 											{item.contributions.map((contribution) => (
 												<li key={contribution} className='flex gap-3'>
-													<span className='mt-2 h-1 w-1 shrink-0 rounded-full bg-blue-700' aria-hidden='true' />
+													<span className='mt-2 h-1.5 w-1.5 shrink-0 bg-signal' aria-hidden='true' />
 													<span>{contribution}</span>
 												</li>
 											))}
@@ -102,25 +102,25 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					) : null}
 
 					{active === 'education' ? (
-						<div role='tabpanel' id='panel-education' aria-labelledby='tab-education' tabIndex={0} className='pt-7'>
+						<div role='tabpanel' id='panel-education' aria-labelledby='tab-education' tabIndex={0} className='pt-3'>
 							<article className='surface card-pad max-w-3xl'>
-								<p className='text-sm font-semibold text-blue-700'>{content.education.period}</p>
-								<h3 className='mt-2 text-xl font-bold tracking-tight text-slate-950'>
+								<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{content.education.period}</p>
+								<h3 className='mt-1 text-lg font-bold tracking-tight text-ink'>
 									{content.education.degree}
 								</h3>
-								<p className='mt-1 font-medium text-slate-700'>{content.education.institution}</p>
-								<dl className='mt-5 grid gap-4 border-t border-slate-200 pt-4 text-sm sm:grid-cols-2'>
+								<p className='mt-1 font-medium text-ink'>{content.education.institution}</p>
+								<dl className='mt-4 grid gap-4 border-t border-rule pt-3 text-sm sm:grid-cols-2'>
 									<div>
-										<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500'>
+										<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-dim'>
 											GPA
 										</dt>
-										<dd className='mt-1 font-semibold text-slate-900'>{content.education.gpa}</dd>
+										<dd className='mt-1 font-semibold text-ink'>{content.education.gpa}</dd>
 									</div>
 									<div>
-										<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-500'>
+										<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-dim'>
 											Thesis
 										</dt>
-										<dd className='mt-1 leading-6 text-slate-700'>{content.education.thesis}</dd>
+										<dd className='mt-1 leading-6 text-dim'>{content.education.thesis}</dd>
 									</div>
 								</dl>
 							</article>
@@ -128,18 +128,18 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					) : null}
 
 					{active === 'leadership' ? (
-						<div role='tabpanel' id='panel-leadership' aria-labelledby='tab-leadership' tabIndex={0} className='pt-7'>
-							<div className='grid gap-5 lg:grid-cols-2'>
+						<div role='tabpanel' id='panel-leadership' aria-labelledby='tab-leadership' tabIndex={0} className='pt-3'>
+							<div className='grid gap-2 lg:grid-cols-2'>
 								{content.leadership.map((item) => (
 									<article key={item.contentId} className='surface card-pad'>
-										<p className='text-sm font-semibold text-blue-700'>{item.period}</p>
-										<h3 className='mt-2 text-xl font-bold tracking-tight text-slate-950'>{item.role}</h3>
-										<p className='mt-1 font-medium text-slate-700'>{item.organization}</p>
-										<ul className='mt-4 flex flex-wrap gap-2'>
+										<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{item.period}</p>
+										<h3 className='mt-1 text-lg font-bold tracking-tight text-ink'>{item.role}</h3>
+										<p className='mt-1 font-medium text-ink'>{item.organization}</p>
+										<ul className='mt-3 flex flex-wrap gap-1.5'>
 											{item.focus.map((focus) => (
 												<li
 													key={focus}
-													className='border border-slate-200 bg-[#fbfbf7] px-2.5 py-1 text-[11px] font-semibold text-slate-700'>
+													className='border border-rule bg-plate px-2.5 py-1 font-mono text-[11px] font-semibold text-dim'>
 													{focus}
 												</li>
 											))}
@@ -148,18 +148,18 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 								))}
 							</div>
 							{content.additionalOrganizationalExperience.length > 0 ? (
-								<div className='mt-8 border-t border-slate-200 pt-7'>
-									<h3 className='text-lg font-bold text-slate-950'>Additional organizational experience</h3>
-									<div className='mt-4 grid gap-5 lg:grid-cols-2'>
+								<div className='mt-5 border-t border-rule pt-4'>
+									<h3 className='text-lg font-bold text-ink'>Additional organizational experience</h3>
+									<div className='mt-3 grid gap-2 lg:grid-cols-2'>
 										{content.additionalOrganizationalExperience.map((item) => (
-											<article key={item.contentId} className='card-pad border border-slate-200 bg-[#fbfbf7]'>
-												<p className='text-sm font-semibold text-blue-700'>{item.period}</p>
-												<h4 className='mt-2 font-bold text-slate-950'>{item.title}</h4>
-												<p className='mt-1 text-sm text-slate-600'>{item.organization}</p>
-												<ul className='mt-3 space-y-2 text-sm leading-6 text-slate-600'>
+											<article key={item.contentId} className='card-pad border border-rule bg-plate'>
+												<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{item.period}</p>
+												<h4 className='mt-2 font-bold text-ink'>{item.title}</h4>
+												<p className='mt-1 text-sm text-dim'>{item.organization}</p>
+												<ul className='mt-3 space-y-2 text-sm leading-6 text-dim'>
 													{item.responsibilities.map((responsibility) => (
 														<li key={responsibility} className='flex gap-3'>
-															<span className='mt-2 h-1 w-1 shrink-0 rounded-full bg-blue-700' aria-hidden='true' />
+															<span className='mt-2 h-1.5 w-1.5 shrink-0 bg-signal' aria-hidden='true' />
 															<span>{responsibility}</span>
 														</li>
 													))}
@@ -173,30 +173,30 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					) : null}
 
 					{active === 'certifications' ? (
-						<div role='tabpanel' id='panel-certifications' aria-labelledby='tab-certifications' tabIndex={0} className='pt-7'>
-							<ul className='grid gap-px border border-slate-200 bg-slate-200 md:grid-cols-2'>
+						<div role='tabpanel' id='panel-certifications' aria-labelledby='tab-certifications' tabIndex={0} className='pt-3'>
+							<ul className='grid gap-px border border-rule bg-rule md:grid-cols-2'>
 								{content.certifications.map((certification) => (
-									<li key={certification.contentId} className='bg-white'>
+									<li key={certification.contentId} className='bg-void'>
 										{certification.url ? (
 											<a
 												href={certification.url}
 												target='_blank'
 												rel='noreferrer'
-												className='flex min-h-11 flex-col justify-center gap-0.5 px-4 py-3 transition-colors duration-200 hover:bg-blue-50'>
-												<span className='text-sm font-semibold leading-5 text-slate-950'>
+												className='flex min-h-11 flex-col justify-center gap-0.5 px-4 py-2.5 transition-colors duration-200 hover:bg-plate'>
+												<span className='text-sm font-semibold leading-5 text-ink'>
 													{certification.title}
 												</span>
-												<span className='text-xs text-slate-500'>
+												<span className='text-xs text-dim'>
 													{certification.issuer}
 													{certification.issueDate ? ` · ${certification.issueDate}` : ''}
 												</span>
 											</a>
 										) : (
-											<div className='flex min-h-11 flex-col justify-center gap-0.5 px-4 py-3'>
-												<span className='text-sm font-semibold leading-5 text-slate-950'>
+											<div className='flex min-h-11 flex-col justify-center gap-0.5 px-4 py-2.5'>
+												<span className='text-sm font-semibold leading-5 text-ink'>
 													{certification.title}
 												</span>
-												<span className='text-xs text-slate-500'>
+												<span className='text-xs text-dim'>
 													{certification.issuer}
 													{certification.issueDate ? ` · ${certification.issueDate}` : ''}
 												</span>

@@ -52,7 +52,7 @@ describe('portfolio content schema and seed', () => {
 
 describe('portfolio selectors', () => {
 	it('selects projects, labels, and related records from one document', () => {
-		expect(getFeaturedProjects(seedPortfolio)).toHaveLength(3);
+		expect(getFeaturedProjects(seedPortfolio)).toHaveLength(4);
 		expect(getProjectBySlug(seedPortfolio, 'shara')?.title).toBe('SHARA');
 		expect(getCategoryLabels(seedPortfolio).mobile).toBe('Mobile');
 		expect(getRelatedProjects(seedPortfolio, 'shara', 2)).toHaveLength(2);

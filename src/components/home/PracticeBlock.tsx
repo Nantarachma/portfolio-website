@@ -23,38 +23,38 @@ const practiceAreas = [
 ] as const;
 
 const toneClasses = {
-	dark: 'bg-[#14161a] text-[#eef1f6]',
-	tint: 'bg-[#f2f5fa]',
-	cream: 'bg-[#fbfbf7]',
+	dark: 'bg-[#0d0f13] text-ink',
+	tint: 'bg-[#171c26] text-ink',
+	cream: 'bg-blueprint text-white',
 } as const;
 
 const bodyTone = {
-	dark: 'text-slate-300',
-	tint: 'text-slate-600',
-	cream: 'text-slate-600',
+	dark: 'text-dim',
+	tint: 'text-dim',
+	cream: 'text-blue-100',
 } as const;
 
 /** Three practice areas as an asymmetric trio: dark, tinted, and cream cells. */
 export default function PracticeBlock() {
 	return (
-		<section className='page-block border-b border-slate-200 bg-white' aria-labelledby='practice-heading'>
+		<section data-sc-act='flow' className='page-block border-b border-rule bg-plate' aria-labelledby='practice-heading'>
 			<div className='site-container page-section'>
 				<div className='max-w-3xl' data-sc-in>
-					<h2 id='practice-heading' className='section-title font-bold text-slate-950'>
+					<h2 id='practice-heading' className='section-title text-ink'>
 						What I build.
 					</h2>
-					<p className='mt-4 max-w-[65ch] leading-7 text-slate-600'>
+					<p className='mt-2.5 max-w-[65ch] text-sm leading-6 text-dim'>
 						Three practice areas, backed by shipped projects and published research from this portfolio.
 					</p>
 				</div>
-				<div className='mt-9 grid gap-5 lg:grid-cols-5' data-sc-in data-sc-stagger='70'>
+				<div className='mt-3 grid gap-2 lg:grid-cols-5' data-sc-in data-sc-stagger='70' data-sc-reveal='up' data-sc-reveal-at='0.15 0.6'>
 					{practiceAreas.map((area) => (
 						<article
 							key={area.title}
-							className={`card-pad flex flex-col justify-between gap-4 border border-slate-200 ${area.tone === 'cream' ? '' : 'min-h-56'} ${toneClasses[area.tone]} ${area.className}`}>
+							className={`card-pad flex flex-col justify-between gap-4 border border-rule ${area.tone === 'cream' ? '' : 'min-h-36'} ${toneClasses[area.tone]} ${area.className}`}>
 							<div>
-								<h3 className='text-xl font-bold tracking-[-0.035em] sm:text-2xl'>{area.title}</h3>
-								<p className={`mt-3 max-w-2xl leading-7 ${bodyTone[area.tone]}`}>{area.description}</p>
+								<h3 className='text-lg font-bold tracking-[-0.03em] sm:text-xl'>{area.title}</h3>
+								<p className={`mt-2.5 max-w-2xl text-sm leading-6 ${bodyTone[area.tone]}`}>{area.description}</p>
 							</div>
 						</article>
 					))}

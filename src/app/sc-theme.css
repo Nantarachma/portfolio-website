@@ -33,11 +33,31 @@ html.sc-timeout [data-sc-cue] {
 	transition: none !important;
 }
 
-/* Pointer light over the toolkit: data-sc-spotlight publishes --sc-mx/my. */
+/* M2: on small phones the pinned hero must end at the fold — the sticky
+   header (69px) otherwise pushes the second CTA 21px below the first paint. */
+@media (max-width: 767px) {
+	.hero-stage {
+		height: calc(100svh - var(--site-header-height));
+	}
+}
+
+/* Pinned contact on phones: content is taller than one screen, so the stage
+   releases the fixed 100svh clip and grows with it (pin travel just shrinks). */
+@media (max-width: 860px) {
+	.contact-stage {
+		height: auto;
+		min-height: 100svh;
+		overflow: visible;
+	}
+}
+
+/* Pointer light (toolkit + pinned contact): data-sc-spotlight publishes the vars. */
+.spotlight-surface,
 .toolkit-surface {
 	position: relative;
 }
 
+.spotlight-surface::after,
 .toolkit-surface::after {
 	content: '';
 	position: absolute;
@@ -52,10 +72,10 @@ html.sc-timeout [data-sc-cue] {
 }
 
 :root {
-	--sc-canvas: #f7f6f1;
-	--sc-surface: #fffefb;
-	--sc-ink: #14161a;
-	--sc-ink-soft: #5b6270;
+	--sc-canvas: #0d0f13;
+	--sc-surface: #12151c;
+	--sc-ink: #e9edf4;
+	--sc-ink-soft: #97a1b2;
 	--sc-accent: #1e46c8;
 	--sc-accent-ink: #ffffff;
 	--sc-font-display: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;

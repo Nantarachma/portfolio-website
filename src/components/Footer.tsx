@@ -7,9 +7,8 @@ import type { PortfolioProfile } from '@/lib/portfolio/schema';
 export default function Footer({ profile }: { profile: PortfolioProfile }) {
 
 	const currentYear = new Date().getFullYear();
-	const profileLinks = [profile.links.github, profile.links.linkedin, profile.links.email] as const;
 
-	
+
 
 	return (
 		<footer className='site-footer'>
@@ -22,17 +21,10 @@ export default function Footer({ profile }: { profile: PortfolioProfile }) {
 						<p className='site-footer__role'>{profile.role}</p>
 					</div>
 
-					<nav className='site-footer__links' aria-label='Profile links'>
-						{profileLinks.map((link) => (
-							<a
-								key={link.label}
-								href={link.href}
-								target={link.href.startsWith('mailto:') ? undefined : '_blank'}
-								rel={link.href.startsWith('mailto:') ? undefined : 'noreferrer'}
-								className='site-footer__link'>
-								{link.label}
-							</a>
-						))}
+					<nav className='site-footer__links' aria-label='Footer'>
+						<a href='#top' className='site-footer__link'>
+							Back to top
+						</a>
 					</nav>
 				</div>
 

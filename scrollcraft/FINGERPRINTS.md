@@ -29,6 +29,7 @@ changes only grammar and world will fail it.
 | Build | Grammar | Nav treatment | Hero device | Act-sequence shape | Close pattern | Signature move | World | Port |
 |---|---|---|---|---|---|---|---|---|
 | editorial-portfolio | Chaptered editorial | Sticky top bar + mobile sheet, anchor scroll-spy | Title page: pure type on dark plate, entrance via data-sc-in (no media above fold) | 3 tagged acts flow > flow > pan(5vh) plus flow plates; ~12vh total; marquee intertitle plate before the peak | Colophon plate: dark masthead, contact links, set-in note, portrait | Career-trail rail in the margin drawing from --sc-trail-p; milestone nodes + labels light as the line passes | Premium-minimal editorial: cream/white + blue-slate (portfolio identity) | 3000 |
+| dark-network-portfolio | Filmic one-shot | Fixed minimal bar: wordmark + live WIB clock, no menu / no CTA / no scroll-spy | Pinned span-4 title page with a Three.js wireframe globe + topic nodes driven from --sc-p (assemble -> break apart -> reassemble, caption greets the reassembly) | pin(4) > flow stats > marquee plate > pan(3.5) > flow x4 > pin(1.5); ~12vh total; engineered silence inside the peak act | Pinned contact scene: centred CTA set, magnetic email button, pointer spotlight; footer = brand + Back to top only | Orbiting ML node map: bespoke Three.js globe that explodes into nodes and reassembles around the profile | Dark-brutalist editorial: near-black void + off-white + one electric blue #1e46c8 (portfolio identity) | 3007 |
 
 *(empty: your first build has nothing to clear, so build whatever the interview
 points at. From the second onwards, this table is the constraint.)*
@@ -43,6 +44,7 @@ act-count-and-length band. The shared columns are what the next build inherits
 as a constraint, so writing them down is the whole point.
 
 - **Chaptered editorial on a cream/blue editorial world, sticky top bar, colophon close, ~12vh act band with a single ~5vh pan peak** (editorial-portfolio). The next build inherits these as constraints: change at least the grammar, the nav treatment, or the close before reusing this shape.
+- **Filmic one-shot on a dark-brutalist world, menu-less minimal nav (wordmark + clock), pinned contact close, Three.js globe signature, ~12vh band with a pin(4) opening peak** (dark-network-portfolio). Shared with the row above: the dark slate accent family, the marquee plate, the pan act. The next build inherits: pick a different grammar, nav treatment, and close, and no second wireframe-globe signature.
 
 ---
 

@@ -27,17 +27,17 @@ function StatValue({ value }: { value: string }) {
 export default function StatsStrip({ highlights }: { highlights: readonly Stat[] }) {
 	return (
 		<section
-			className='page-block block-overlap border-b border-slate-200 bg-white'
+			className='page-block block-overlap border-b border-rule bg-void'
 			aria-label='Profile in numbers'
 			data-sc-act='flow'>
 			<div className='site-container py-[var(--space-section-compact)]'>
 				<div className='highlight-grid' data-sc-in data-sc-stagger='70'>
 					{highlights.map((item) => (
 						<div key={item.contentId} className='highlight-item'>
-							<p className='text-xl font-bold tracking-[-0.03em] text-slate-950 sm:text-2xl'>
+							<p className='font-mono text-xl font-bold tracking-[-0.03em] text-ink sm:text-2xl'>
 								<StatValue value={item.value} />
 							</p>
-							<p className='mt-1.5 text-sm leading-5 text-slate-600'>{item.label}</p>
+							<p className='mt-1 font-mono text-xs uppercase leading-4 tracking-[0.1em] text-dim'>{item.label}</p>
 						</div>
 					))}
 				</div>

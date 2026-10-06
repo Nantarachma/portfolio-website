@@ -25,63 +25,65 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 			id='work'
 			data-nav-section='work'
 			data-sc-act='pan'
-			data-sc-span='5'
-			className='page-block block-overlap border-b border-slate-200 bg-[#fbfbf7]'>
+			data-sc-span='3.5'
+			className='page-block block-overlap border-b border-rule bg-void'>
 			<div className='sc-stage' data-sc-stage>
-				<div className='site-container flex h-full flex-col justify-center py-12'>
-					<header className='border-b border-slate-200 pb-8'>
+				<div className='site-container flex h-full flex-col justify-center py-8'>
+					<header className='border-b border-rule pb-5'>
 						<p className='eyebrow'>Selected work</p>
-						<h2 className='section-title mt-4 max-w-3xl text-balance font-bold text-slate-950'>
+						<h2 className='section-title mt-3 max-w-3xl text-balance text-ink'>
 							Case studies shaped by method, implementation, and evidence.
 						</h2>
-						<p className='mt-4 max-w-[65ch] leading-7 text-slate-600'>
+						<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim'>
 							Machine learning research, product delivery, and an ML-integrated Android capstone.
 						</p>
 						<Link
 							href='/projects'
-							className='group mt-4 inline-flex items-center text-sm font-bold text-slate-950 transition-colors duration-200 hover:text-blue-700'>
+							className='group mt-3 inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
 							View all projects <Arrow />
 						</Link>
 					</header>
 
-					<div className='rack mt-8' data-sc-pan='0.04'>
+					<div className='rack mt-5' data-sc-pan='0.04'>
 						{projects.map((project) => (
 							<article
 								key={project.slug}
 								data-sc-tilt='6'
-								className='case-card surface flex flex-col bg-white p-5'>
+								className='case-card surface flex flex-col bg-plate p-4'>
 								<div className='flex flex-wrap gap-x-3 gap-y-1'>
 									{project.categories.slice(0, 3).map((category) => (
 										<span
 											key={category}
-											className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-blue-700'>
+											className='font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-signal'>
 											{categoryLabels[category]}
 										</span>
 									))}
 								</div>
-								<h3 className='safe-wrap mt-3 text-xl font-bold tracking-[-0.035em] text-slate-950'>
+								<h3 className='safe-wrap mt-2.5 text-lg font-bold tracking-[-0.03em] text-ink'>
 									{project.shortTitle ?? project.title}
 								</h3>
 								{project.subtitle ? (
-									<p className='mt-1.5 text-sm font-semibold text-blue-700'>{project.subtitle}</p>
+									<p className='mt-1 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>
+										{project.subtitle}
+									</p>
 								) : null}
-								<div className='mt-4'>
-									<ProjectVisual project={project} className='min-h-28 sm:min-h-32' />
+								<div className='mt-3'>
+									<ProjectVisual project={project} className='min-h-24 sm:min-h-28' />
 								</div>
-								<p className='mt-4 line-clamp-3 leading-6 text-slate-600'>{project.summary}</p>
-								<ul className='mt-4 flex flex-wrap gap-1.5' aria-label='Technologies used'>
+								<p className='mt-3 line-clamp-3 text-sm leading-6 text-dim'>{project.summary}</p>
+								<ul className='mt-3 flex flex-wrap gap-1.5' aria-label='Technologies used'>
 									{project.tech.slice(0, 4).map((item) => (
 										<li
 											key={item}
-											className='border border-slate-200 bg-[#fbfbf7] px-2 py-0.5 text-[10px] font-semibold text-slate-700'>
+											className='border border-rule bg-void px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.06em] text-dim'>
 											{item}
 										</li>
 									))}
 								</ul>
-								<div className='mt-auto pt-5'>
+								<div className='mt-auto pt-4'>
 									<Link
 										href={`/projects/${project.slug}`}
-										className='group inline-flex items-center text-sm font-bold text-slate-950 transition-colors duration-200 hover:text-blue-700'>
+										className='group inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
 										View case study <Arrow />
 									</Link>
 								</div>
