@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 /**
  * Bespoke page behaviour layered on the scrollcraft runtime: the header
@@ -9,6 +10,12 @@ import { useEffect } from 'react';
  * React state per frame. (The scroll-spy died with the minimal filmic nav.)
  */
 export default function ScrollEffects() {
+	// Rebuild on route change: App Router swaps `main`'s children without
+	// remounting this layout component, so a mount-once observer would keep
+	// watching detached blocks and the header theme went stale after
+	// client-side navigation.
+	const pathname = usePathname();
+
 	useEffect(() => {
 		const header = document.querySelector<HTMLElement>('.site-header');
 		const blocks = Array.from(document.querySelectorAll<HTMLElement>('main > *'));
@@ -66,7 +73,7 @@ export default function ScrollEffects() {
 			window.clearTimeout(headerTimer);
 			window.removeEventListener('resize', onResize);
 		};
-	}, []);
+	}, [pathname]);
 
 	return null;
 }
