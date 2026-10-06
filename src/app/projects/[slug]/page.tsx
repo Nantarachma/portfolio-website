@@ -27,12 +27,12 @@ function ProjectWorkflow({ steps, label }: { steps?: readonly string[]; label?: 
 	if (!steps?.length) return null;
 
 	return (
-		<div className='card-pad rounded-xl border border-slate-800 bg-slate-950'>
-			<p className='text-xs font-semibold uppercase tracking-[0.14em] text-blue-300'>{label ?? 'Workflow'}</p>
+		<div className='surface card-pad'>
+			<p className='font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-signal'>{label ?? 'Workflow'}</p>
 			<ol className='mt-6 grid gap-3 sm:grid-cols-2'>
 				{steps.map((step, index) => (
-					<li key={step} className='flex items-center gap-3 rounded-lg border border-slate-800 bg-slate-900/80 px-3 py-3 text-sm text-slate-200'>
-						<span className='flex size-6 shrink-0 items-center justify-center rounded-full bg-blue-500/15 text-xs font-bold text-blue-200'>
+					<li key={step} className='flex items-center gap-3 border border-rule bg-plate px-3 py-3 text-sm text-ink'>
+						<span className='flex size-6 shrink-0 items-center justify-center bg-signal text-xs font-bold text-void'>
 							{index + 1}
 						</span>
 						{step}
@@ -48,11 +48,11 @@ function DetailList({ title, items }: { title: string; items?: readonly string[]
 
 	return (
 		<section className='mt-10'>
-			<h2 className='text-2xl font-bold tracking-tight text-slate-950'>{title}</h2>
-			<ul className='mt-5 space-y-3 text-slate-600'>
+			<h2 className='text-2xl font-bold tracking-tight text-ink'>{title}</h2>
+			<ul className='mt-5 space-y-3 text-dim'>
 				{items.map((item) => (
 					<li key={item} className='flex gap-3 leading-7'>
-						<span className='mt-2 size-1.5 shrink-0 rounded-full bg-blue-600' aria-hidden='true' />
+						<span className='mt-2 size-1.5 shrink-0 bg-signal' aria-hidden='true' />
 						<span>{item}</span>
 					</li>
 				))}
@@ -77,26 +77,26 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
 	return (
 		<div className='site-container page-section'>
-			<Link href='/projects' className='inline-flex text-sm font-semibold text-blue-700 hover:text-blue-800'>
+			<Link href='/projects' className='touch-target inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
 				<span aria-hidden='true' className='mr-1.5'>&lt;-</span> All projects
 			</Link>
 
 			<header className='mt-8 max-w-4xl'>
 				<div className='flex flex-wrap gap-2'>
 					{project.categories.map((category) => (
-						<span key={category} className='rounded-md bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-800'>
+						<span key={category} className='border border-rule bg-plate px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-signal'>
 							{projectCategoryLabels[category]}
 						</span>
 					))}
 				</div>
-				<h1 className='page-title safe-wrap mt-5 text-balance font-bold text-slate-950'>
+				<h1 className='page-title safe-wrap mt-5 text-balance text-ink'>
 					{project.title}
 				</h1>
-				{project.subtitle && <p className='mt-4 text-xl font-medium text-slate-600'>{project.subtitle}</p>}
-				<p className='lead-text mt-6 text-slate-600'>{project.summary}</p>
+				{project.subtitle && <p className='mt-4 text-xl font-medium text-dim'>{project.subtitle}</p>}
+				<p className='lead-text mt-6 text-dim'>{project.summary}</p>
 			</header>
 
-			<section className='mt-10 grid gap-px overflow-hidden rounded-xl border border-slate-200 bg-slate-200 sm:grid-cols-2 lg:grid-cols-4' aria-label='Project details'>
+			<section className='mt-10 grid gap-px overflow-hidden border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4' aria-label='Project details'>
 				{[
 					{ label: 'Role', value: project.role },
 					{ label: 'Context', value: project.context },
@@ -105,18 +105,18 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 				]
 					.filter((detail): detail is { label: string; value: string } => Boolean(detail.value))
 					.map((detail) => (
-						<div key={detail.label} className='bg-white px-5 py-5'>
-							<p className='text-xs font-semibold uppercase tracking-[0.1em] text-slate-500'>{detail.label}</p>
-							<p className='mt-2 text-sm font-semibold leading-6 text-slate-900'>{detail.value}</p>
+						<div key={detail.label} className='bg-void px-5 py-5'>
+							<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-dim'>{detail.label}</p>
+							<p className='mt-2 text-sm font-semibold leading-6 text-ink'>{detail.value}</p>
 						</div>
 					))}
 			</section>
 
-			<section className='card-pad mt-8 rounded-xl border border-slate-200 bg-white'>
-				<h2 className='text-lg font-bold text-slate-950'>Tech stack</h2>
+			<section className='surface card-pad mt-8'>
+				<h2 className='text-lg font-bold text-ink'>Tech stack</h2>
 				<div className='mt-4 flex flex-wrap gap-2'>
 					{project.tech.map((technology) => (
-						<span key={technology} className='rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-700'>
+						<span key={technology} className='border border-rule bg-plate px-3 py-1.5 font-mono text-xs font-semibold text-dim'>
 							{technology}
 						</span>
 					))}
@@ -127,14 +127,14 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 				<div>
 					{caseStudy?.overview && (
 						<section>
-							<h2 className='text-2xl font-bold tracking-tight text-slate-950'>Overview</h2>
-							<p className='mt-5 max-w-3xl leading-8 text-slate-600'>{caseStudy.overview}</p>
+							<h2 className='text-2xl font-bold tracking-tight text-ink'>Overview</h2>
+							<p className='mt-5 max-w-3xl leading-8 text-dim'>{caseStudy.overview}</p>
 						</section>
 					)}
 					{caseStudy?.objective && (
 						<section className='mt-10'>
-							<h2 className='text-2xl font-bold tracking-tight text-slate-950'>Problem / objective</h2>
-							<p className='mt-5 max-w-3xl leading-8 text-slate-600'>{caseStudy.objective}</p>
+							<h2 className='text-2xl font-bold tracking-tight text-ink'>Problem / objective</h2>
+							<p className='mt-5 max-w-3xl leading-8 text-dim'>{caseStudy.objective}</p>
 						</section>
 					)}
 					<DetailList title='Contribution' items={caseStudy?.contribution} />
@@ -144,17 +144,17 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 				<aside>
 					<ProjectWorkflow steps={caseStudy?.workflow ?? project.visual?.steps} label={project.visual?.label} />
 					{caseStudy?.evidence?.length ? (
-						<section className='mt-6 rounded-xl border border-slate-200 bg-white p-5'>
-							<h2 className='text-base font-bold text-slate-950'>Evidence &amp; links</h2>
+						<section className='surface mt-6 p-5'>
+							<h2 className='text-base font-bold text-ink'>Evidence &amp; links</h2>
 							<ul className='mt-4 space-y-3'>
 								{caseStudy.evidence.map((evidence) => (
 									<li key={evidence.label}>
 										{evidence.href ? (
-											<a href={evidence.href} target='_blank' rel='noreferrer' className='text-sm font-semibold text-blue-700 hover:text-blue-800'>
+											<a href={evidence.href} target='_blank' rel='noreferrer' className='font-mono text-xs font-bold uppercase tracking-[0.1em] text-ink transition-colors duration-200 hover:text-signal'>
 												{evidence.label} <span aria-hidden='true'>-&gt;</span>
 											</a>
 										) : (
-											<p className='text-sm font-semibold text-slate-700'>{evidence.label}</p>
+											<p className='text-sm font-semibold text-dim'>{evidence.label}</p>
 										)}
 									</li>
 								))}
@@ -165,14 +165,14 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 			</div>
 
 			{relatedProjects.length > 0 && (
-				<section className='mt-[var(--space-section-compact)] border-t border-slate-200 pt-10' aria-labelledby='related-projects-heading'>
-					<h2 id='related-projects-heading' className='text-2xl font-bold tracking-tight text-slate-950'>Related projects</h2>
+				<section className='mt-[var(--space-section-compact)] border-t border-rule pt-10' aria-labelledby='related-projects-heading'>
+					<h2 id='related-projects-heading' className='text-2xl font-bold tracking-tight text-ink'>Related projects</h2>
 					<div className='card-grid mt-6 grid md:grid-cols-2 lg:grid-cols-3'>
 						{relatedProjects.map((related) => (
-							<Link key={related.slug} href={`/projects/${related.slug}`} className='surface card-pad min-w-0 rounded-xl transition-[border-color,box-shadow] hover:border-blue-300 hover:shadow-sm'>
-								<p className='text-xs font-semibold uppercase tracking-[0.09em] text-blue-700'>{related.categories.map((category) => projectCategoryLabels[category]).slice(0, 2).join(' / ')}</p>
-								<h3 className='mt-3 font-bold text-slate-950'>{related.shortTitle ?? related.title}</h3>
-								<p className='mt-3 line-clamp-3 text-sm leading-6 text-slate-600'>{related.summary}</p>
+							<Link key={related.slug} href={`/projects/${related.slug}`} className='surface card-pad min-w-0'>
+								<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-signal'>{related.categories.map((category) => projectCategoryLabels[category]).slice(0, 2).join(' / ')}</p>
+								<h3 className='mt-3 safe-wrap font-bold text-ink'>{related.shortTitle ?? related.title}</h3>
+								<p className='mt-3 line-clamp-3 text-sm leading-6 text-dim'>{related.summary}</p>
 							</Link>
 						))}
 					</div>

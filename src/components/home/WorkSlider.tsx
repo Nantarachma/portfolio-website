@@ -28,13 +28,18 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 			data-sc-span='3.5'
 			className='page-block block-overlap border-b border-rule bg-void'>
 			<div className='sc-stage' data-sc-stage>
-				<div className='site-container flex h-full flex-col justify-center py-8'>
+				<div className='site-container flex h-full flex-col justify-center py-8 [@media(max-height:760px)]:justify-start [@media(max-height:760px)]:pt-16 [@media(max-height:760px)]:pb-4'>
 					<header className='border-b border-rule pb-5'>
 						<p className='eyebrow'>Selected work</p>
-						<h2 className='section-title mt-3 max-w-3xl text-balance text-ink'>
+						{/* Kinetic headline: lines assemble on the way in and clear
+						    out near the end of the pan — scroll-driven both ways. */}
+						<h2
+							className='section-title mt-3 max-w-3xl text-balance text-ink'
+							data-sc-cue='0.04 0.9 0.3 0.18'
+							data-sc-kinetic='lines'>
 							Case studies shaped by method, implementation, and evidence.
 						</h2>
-						<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim'>
+						<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim [@media(max-height:760px)]:hidden'>
 							Machine learning research, product delivery, and an ML-integrated Android capstone.
 						</p>
 						<Link
@@ -67,11 +72,13 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 										{project.subtitle}
 									</p>
 								) : null}
-								<div className='mt-3'>
+								<div className='mt-3 [@media(max-height:760px)]:hidden'>
 									<ProjectVisual project={project} className='min-h-24 sm:min-h-28' />
 								</div>
-								<p className='mt-3 line-clamp-3 text-sm leading-6 text-dim'>{project.summary}</p>
-								<ul className='mt-3 flex flex-wrap gap-1.5' aria-label='Technologies used'>
+								<p className='mt-3 line-clamp-3 text-sm leading-6 text-dim [@media(max-height:760px)]:line-clamp-2'>{project.summary}</p>
+								<ul
+									className='mt-3 flex flex-wrap gap-1.5 [@media(max-height:760px)]:hidden'
+									aria-label='Technologies used'>
 									{project.tech.slice(0, 4).map((item) => (
 										<li
 											key={item}

@@ -238,6 +238,9 @@
 		display: grid;
 		min-height: 100svh;
 		align-content: center;
+		/* The bar overlays the pinned stage: keep the whole scene (and the
+		   portrait's parallax travel) below its lower edge at every p. */
+		padding-top: var(--site-header-height);
 	}
 
 	.hero-assembles::before {

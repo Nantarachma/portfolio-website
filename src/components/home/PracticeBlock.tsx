@@ -39,7 +39,7 @@ export default function PracticeBlock() {
 	return (
 		<section data-sc-act='flow' className='page-block border-b border-rule bg-plate' aria-labelledby='practice-heading'>
 			<div className='site-container page-section'>
-				<div className='max-w-3xl' data-sc-in>
+				<div className='max-w-3xl' data-sc-cue='0.05 0.96 0.25 0.2'>
 					<h2 id='practice-heading' className='section-title text-ink'>
 						What I build.
 					</h2>

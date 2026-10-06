@@ -14,7 +14,7 @@ export default function ToolkitBlock({ techGroups }: { techGroups: readonly Tech
 				<div className='border-b border-rule pb-4' data-sc-in>
 					<h2
 						className='section-title max-w-3xl text-balance text-ink'
-						data-sc-cue='0.05 0.75'
+						data-sc-cue='0.05 0.88 0.3 0.2'
 						data-sc-kinetic='lines'>
 						Grouped by practice area.
 					</h2>

@@ -75,7 +75,7 @@ export default function ResearchBlock({ projects, thesis, categoryLabels }: Rese
 			data-sc-act='flow'
 			className='page-block block-overlap border-b border-rule bg-plate'>
 			<div className='site-container page-section'>
-				<div className='border-b border-rule pb-4' data-sc-in>
+				<div className='border-b border-rule pb-4' data-sc-cue='0.05 0.96 0.25 0.2'>
 					<h2 className='section-title max-w-3xl text-ink'>Additional applied research.</h2>
 					<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim'>
 						Machine learning and computer vision work focused on transparent technical approaches rather than

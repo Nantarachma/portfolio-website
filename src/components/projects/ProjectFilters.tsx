@@ -43,18 +43,18 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 
 	return (
 		<div className='relative'>
-			<div className='project-filter-bar sticky z-20 -mx-1 border-y border-slate-300 bg-slate-50/95 px-1 py-3.5 backdrop-blur sm:-mx-2 sm:px-2'>
+			<div className='project-filter-bar sticky z-20 -mx-1 border-y border-rule bg-void/95 px-1 py-3.5 backdrop-blur sm:-mx-2 sm:px-2'>
 				<div className='flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between'>
 					<div className='flex items-center justify-between gap-4 lg:block'>
-						<p id='project-filter-label' className='font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-slate-500'>
+						<p id='project-filter-label' className='font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-dim'>
 							Filter / discipline
 						</p>
-						<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-blue-700 lg:hidden'>
+						<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-signal lg:hidden'>
 							{String(filteredProjects.length).padStart(2, '0')} records
 						</p>
 					</div>
-					<div className='project-filter-scroll -mx-1 overflow-x-auto px-1 pb-1 [scrollbar-width:thin]'>
-						<div className='flex w-max gap-2' role='group' aria-labelledby='project-filter-label'>
+					<div className='project-filter-scroll -mx-1 overflow-x-auto px-1 pb-1 [scrollbar-width:thin] lg:overflow-visible'>
+						<div className='flex w-max gap-2 lg:w-full lg:flex-wrap' role='group' aria-labelledby='project-filter-label'>
 							{filterOptions.map((option) => {
 								const isSelected = selectedFilter === option.value;
 
@@ -65,14 +65,14 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 										onClick={() => setSelectedFilter(option.value)}
 										aria-pressed={isSelected}
 										aria-controls='project-results'
-										className={`touch-target inline-flex items-center gap-2 border px-3 py-2 text-sm font-semibold whitespace-nowrap transition-[background-color,border-color,color,box-shadow] duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 ${
+										className={`touch-target inline-flex items-center gap-2 border px-3 py-2 font-mono text-xs font-bold uppercase tracking-[0.1em] whitespace-nowrap transition-[background-color,border-color,color] duration-200 ${
 											isSelected
-												? 'border-blue-700 bg-blue-700 text-white shadow-sm'
-												: 'border-slate-300 bg-white text-slate-700 hover:border-blue-400 hover:text-blue-800'
+												? 'border-signal bg-plate text-ink'
+												: 'border-rule text-dim hover:border-signal hover:text-ink'
 										}`}>
-										<span className={`size-1.5 rounded-full ${isSelected ? 'bg-white' : 'bg-slate-300'}`} aria-hidden='true' />
+										<span className={`size-1.5 ${isSelected ? 'bg-signal' : 'bg-rule-strong'}`} aria-hidden='true' />
 										{option.label}
-										<span className={`font-mono text-[10px] ${isSelected ? 'text-blue-100' : 'text-slate-500'}`}>
+										<span className={`font-mono text-[10px] ${isSelected ? 'text-signal' : 'text-dim'}`}>
 											{String(option.count).padStart(2, '0')}
 										</span>
 									</button>
@@ -80,17 +80,17 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 							})}
 						</div>
 					</div>
-					<p className='hidden font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-blue-700 lg:block'>
+					<p className='hidden font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-signal lg:block'>
 						{String(filteredProjects.length).padStart(2, '0')} records
 					</p>
 				</div>
 			</div>
 
-			<p className='mt-5 text-sm text-slate-600' aria-live='polite'>
-				Showing <span className='font-semibold text-slate-900'>{filteredProjects.length}</span> {filteredProjects.length === 1 ? 'project' : 'projects'} in <span className='font-semibold text-slate-900'>{selectedLabel}</span>
+			<p className='mt-5 text-sm text-dim' aria-live='polite'>
+				Showing <span className='font-semibold text-ink'>{filteredProjects.length}</span> {filteredProjects.length === 1 ? 'project' : 'projects'} in <span className='font-semibold text-ink'>{selectedLabel}</span>
 			</p>
 
-			<div id='project-results' className='card-grid mt-7 grid md:grid-cols-2'>
+			<div id='project-results' className='card-grid mt-7 grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3'>
 				{filteredProjects.map((project, index) => {
 					const layout = cardLayouts[index % cardLayouts.length];
 
@@ -100,7 +100,7 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 							project={project}
 							categoryLabels={categoryLabels}
 							layout={layout}
-							className={layout === 'stacked' ? '' : 'md:col-span-2'}
+							className={layout === 'stacked' ? '' : 'md:col-span-2 lg:col-span-3'}
 						/>
 					);
 				})}
