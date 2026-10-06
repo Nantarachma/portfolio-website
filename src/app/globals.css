@@ -239,8 +239,11 @@
 		min-height: 100svh;
 		align-content: center;
 		/* The bar overlays the pinned stage: keep the whole scene (and the
-		   portrait's parallax travel) below its lower edge at every p. */
-		padding-top: var(--site-header-height);
+		   portrait's parallax travel) below its lower edge at every p.
+		   --site-header-h is the measured bar size published by Navbar (the
+		   --site-header-height token itself feeds the bar's min-height —
+		   never publish measured values into it). */
+		padding-top: calc(var(--site-header-h, 3.25rem) + 0.5rem);
 	}
 
 	.hero-assembles::before {

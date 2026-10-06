@@ -5,6 +5,7 @@ import './sc-load.css';
 import Navbar from '@/components/Navbar';
 import ScrollEffects from '@/components/effects/ScrollEffects';
 import ScrollCraftMount from '@/components/effects/ScrollCraftMount';
+import SmoothScroll from '@/components/SmoothScroll';
 import Footer from '@/components/Footer';
 import { getPortfolioContent } from '@/lib/portfolio/repository';
 import { Analytics } from '@vercel/analytics/next';
@@ -64,6 +65,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<Footer profile={profile} />
 				<ScrollEffects />
 				<ScrollCraftMount />
+				<SmoothScroll />
 				<Analytics />
 				<SpeedInsights />
 			</body>

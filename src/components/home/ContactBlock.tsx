@@ -25,7 +25,12 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 			<div className='contact-stage sc-stage' data-sc-stage>
 				<div className='site-container page-section contact-stage__inner'>
 				<div className='grid gap-10 lg:grid-cols-12'>
-					<div className='min-w-0 lg:col-span-7' data-sc-cue='0.05 0.96 0.25 0.2'>
+					{/* No cue here: the closing scene must stay solid to the very
+					    bottom of the page (an act out of range force-zeroes its
+					    cues, which blanked this column at end-of-scroll). The
+					    stage's header-height clearance already keeps the bar from
+					    ever covering it. */}
+					<div className='min-w-0 lg:col-span-7'>
 						<h2 className='section-title max-w-2xl text-balance font-bold text-ink'>
 							Interested in working together?
 						</h2>

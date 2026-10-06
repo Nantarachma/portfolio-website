@@ -25,6 +25,26 @@ export default function Navbar({ profile }: { profile: PortfolioProfile }) {
 		return () => window.clearInterval(id);
 	}, []);
 
+	/* Publish the bar's real height so every clearance rule (pinned contact
+	   stage, short-screen work intro) clears the actual bar on this device,
+	   not the 3.25rem token guess (fonts can grow the line box).
+	   NOTE: it MUST be a different variable than --site-header-height — that
+	   token feeds .site-header__inner's min-height, so publishing the measured
+	   size there creates a divergent feedback loop (bar grows, RO fires…). */
+	useEffect(() => {
+		const header = document.querySelector('.site-header');
+		if (!header) return;
+		const publish = () =>
+			document.documentElement.style.setProperty(
+				'--site-header-h',
+				`${Math.ceil(header.getBoundingClientRect().height)}px`,
+			);
+		publish();
+		const ro = new ResizeObserver(publish);
+		ro.observe(header);
+		return () => ro.disconnect();
+	}, []);
+
 	return (
 		<header className='site-header'>
 			<div className='site-container site-header__inner site-header__inner--minimal'>

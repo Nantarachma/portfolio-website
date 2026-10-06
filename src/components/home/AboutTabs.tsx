@@ -42,7 +42,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 			className='page-block block-overlap border-b border-rule bg-void'
 			aria-labelledby='background-heading'>
 			<div className='site-container page-section'>
-				<div className='border-b border-rule pb-4' data-sc-cue='0.05 0.96 0.25 0.2'>
+				<div className='border-b border-rule pb-4' data-sc-cue='0.05 0.66 0.25 0.18'>
 					<h2 id='background-heading' className='section-title text-balance text-ink'>
 						Background.
 					</h2>

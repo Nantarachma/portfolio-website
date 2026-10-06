@@ -12,12 +12,16 @@ export default function ToolkitBlock({ techGroups }: { techGroups: readonly Tech
 			className='page-block block-overlap toolkit-surface bg-void text-ink'>
 			<div className='site-container page-section'>
 				<div className='border-b border-rule pb-4' data-sc-in>
-					<h2
-						className='section-title max-w-3xl text-balance text-ink'
-						data-sc-cue='0.05 0.88 0.3 0.2'
-						data-sc-kinetic='lines'>
-						Grouped by practice area.
-					</h2>
+					{/* Wrapper cue: block-level in/out (kinetic only staggers the
+					    line units inside, parent stays at opacity 1). */}
+					<div data-sc-cue='0.05 0.67 0.3 0.05'>
+						<h2
+							className='section-title max-w-3xl text-balance text-ink'
+							data-sc-cue='0.05 0.67 0.3 0.05'
+							data-sc-kinetic='lines'>
+							Grouped by practice area.
+						</h2>
+					</div>
 					<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim'>
 						The stack used across research pipelines, Android applications, and web products.
 					</p>
