@@ -79,7 +79,10 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 					<aside
 						className='min-w-0 border-t border-rule pt-8 lg:col-span-4 lg:col-start-9 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0'
 						aria-label='Contact details'>
-						<figure className='max-w-[16rem]' data-sc-parallax='0.08'>
+						{/* No parallax here (user call): the portrait just sits in
+						    the pinned scene — the drift was more distracting than
+						    alive at 0.08. */}
+						<figure className='max-w-[16rem]'>
 							<div className='relative aspect-[4/5] overflow-hidden border border-rule bg-plate p-3'>
 								<div className='relative h-full overflow-hidden border border-rule bg-plate'>
 									<Image
