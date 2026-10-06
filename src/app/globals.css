@@ -237,7 +237,10 @@
 	.contact-stage__inner {
 		display: grid;
 		min-height: 100svh;
-		align-content: center;
+		/* start, not centre: centring overflowed BOTH ways on short screens
+		   (content could rise into the bar) and left a ~200px dead band
+		   between the previous section and the scene on tall ones. */
+		align-content: start;
 		/* The bar overlays the pinned stage: keep the whole scene (and the
 		   portrait's parallax travel) below its lower edge at every p.
 		   --site-header-h is the measured bar size published by Navbar (the
@@ -331,7 +334,11 @@
 	}
 
 	.safe-wrap {
-		overflow-wrap: anywhere;
+		/* break-word only breaks when a word truly cannot fit, and hyphens
+		   adds a soft break ("Prepro-cessing") instead of a silent
+		   mid-word cut like overflow-wrap:anywhere produced. */
+		overflow-wrap: break-word;
+		hyphens: auto;
 		word-break: normal;
 	}
 
@@ -385,7 +392,7 @@
 		top: 0;
 		z-index: 50;
 		border-bottom: 1px solid var(--border-strong);
-		background: rgb(13 15 19 / 0.94);
+		background: rgb(13 15 19 / 0.99);
 		backdrop-filter: blur(14px);
 		transition:
 			background-color 180ms ease,
@@ -501,6 +508,9 @@
 		position: relative;
 		display: inline-flex;
 		min-height: 1.75rem;
+		/* Never break per word: the link is a flex item and its anonymous
+		   text item would otherwise shrink to min-content ("BACK/TO/TOP"). */
+		white-space: nowrap;
 		align-items: center;
 		color: var(--muted);
 		font-family: var(--font-mono-tech);

@@ -104,7 +104,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 
 					{active === 'education' ? (
 						<div role='tabpanel' id='panel-education' aria-labelledby='tab-education' tabIndex={0} className='pt-3'>
-							<article className='surface card-pad max-w-3xl'>
+							<article className='surface card-pad'>
 								<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{content.education.period}</p>
 								<h3 className='mt-1 text-lg font-bold tracking-tight text-ink'>
 									{content.education.degree}

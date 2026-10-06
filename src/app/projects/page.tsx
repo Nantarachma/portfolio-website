@@ -30,7 +30,7 @@ export default async function ProjectsPage() {
 				<dl className='grid grid-cols-2 gap-x-5 gap-y-5 border-t border-rule pt-5 text-sm lg:grid-cols-1 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0'>
 					<div>
 						<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-dim'>Records</dt>
-						<dd className='mt-1 text-lg font-bold tracking-tight text-ink'>{String(projects.length).padStart(2, '0')} projects</dd>
+						<dd className='mt-1 text-lg font-bold tracking-tight text-ink'>{projects.length} projects</dd>
 					</div>
 					<div>
 						<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-dim'>Format</dt>

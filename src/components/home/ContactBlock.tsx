@@ -99,9 +99,6 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 						<p className='mt-2 font-semibold text-ink'>{profile.location}</p>
 						<p className='mt-6 text-[11px] font-semibold text-dim'>Direct</p>
 						<p className='mt-2 break-all text-sm text-dim'>{profile.email}</p>
-						<p className='mt-6 leading-6 text-dim'>
-							English and Indonesian resumes are available online; reach me by email, LinkedIn, or WhatsApp.
-						</p>
 					</aside>
 					</div>
 				</div>

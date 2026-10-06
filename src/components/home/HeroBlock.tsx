@@ -51,11 +51,17 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 					</div>
 				</div>
 				<div className='site-container hero-assembles-wrap'>
-					<p className='hero-assembles' data-sc-cue='0.62 0.97' data-sc-kinetic='chars'>
+					{/* Wrapper cue so the ::before accent rule fades with the
+					    copy — the kinetic element itself keeps opacity 1 and only
+					    staggers its chars, which left the rule orphaned during
+					    the burst phase. */}
+					<div data-sc-cue='0.62 0.97'>
+						<p className='hero-assembles' data-sc-cue='0.62 0.97' data-sc-kinetic='chars'>
 						The network assembles.
 					</p>
 				</div>
 			</div>
+		</div>
 		</section>
 	);
 }

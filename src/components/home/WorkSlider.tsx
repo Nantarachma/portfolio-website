@@ -82,21 +82,24 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 									<ProjectVisual project={project} className='min-h-24 sm:min-h-28' />
 								</div>
 								<p className='mt-3 line-clamp-3 text-sm leading-6 text-dim [@media(max-height:760px)]:line-clamp-2'>{project.summary}</p>
-								<ul
-									className='mt-3 flex flex-wrap gap-1.5 [@media(max-height:760px)]:hidden'
-									aria-label='Technologies used'>
-									{project.tech.slice(0, 4).map((item) => (
-										<li
-											key={item}
-											className='border border-rule bg-void px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.06em] text-dim'>
-											{item}
-										</li>
-									))}
-								</ul>
+								{/* One bottom group: chips + CTA stick together at the
+								    card foot, so tall/short copy never leaves an orphaned
+								    void between them. */}
 								<div className='mt-auto pt-4'>
+									<ul
+										className='flex flex-wrap gap-1.5 [@media(max-height:760px)]:hidden'
+										aria-label='Technologies used'>
+										{project.tech.slice(0, 4).map((item) => (
+											<li
+												key={item}
+												className='border border-rule bg-void px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.06em] text-dim'>
+												{item}
+											</li>
+										))}
+									</ul>
 									<Link
 										href={`/projects/${project.slug}`}
-										className='group inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
+										className='group mt-3 inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
 										View case study <Arrow />
 									</Link>
 								</div>

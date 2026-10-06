@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function NotFound() {
 	return (
-		<section className='site-container page-section flex min-h-[65vh] max-w-2xl flex-col justify-center'>
+		<section className='site-container page-section flex min-h-[80vh] max-w-2xl flex-col justify-center'>
 			<p className='eyebrow'>404</p>
 			<h1 className='page-title safe-wrap mt-4 text-balance text-ink'>
 				This page could not be found.

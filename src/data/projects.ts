@@ -60,7 +60,7 @@ export const projects: readonly Project[] = [
 		visual: {
 			kind: 'pipeline',
 			label: 'NIDS research workflow',
-			steps: ['NF-UNSW-NB15', 'Preprocessing', 'XGBoost', 'Optuna', 'SHAP'],
+			steps: ['NF-UNSW-NB15', 'Preproc­essing', 'XG­Boost', 'Optuna', 'SHAP'],
 		},
 		// TODO: add /public/projects/nids-cover.webp when a verified visual is available.
 	},
@@ -96,7 +96,7 @@ export const projects: readonly Project[] = [
 		visual: {
 			kind: 'delivery-flow',
 			label: 'JustiBot contribution workflow',
-			steps: ['Requirements', 'Planning', 'Wireframes', 'Backend setup'],
+			steps: ['Require­ments', 'Plan­ning', 'Wirefr­ames', 'Backend setup'],
 		},
 		// TODO: add /public/projects/justibot-cover.webp if company policy permits.
 	},
@@ -138,7 +138,7 @@ export const projects: readonly Project[] = [
 		visual: {
 			kind: 'mobile-flow',
 			label: 'SHARA mobile workflow',
-			steps: ['Android', 'ML-assisted analysis', 'Recommendations'],
+			steps: ['And­roid', 'ML-assisted analysis', 'Recomme­ndations'],
 		},
 		// TODO: add /public/projects/shara-cover.webp when a verified project visual is available.
 	},
@@ -170,7 +170,7 @@ export const projects: readonly Project[] = [
 		visual: {
 			kind: 'feature-fusion',
 			label: 'Corn leaf classification feature-fusion workflow',
-			steps: ['Image', 'MobileNetV2', 'LBP', 'Feature fusion', 'Classification'],
+			steps: ['Image', 'MobileN­etV2', 'LBP', 'Feature fusion', 'Classif­ication'],
 		},
 		// TODO: add /public/projects/corn-leaf-cover.webp when a verified visual is available.
 	},
@@ -196,7 +196,7 @@ export const projects: readonly Project[] = [
 		visual: {
 			kind: 'classification-flow',
 			label: 'Bone fracture classification workflow',
-			steps: ['X-ray image', 'Preprocessing', 'CNN', 'Classification'],
+			steps: ['X-ray image', 'Preproc­essing', 'CNN', 'Classif­ication'],
 		},
 		// TODO: add /public/projects/bone-fracture-cover.webp when a verified visual is available.
 	},
@@ -225,7 +225,7 @@ export const projects: readonly Project[] = [
 		visual: {
 			kind: 'mobile-flow',
 			label: 'Android image-classification workflow',
-			steps: ['Android', 'TensorFlow Lite', 'Image classification'],
+			steps: ['And­roid', 'TensorFlow Lite', 'Image classification'],
 		},
 	},
 	{

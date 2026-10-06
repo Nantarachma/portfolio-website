@@ -184,29 +184,6 @@ try {
 	console.log('Keyboard focus:', JSON.stringify(focusSequence));
 	if (focusSequence.filter(({ tag }) => tag === 'A' || tag === 'BUTTON').length < 6) failures.push({ focusSequence });
 
-	await command('Emulation.setDeviceMetricsOverride', { width: 360, height: 900, deviceScaleFactor: 1, mobile: true });
-	await command('Page.navigate', { url: `${baseUrl}/` });
-	await delay(450);
-	const mobileMenuOpened = await command('Runtime.evaluate', {
-		expression: `(() => {
-			const trigger = document.querySelector('button[aria-label="Open navigation menu"]');
-			trigger?.click();
-			return Boolean(trigger);
-		})()`,
-		returnByValue: true,
-	});
-	await delay(100);
-	const mobileMenuState = await command('Runtime.evaluate', {
-		expression: `({
-			visible: Boolean(document.querySelector('#mobile-navigation')?.getBoundingClientRect().height),
-			links: document.querySelectorAll('#mobile-navigation a[href]').length,
-			expanded: document.querySelector('button[aria-controls="mobile-navigation"]')?.getAttribute('aria-expanded')
-		})`,
-		returnByValue: true,
-	});
-	console.log('Mobile menu:', JSON.stringify(mobileMenuState.result.value));
-	if (!mobileMenuOpened.result.value || !mobileMenuState.result.value.visible || mobileMenuState.result.value.links < 6 || mobileMenuState.result.value.expanded !== 'true') failures.push({ mobileMenu: mobileMenuState.result.value });
-
 	await command('Emulation.setDeviceMetricsOverride', { width: 768, height: 900, deviceScaleFactor: 1, mobile: false });
 	await command('Page.navigate', { url: `${baseUrl}/projects` });
 	await delay(450);

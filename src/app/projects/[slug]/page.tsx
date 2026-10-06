@@ -96,7 +96,11 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 				<p className='lead-text mt-6 text-dim'>{project.summary}</p>
 			</header>
 
-			<section className='mt-10 grid gap-px overflow-hidden border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4' aria-label='Project details'>
+			{/* auto-fit: columns follow the number of filled fields — a project
+			    without e.g. Period never leaves an empty cell in a fixed 4-col grid. */}
+			<section
+				className='mt-10 grid gap-px overflow-hidden border border-rule bg-rule [grid-template-columns:repeat(auto-fit,minmax(11rem,1fr))]'
+				aria-label='Project details'>
 				{[
 					{ label: 'Role', value: project.role },
 					{ label: 'Context', value: project.context },
