@@ -1,6 +1,56 @@
 /* Rebrand of the copied scrollcraft engine tokens. Imported AFTER
  * scrollcraft.css so these six roles win without touching the engine. */
 
+/* ── Bolder reveal floor (design-taste-frontend MOTION_INTENSITY 8) ─────────
+   Deeper rise + scale + blur over a longer ease-out. This file loads AFTER
+   scrollcraft.css, so these rules override the engine's gentler 14px default
+   without touching the engine itself. */
+[data-sc-in],
+[data-sc-stagger] > * {
+	transform: translate3d(0, 34px, 0) scale(0.975);
+	filter: blur(10px);
+	transition:
+		opacity 640ms var(--sc-ease-out),
+		transform 900ms cubic-bezier(0.16, 1, 0.3, 1),
+		filter 640ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-sc-in].sc-in,
+[data-sc-stagger] > .sc-in {
+	opacity: 1;
+	transform: none;
+	filter: none;
+}
+
+/* Anti-empty-page watchdog: if the runtime never boots (blocked or slow
+   network), force every reveal target visible instead of a blank body. */
+html.sc-timeout [data-sc-in],
+html.sc-timeout [data-sc-stagger] > *,
+html.sc-timeout [data-sc-cue] {
+	opacity: 1 !important;
+	transform: none !important;
+	filter: none !important;
+	transition: none !important;
+}
+
+/* Pointer light over the toolkit: data-sc-spotlight publishes --sc-mx/my. */
+.toolkit-surface {
+	position: relative;
+}
+
+.toolkit-surface::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: radial-gradient(
+		34rem circle at calc(var(--sc-mx, 0.5) * 100%) calc(var(--sc-my, 0.5) * 100%),
+		rgb(96 165 250 / 0.2),
+		rgb(96 165 250 / 0.07) 34%,
+		transparent 70%
+	);
+}
+
 :root {
 	--sc-canvas: #f7f6f1;
 	--sc-surface: #fffefb;

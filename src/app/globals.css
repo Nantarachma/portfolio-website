@@ -803,6 +803,8 @@ body.bg-slate-50 {
 
 	.skill-marquee {
 		overflow: hidden;
+		/* Edge fade: words leave by dissolving, never a hard mid-word cut. */
+		mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 	}
 
 	.skill-marquee__track {

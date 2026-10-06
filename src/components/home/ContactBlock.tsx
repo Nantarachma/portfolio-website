@@ -18,6 +18,7 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 			id='contact'
 			data-nav-section='contact'
 			data-header-theme='dark'
+			data-sc-act='flow'
 			className='page-block block-overlap bg-[#14161a] text-[#eef1f6]'>
 			<div className='site-container page-section'>
 				<div className='grid gap-10 lg:grid-cols-12'>

@@ -13,9 +13,12 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 			data-nav-section='home'
 			className='page-block bg-[#14161a] text-[#eef1f6]'>
 			<div className='site-container hero-section grid min-w-0 items-end gap-y-10 lg:grid-cols-12 lg:gap-x-8'>
-				<div className='min-w-0 lg:col-span-9' data-sc-in data-sc-stagger='90'>
+				<div className='min-w-0 lg:col-span-9' data-sc-in data-sc-stagger='80'>
 					<p className='eyebrow text-blue-300'>{profile.eyebrow}</p>
-					<h1 className='display-title safe-wrap mt-7 max-w-5xl text-balance font-bold text-white'>
+					<h1
+						className='display-title safe-wrap mt-7 max-w-5xl text-balance font-bold text-white'
+						data-sc-cue='0 1 0 0'
+						data-sc-kinetic='lines'>
 						{profile.name}
 					</h1>
 					<p className='hero-role mt-6 max-w-2xl break-words font-bold leading-snug tracking-[-0.035em] text-blue-300'>

@@ -7,7 +7,8 @@ export default function ToolkitBlock({ techGroups }: { techGroups: readonly Tech
 		<section
 			id='toolkit'
 			data-header-theme='dark'
-			className='page-block block-overlap bg-[#14161a] text-[#eef1f6]'>
+			data-sc-spotlight
+			className='page-block block-overlap toolkit-surface bg-[#14161a] text-[#eef1f6]'>
 			<div className='site-container page-section'>
 				<div className='border-b border-white/15 pb-8' data-sc-in>
 					<h2 className='section-title max-w-3xl text-balance font-bold text-white'>

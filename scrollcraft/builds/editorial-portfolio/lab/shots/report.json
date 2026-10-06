@@ -1,11 +1,13 @@
 {
   "doc": {
-    "height": 10674,
+    "height": 10548,
     "vh": 900,
     "acts": [
       "flow",
       "flow",
-      "pan"
+      "pan",
+      "flow",
+      "flow"
     ],
     "world": null
   },
@@ -15,8 +17,20 @@
       "y": 0,
       "pct": 0,
       "settled": true,
-      "contrast": [],
-      "cues": [],
+      "contrast": [
+        {
+          "t": "Rachmananta Ibnu Fajar",
+          "dir": "light-on-dark",
+          "worst": 18.08,
+          "mean": 18.08
+        }
+      ],
+      "cues": [
+        {
+          "t": "Rachmananta Ibnu Fajar",
+          "o": 1
+        }
+      ],
       "clips": [],
       "rails": [
         0
@@ -24,7 +38,7 @@
       "wipes": [],
       "act": "flow",
       "stages": [
-        1009
+        849
       ],
       "segs": [],
       "custom": [],
@@ -35,11 +49,23 @@
     },
     {
       "i": 1,
-      "y": 141,
-      "pct": 1,
+      "y": 38,
+      "pct": 0,
       "settled": true,
-      "contrast": [],
-      "cues": [],
+      "contrast": [
+        {
+          "t": "Rachmananta Ibnu Fajar",
+          "dir": "light-on-dark",
+          "worst": 18.08,
+          "mean": 18.08
+        }
+      ],
+      "cues": [
+        {
+          "t": "Rachmananta Ibnu Fajar",
+          "o": 1
+        }
+      ],
       "clips": [],
       "rails": [
         0
@@ -47,7 +73,7 @@
       "wipes": [],
       "act": "flow",
       "stages": [
-        868
+        811
       ],
       "segs": [],
       "custom": [],
@@ -58,11 +84,23 @@
     },
     {
       "i": 2,
-      "y": 157,
-      "pct": 2,
+      "y": 76,
+      "pct": 1,
       "settled": true,
-      "contrast": [],
-      "cues": [],
+      "contrast": [
+        {
+          "t": "Rachmananta Ibnu Fajar",
+          "dir": "light-on-dark",
+          "worst": 18.08,
+          "mean": 18.08
+        }
+      ],
+      "cues": [
+        {
+          "t": "Rachmananta Ibnu Fajar",
+          "o": 1
+        }
+      ],
       "clips": [],
       "rails": [
         0
@@ -70,7 +108,7 @@
       "wipes": [],
       "act": "flow",
       "stages": [
-        852
+        773
       ],
       "segs": [],
       "custom": [],
@@ -81,8 +119,8 @@
     },
     {
       "i": 3,
-      "y": 548,
-      "pct": 6,
+      "y": 409,
+      "pct": 4,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -91,9 +129,9 @@
         0
       ],
       "wipes": [],
-      "act": "-",
+      "act": "pan",
       "stages": [
-        461
+        440
       ],
       "segs": [],
       "custom": [],
@@ -104,8 +142,8 @@
     },
     {
       "i": 4,
-      "y": 613,
-      "pct": 6,
+      "y": 516,
+      "pct": 5,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -116,7 +154,7 @@
       "wipes": [],
       "act": "pan",
       "stages": [
-        396
+        333
       ],
       "segs": [],
       "custom": [],
@@ -127,8 +165,8 @@
     },
     {
       "i": 5,
-      "y": 939,
-      "pct": 10,
+      "y": 781,
+      "pct": 8,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -139,7 +177,7 @@
       "wipes": [],
       "act": "pan",
       "stages": [
-        70
+        68
       ],
       "segs": [],
       "custom": [],
@@ -150,8 +188,8 @@
     },
     {
       "i": 6,
-      "y": 1081,
-      "pct": 11,
+      "y": 921,
+      "pct": 10,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -173,8 +211,8 @@
     },
     {
       "i": 7,
-      "y": 2233,
-      "pct": 23,
+      "y": 2073,
+      "pct": 21,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -196,8 +234,8 @@
     },
     {
       "i": 8,
-      "y": 3385,
-      "pct": 35,
+      "y": 3225,
+      "pct": 33,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -219,8 +257,8 @@
     },
     {
       "i": 9,
-      "y": 4537,
-      "pct": 46,
+      "y": 4377,
+      "pct": 45,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -242,8 +280,8 @@
     },
     {
       "i": 10,
-      "y": 9774,
-      "pct": 100,
+      "y": 6108,
+      "pct": 63,
       "settled": true,
       "contrast": [],
       "cues": [],
@@ -254,7 +292,145 @@
       "wipes": [],
       "act": "-",
       "stages": [
-        -5166
+        -1660
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#f7f6f1"
+    },
+    {
+      "i": 11,
+      "y": 6950,
+      "pct": 72,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [
+        -1132
+      ],
+      "wipes": [],
+      "act": "flow",
+      "stages": [
+        -2502
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#f7f6f1"
+    },
+    {
+      "i": 12,
+      "y": 7792,
+      "pct": 81,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [
+        -1132
+      ],
+      "wipes": [],
+      "act": "flow",
+      "stages": [
+        -3344
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#f7f6f1"
+    },
+    {
+      "i": 13,
+      "y": 8635,
+      "pct": 90,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [
+        -1132
+      ],
+      "wipes": [],
+      "act": "-",
+      "stages": [
+        -4187
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#f7f6f1"
+    },
+    {
+      "i": 14,
+      "y": 8684,
+      "pct": 90,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [
+        -1132
+      ],
+      "wipes": [],
+      "act": "-",
+      "stages": [
+        -4236
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#f7f6f1"
+    },
+    {
+      "i": 15,
+      "y": 9220,
+      "pct": 96,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [
+        -1132
+      ],
+      "wipes": [],
+      "act": "flow",
+      "stages": [
+        -4772
+      ],
+      "segs": [],
+      "custom": [],
+      "customHold": false,
+      "seg": null,
+      "segp": null,
+      "bg": "#f7f6f1"
+    },
+    {
+      "i": 16,
+      "y": 9648,
+      "pct": 100,
+      "settled": true,
+      "contrast": [],
+      "cues": [],
+      "clips": [],
+      "rails": [
+        -1132
+      ],
+      "wipes": [],
+      "act": "flow",
+      "stages": [
+        -5200
       ],
       "segs": [],
       "custom": [],
@@ -269,7 +445,9 @@
     "Failed to load resource: the server responded with a status of 404 (Not Found)"
   ],
   "failed": [
+    "net::ERR_ABORTED http://localhost:3000/_vercel/speed-insights/script.js",
     "net::ERR_ABORTED http://localhost:3000/_vercel/insights/script.js",
-    "net::ERR_ABORTED http://localhost:3000/_vercel/speed-insights/script.js"
+    "net::ERR_ABORTED http://localhost:3000/projects/bone-fracture-detection?_rsc=1p-R_iEY6bj0jY31",
+    "net::ERR_ABORTED http://localhost:3000/projects/corn-leaf-disease-classification?_rsc=1p-R_iEY6bj0jY31"
   ]
 }

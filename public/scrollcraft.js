@@ -137,7 +137,9 @@
 (function (global) {
   'use strict';
 
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* VENDORED PATCH: always animate — prefers-reduced-motion is deliberately
+     ignored here (owner decision, 2026-10). Upstream honours the OS setting. */
+  var reduce = false;
   var fineMQ = matchMedia('(hover: hover) and (pointer: fine)');
   var smallMQ = matchMedia('(max-width: 860px)');
   var coarse = matchMedia('(hover: none) and (pointer: coarse)').matches;

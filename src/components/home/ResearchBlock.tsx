@@ -68,6 +68,7 @@ export default function ResearchBlock({ projects, thesis, categoryLabels }: Rese
 		<section
 			id='research'
 			data-nav-section='research'
+			data-sc-act='flow'
 			className='page-block block-overlap border-b border-slate-200 bg-[#f2f5fa]'>
 			<div className='site-container page-section'>
 				<div className='border-b border-slate-200 pb-8' data-sc-in>
