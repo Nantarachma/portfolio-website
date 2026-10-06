@@ -86,7 +86,7 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 										{project.tech.slice(0, 4).map((item) => (
 											<li
 												key={item}
-												className='border border-rule bg-void px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.06em] text-dim'>
+												className='border border-rule bg-void px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.06em] text-ink/85'>
 												{item}
 											</li>
 										))}

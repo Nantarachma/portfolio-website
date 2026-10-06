@@ -84,6 +84,8 @@ function nodeBase(i: number, n: number): THREE.Vector3 {
 }
 
 export default function HeroNetwork({ className }: Props) {
+	/** Label topik yang melayang di samping kursor (posisi ditulis per frame). */
+	const labelRef = useRef<HTMLDivElement>(null);
 	const hostRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -132,6 +134,7 @@ export default function HeroNetwork({ className }: Props) {
 		// grup globe: semua node & garis anak grup ini → rotasi tunggal
 		const world = new THREE.Group();
 		world.rotation.x = 0.32;
+		world.scale.setScalar(0.92); // sedikit kecil: tidak terpotong tepi kanan
 		scene.add(world);
 
 		// ---- geometri/material (disposal manual di cleanup) ----
@@ -182,12 +185,74 @@ export default function HeroNetwork({ className }: Props) {
 		const linkGeo = new THREE.BufferGeometry();
 		const linkArr = new Float32Array(pairs.length * 6);
 		linkGeo.setAttribute('position', new THREE.BufferAttribute(linkArr, 3));
+		// vertexColors: warna per-segmen → edge yang menyentuh node aktif bisa
+		// menyala tanpa draw call tambahan (update hanya saat node aktif berubah).
+		const linkCol = new Float32Array(pairs.length * 6);
+		linkGeo.setAttribute('color', new THREE.BufferAttribute(linkCol, 3));
 		const linkMat = new THREE.LineBasicMaterial({
-			color: 0x93c5fd,
+			vertexColors: true,
 			transparent: true,
 			opacity: 0.08,
 		});
 		world.add(new THREE.LineSegments(linkGeo, linkMat));
+
+		// ---- interaktif: hover raycast + click-lock + drag orbit ----
+		const raycaster = new THREE.Raycaster();
+		const ndc = new THREE.Vector2();
+		const COL_BASE = new THREE.Color(0x2f4d78);
+		const COL_HOT = new THREE.Color(0x60a5fa);
+		const NODE_BASE = new THREE.Color(0x60a5fa);
+		const NODE_HOT = new THREE.Color(0xe0f2fe);
+		let hoverIdx = -1;
+		let lockIdx = -1;
+		let activeIdx = -1;
+		let speedMul = 1; // 1 → orbit jalan, 0 → pause saat node aktif (lerp)
+		let dragging = false;
+		let dragMoved = 0;
+		let prevX = 0;
+		let prevY = 0;
+		let dragYaw = 0;
+		let dragPitch = 0;
+		let velYaw = 0;
+		let velPitch = 0;
+		let lastX = -1;
+		let lastY = -1;
+		let pointerIn = false;
+
+		const paintLinks = (active: number): void => {
+			for (let k = 0; k < pairs.length; k++) {
+				const hot = active >= 0 && (pairs[k][0] === active || pairs[k][1] === active);
+				const c = hot ? COL_HOT : COL_BASE;
+				for (let v = 0; v < 2; v++) {
+					const o = k * 6 + v * 3;
+					linkCol[o] = c.r;
+					linkCol[o + 1] = c.g;
+					linkCol[o + 2] = c.b;
+				}
+			}
+			linkGeo.attributes.color.needsUpdate = true;
+			for (let i = 0; i < nodeMats.length; i++) {
+				nodeMats[i].color.copy(i === active ? NODE_HOT : NODE_BASE);
+			}
+		};
+
+		const updateLabel = (): void => {
+			const el = labelRef.current;
+			if (!el) return;
+			if (activeIdx >= 0) {
+				el.textContent = TOPICS[activeIdx];
+				el.style.opacity = '1';
+			} else {
+				el.style.opacity = '0';
+			}
+		};
+
+		const hitAt = (x: number, y: number, w: number, h: number): number => {
+			ndc.set((x / w) * 2 - 1, -(y / h) * 2 + 1);
+			raycaster.setFromCamera(ndc, camera);
+			const hit = raycaster.intersectObjects(nodes, false)[0];
+			return hit ? nodes.indexOf(hit.object as THREE.Mesh) : -1;
+		};
 
 		// ---- visibilitas: pause saat tak terlihat / tab sembunyi ----
 		let inView = true;
@@ -246,19 +311,52 @@ export default function HeroNetwork({ className }: Props) {
 			const reassemble = smoothstep(0.55, 0.85, pS);
 			const calm = smoothstep(0.0, 0.15, pS); // 0 di momen sunyi → orbit paling lambat
 
-			// orbit: lambat saat tenang & saat stabil, cepat saat terurai
-			spin += dt * (0.06 + 0.1 * calm + 0.05 * reassemble + 0.5 * burst);
-			world.rotation.y = spin;
-			world.rotation.x = 0.32 + Math.sin(spin * 0.5) * 0.05;
+			// orbit: lambat saat tenang & saat stabil, cepat saat terurai.
+			// Hover/lock node → orbit pause (lerp ke 0, bukan hentian mendadak).
+			const targetSpeed = activeIdx >= 0 ? 0 : 1;
+			speedMul += (targetSpeed - speedMul) * Math.min(1, dt * 10);
+			spin += dt * (0.06 + 0.1 * calm + 0.05 * reassemble + 0.5 * burst) * speedMul;
+
+			// drag orbit: offset manual di atas spin otomatis + inersia setelah lepas.
+			if (!dragging) {
+				dragYaw += velYaw;
+				dragPitch = Math.max(-0.5, Math.min(0.5, dragPitch + velPitch));
+				velYaw *= 0.93;
+				velPitch *= 0.93;
+				if (Math.abs(velYaw) < 1e-5) velYaw = 0;
+				if (Math.abs(velPitch) < 1e-5) velPitch = 0;
+			}
+			world.rotation.y = spin + dragYaw;
+			world.rotation.x = Math.max(-0.6, Math.min(0.9, 0.32 + Math.sin(spin * 0.5) * 0.05 + dragPitch));
 			camera.position.z = CAM_Z + 0.6 * burst; // dolly saat ledakan
+
+			// raycast node: posisi berubah tiap frame → ray per frame saat pointer di dalam
+			let hit = -1;
+			if (pointerIn && !dragging && cw > 0 && ch > 0) {
+				scene.updateMatrixWorld();
+				hit = hitAt(lastX, lastY, cw, ch);
+			}
+			const nextActive = lockIdx >= 0 ? lockIdx : hit;
+			hoverIdx = hit;
+			if (nextActive !== activeIdx) {
+				activeIdx = nextActive;
+				paintLinks(activeIdx);
+				updateLabel();
+			}
+			if (labelRef.current && activeIdx >= 0) {
+				labelRef.current.style.transform = 'translate3d(' + (lastX + 18) + 'px,' + (lastY - 12) + 'px,0)';
+			}
 
 			// node: transform posisi + skala saja (geometry tidak pernah dibangun ulang)
 			for (let i = 0; i < nodes.length; i++) {
 				const m = nodes[i];
 				m.position.copy(basePos[i]).addScaledVector(burstDir[i], burst * 1.55);
-				const s = 1 + 1.3 * burst;
+				const isActive = i === activeIdx;
+				const dimmed = activeIdx >= 0 && !isActive;
+				// node aktif: membesar + pulse halus; sisanya redup (bukan hilang)
+				const s = (1 + 1.3 * burst) * (isActive ? 1.75 + 0.22 * Math.sin(t / 240) : 1);
 				m.scale.setScalar(s);
-				nodeMats[i].opacity = 0.95 - 0.35 * burst;
+				nodeMats[i].opacity = (0.95 - 0.35 * burst) * (dimmed ? 0.25 : 1);
 			}
 
 			// koneksi: ikuti posisi node (2 titik per segmen), menyala di akhir act
@@ -282,6 +380,8 @@ export default function HeroNetwork({ className }: Props) {
 				hostRef.current.dataset.p = pS.toFixed(3);
 				hostRef.current.dataset.burst = burst.toFixed(3);
 				hostRef.current.dataset.reass = reassemble.toFixed(3);
+				hostRef.current.dataset.active = String(activeIdx);
+				hostRef.current.dataset.drag = dragging ? '1' : '0';
 			}
 
 			// globe LARUT saat terurai ("broke apart"): fade keras + kontraksi
@@ -291,6 +391,77 @@ export default function HeroNetwork({ className }: Props) {
 
 			renderer.render(scene, camera);
 		};
+
+		paintLinks(-1); // warna dasar sebelum render pertama
+
+		// ---- pointer: hover raycast (per frame), drag orbit, click = kunci label ----
+		const onMove = (e: PointerEvent): void => {
+			const rect = host.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+			if (dragging) {
+				const dx = x - prevX;
+				const dy = y - prevY;
+				prevX = x;
+				prevY = y;
+				dragMoved += Math.abs(dx) + Math.abs(dy);
+				dragYaw += dx * 0.005;
+				dragPitch = Math.max(-0.5, Math.min(0.5, dragPitch + dy * 0.004));
+				velYaw = dx * 0.005 * 8; // perkiraan vektor utk inersia
+				velPitch = dy * 0.004 * 8;
+				return;
+			}
+			lastX = x;
+			lastY = y;
+			pointerIn = true;
+			canvas.style.cursor = hoverIdx >= 0 ? 'pointer' : 'grab';
+		};
+		const onDown = (e: PointerEvent): void => {
+			if (e.button !== 0) return;
+			dragging = true;
+			dragMoved = 0;
+			const rect = host.getBoundingClientRect();
+			prevX = e.clientX - rect.left;
+			prevY = e.clientY - rect.top;
+			lastX = prevX;
+			lastY = prevY;
+			canvas.setPointerCapture(e.pointerId);
+			canvas.style.cursor = 'grabbing';
+		};
+		const onUp = (e: PointerEvent): void => {
+			if (!dragging) return;
+			dragging = false;
+			try {
+				canvas.releasePointerCapture(e.pointerId);
+			} catch {
+				/* pointer sudah lepas */
+			}
+			canvas.style.cursor = hoverIdx >= 0 ? 'pointer' : 'grab';
+			// klik (tanpa geser) = kunci label; klik kosong / klik node sama = lepas
+			if (dragMoved < 5 && cw > 0 && ch > 0) {
+				scene.updateMatrixWorld();
+				const idx = hitAt(lastX, lastY, cw, ch);
+				lockIdx = idx >= 0 && idx !== lockIdx ? idx : -1;
+				if (lockIdx < 0 && idx < 0) lockIdx = -1;
+			}
+		};
+		const onLeave = (): void => {
+			pointerIn = false;
+			lastX = -1;
+			lastY = -1;
+			lockIdx = -1; // meninggalkan globe melepas kunci
+			hoverIdx = -1;
+		};
+		canvas.addEventListener('pointermove', onMove);
+		canvas.addEventListener('pointerdown', onDown);
+		canvas.addEventListener('pointerup', onUp);
+		canvas.addEventListener('pointercancel', onUp);
+		canvas.addEventListener('pointerleave', onLeave);
+		canvas.style.touchAction = 'pan-y'; // vertikal = scroll halus Lenis, horizontal = drag globe
+		canvas.style.cursor = 'grab';
+		// slot induk memakai pointer-events:none agar teks tetap di atas;
+		// anak canvas mengaktifkan kembali eventsnya sendiri.
+		canvas.style.pointerEvents = 'auto';
 
 		function kick(): void {
 			if (!raf && !disposed && inView && pageVisible) {
@@ -314,9 +485,22 @@ export default function HeroNetwork({ className }: Props) {
 			linkGeo.dispose();
 			linkMat.dispose();
 			renderer.dispose();
+			canvas.removeEventListener('pointermove', onMove);
+			canvas.removeEventListener('pointerdown', onDown);
+			canvas.removeEventListener('pointerup', onUp);
+			canvas.removeEventListener('pointercancel', onUp);
+			canvas.removeEventListener('pointerleave', onLeave);
 			if (canvas.parentNode === host) host.removeChild(canvas);
 		};
 	}, []);
 
-	return <div ref={hostRef} className={className} style={{ position: 'absolute', inset: 0 }} />;
+	return (
+		<div ref={hostRef} className={className} style={{ position: 'absolute', inset: 0 }}>
+			<div
+				ref={labelRef}
+				className='pointer-events-none absolute left-0 top-0 z-10 border border-rule bg-void/95 px-2.5 py-1.5 font-mono text-xs font-semibold uppercase tracking-[0.2em] text-signal opacity-0 transition-opacity duration-150'
+				aria-hidden='true'
+			/>
+		</div>
+	);
 }

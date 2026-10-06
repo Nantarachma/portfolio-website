@@ -21,7 +21,7 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 				<div className='hero-network-slot' aria-hidden='true'>
 					<HeroNetworkLazy />
 				</div>
-				<div className='site-container hero-section grid min-w-0 items-end gap-y-10 lg:grid-cols-12 lg:gap-x-8'>
+				<div className='site-container hero-section grid min-w-0 items-center gap-y-10 lg:grid-cols-12 lg:gap-x-8'>
 					<div className='min-w-0 lg:col-span-9' data-sc-cue='0 0.28 0 0.25'>
 						<p className='eyebrow text-blue-300'>{profile.eyebrow}</p>
 						<h1 className='display-title safe-wrap mt-7 max-w-5xl text-balance font-bold text-white'>

@@ -174,6 +174,8 @@
 	.hero-stage {
 		display: grid;
 		position: relative;
+		min-height: 100svh;
+		align-items: center;
 	}
 
 	.hero-network-slot {
@@ -182,6 +184,27 @@
 		z-index: 0;
 		pointer-events: none;
 		overflow: hidden;
+	}
+
+	/* Desktop: the globe lives in the open right-hand field (centre ≈68%
+	   of the viewport), clear of the headline stack on the left. Mobile
+	   keeps the full-bleed backdrop. */
+	@media (min-width: 1024px) {
+		.hero-network-slot {
+			left: 40%;
+		}
+	}
+
+	/* Pointer funnel: the grid wrapper is a full-width stacking layer, so
+	   it must pass events through to the canvas below; interactive
+	   children (CTAs) opt back in. */
+	.hero-section {
+		pointer-events: none;
+	}
+
+	.hero-section a,
+	.hero-section button {
+		pointer-events: auto;
 	}
 
 	.hero-assembles-wrap {
@@ -237,10 +260,8 @@
 	.contact-stage__inner {
 		display: grid;
 		min-height: 100svh;
-		/* start, not centre: centring overflowed BOTH ways on short screens
-		   (content could rise into the bar) and left a ~200px dead band
-		   between the previous section and the scene on tall ones. */
-		align-content: start;
+		/* centre: content fills the stage, no dead space */
+		align-content: center;
 		/* The bar overlays the pinned stage: keep the whole scene (and the
 		   portrait's parallax travel) below its lower edge at every p.
 		   --site-header-h is the measured bar size published by Navbar (the
@@ -672,6 +693,7 @@ body.bg-slate-50 {
 	.case-card {
 		flex: 0 0 auto;
 		width: min(82vw, 23rem);
+		height: 100%;
 		scroll-snap-align: start;
 	}
 
