@@ -1,5 +1,6 @@
 import type { PortfolioProfile } from '@/lib/portfolio/schema';
 import HeroNetworkLazy from '@/components/three/HeroNetworkLazy';
+import TextScramble from '@/components/home/TextScramble';
 
 /**
  * Peak act (span 4): a pinned title page. The procedural 3D network lives
@@ -18,17 +19,20 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 			data-nav-section='home'
 			className='page-block hero-act bg-[#14161a] text-[#eef1f6]'>
 			<div className='hero-stage sc-stage' data-sc-stage>
+				<div className='hero-bg-pattern' aria-hidden='true' />
 				<div className='hero-network-slot' aria-hidden='true'>
 					<HeroNetworkLazy />
 				</div>
 				<div className='site-container hero-section grid min-w-0 items-center gap-y-10 lg:grid-cols-12 lg:gap-x-8'>
 					<div className='min-w-0 lg:col-span-9' data-sc-cue='0 0.28 0 0.25'>
 						<p className='eyebrow text-blue-300'>{profile.eyebrow}</p>
-						<h1 className='display-title safe-wrap mt-7 max-w-5xl text-balance font-bold text-white'>
-							{profile.name}
+						<h1
+							className='glitch-text display-title safe-wrap mt-7 max-w-5xl text-balance font-bold text-white'
+							data-text={profile.name}>
+							<TextScramble text={profile.name} speed={25} delay={400} />
 						</h1>
 						<p className='hero-role mt-6 max-w-2xl break-words font-bold leading-snug tracking-[-0.035em] text-blue-300'>
-							{profile.role}
+							<TextScramble text={profile.role} speed={35} delay={1200} />
 						</p>
 						<div className='hero-actions mt-8'>
 							<a

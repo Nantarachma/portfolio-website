@@ -176,6 +176,74 @@
 		position: relative;
 		min-height: 100svh;
 		align-items: center;
+		padding-bottom: 4rem;
+	}
+
+	/* Geometric dots + lines pattern: subtle tech texture over solid bg */
+	.hero-bg-pattern {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+		background-image:
+			radial-gradient(circle, rgba(96, 165, 250, 0.25) 1px, transparent 1px),
+			linear-gradient(rgba(96, 165, 250, 0.12) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(96, 165, 250, 0.12) 1px, transparent 1px);
+		background-size: 24px 24px, 120px 120px, 120px 120px;
+		mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+	}
+
+	/* Glitch effect: RGB split + clip-path, occasional */
+	.glitch-text {
+		position: relative;
+		display: inline-block;
+	}
+
+	.glitch-text::before,
+	.glitch-text::after {
+		content: attr(data-text);
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
+
+	.glitch-text::before {
+		color: #ff0040;
+		animation: glitch-1 2s infinite linear alternate-reverse;
+		clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+	}
+
+	.glitch-text::after {
+		color: #00d4ff;
+		animation: glitch-2 2s infinite linear alternate-reverse;
+		clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+	}
+
+	@keyframes glitch-1 {
+		0%, 88% { transform: translate(0); opacity: 0; }
+		89% { transform: translate(-4px, -2px); opacity: 0.9; }
+		90% { transform: translate(4px, 2px); opacity: 0.9; }
+		91% { transform: translate(-3px, 1px); opacity: 0.9; }
+		92% { transform: translate(3px, -1px); opacity: 0.9; }
+		93% { transform: translate(-2px, 2px); opacity: 0.9; }
+		94% { transform: translate(2px, -2px); opacity: 0.9; }
+		95% { transform: translate(0); opacity: 0; }
+		100% { transform: translate(0); opacity: 0; }
+	}
+
+	@keyframes glitch-2 {
+		0%, 88% { transform: translate(0); opacity: 0; }
+		89% { transform: translate(4px, 2px); opacity: 0.9; }
+		90% { transform: translate(-4px, -2px); opacity: 0.9; }
+		91% { transform: translate(3px, -1px); opacity: 0.9; }
+		92% { transform: translate(-3px, 1px); opacity: 0.9; }
+		93% { transform: translate(2px, -2px); opacity: 0.9; }
+		94% { transform: translate(-2px, 2px); opacity: 0.9; }
+		95% { transform: translate(0); opacity: 0; }
+		100% { transform: translate(0); opacity: 0; }
 	}
 
 	.hero-network-slot {
@@ -191,7 +259,7 @@
 	   keeps the full-bleed backdrop. */
 	@media (min-width: 1024px) {
 		.hero-network-slot {
-			left: 40%;
+			left: 44%;
 		}
 	}
 
