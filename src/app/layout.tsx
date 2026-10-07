@@ -64,7 +64,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<span data-sc-progress aria-hidden='true' />
 				<a
 					href='#main-content'
-					className='sr-only fixed left-4 top-4 z-[60] rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'>
+					className='sr-only fixed left-4 top-4 z-[60] rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:outline-none focus-visible:ring-2 focus-visible:ring-blueprint focus-visible:ring-offset-2'>
 					Skip to content
 				</a>
 				<Navbar profile={profile} />

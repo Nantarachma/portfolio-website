@@ -44,7 +44,7 @@ export default function ProjectCard({
 
 			<div className={`card-pad flex min-w-0 flex-1 flex-col ${isReversed ? 'lg:order-1' : ''}`}>
 				<div className='flex items-start justify-between gap-4'>
-					<p className='font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-signal'>
+					<p className='font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-flare'>
 						<span className='text-dim'>Case / </span>
 						{projectNumber}
 					</p>
@@ -55,7 +55,7 @@ export default function ProjectCard({
 
 				<div className='mt-5 flex flex-wrap gap-x-3 gap-y-2'>
 					{project.categories.map((category) => (
-						<span key={category} className={`text-[11px] font-semibold uppercase tracking-[0.1em] ${category === 'machine-learning' ? 'text-signal' : 'text-dim'}`}>
+						<span key={category} className={`text-[11px] font-semibold uppercase tracking-[0.1em] ${category === 'machine-learning' ? 'text-flare' : 'text-dim'}`}>
 							{categoryLabels[category]}
 						</span>
 					))}
@@ -73,7 +73,7 @@ export default function ProjectCard({
 				<p className='mt-4 text-sm leading-6 text-dim'>{project.summary}</p>
 
 				{project.role || project.context || project.period ? (
-					<dl className='mt-5 grid gap-3 border-l-2 border-signal pl-3 text-sm leading-5 text-dim'>
+					<dl className='mt-5 grid gap-3 border-l-2 border-blueprint pl-3 text-sm leading-5 text-dim'>
 						{project.role ? (
 							<div>
 								<dt className='sr-only'>Role</dt>
@@ -109,7 +109,7 @@ export default function ProjectCard({
 				<div className={`mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-rule pt-5 ${isSplit ? 'lg:mt-auto' : ''}`}>
 					<Link
 						href={`/projects/${project.slug}`}
-						className='touch-target inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
+						className='touch-target inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-flare'>
 						View Case Study
 						<FiArrowRight aria-hidden='true' className='size-4 transition-transform duration-200 group-hover:translate-x-1' />
 					</Link>
@@ -118,7 +118,7 @@ export default function ProjectCard({
 							href={project.githubUrl}
 							target='_blank'
 							rel='noreferrer noopener'
-							className='touch-target inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-[0.1em] text-dim transition-colors duration-200 hover:text-signal'>
+							className='touch-target inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-[0.1em] text-dim transition-colors duration-200 hover:text-flare'>
 							<FiGithub aria-hidden='true' className='size-4' />
 							Repository
 						</a>
@@ -128,7 +128,7 @@ export default function ProjectCard({
 							href={project.demoUrl ?? project.externalUrl}
 							target='_blank'
 							rel='noreferrer noopener'
-							className='touch-target inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-[0.1em] text-dim transition-colors duration-200 hover:text-signal'>
+							className='touch-target inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-[0.1em] text-dim transition-colors duration-200 hover:text-flare'>
 							View Source
 							<FiArrowUpRight aria-hidden='true' className='size-4' />
 						</a>

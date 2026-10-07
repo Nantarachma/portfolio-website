@@ -34,7 +34,7 @@ function ResearchCard({
 				{project.categories.slice(0, 2).map((category) => (
 					<span
 						key={category}
-						className='font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-signal'>
+						className='font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-flare'>
 						{categoryLabels[category]}
 					</span>
 				))}
@@ -45,14 +45,14 @@ function ResearchCard({
 						{project.shortTitle ?? project.title}
 					</h3>
 					{project.context ? (
-						<p className='mt-1.5 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>
+						<p className='mt-1.5 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-flare'>
 							{project.context}
 						</p>
 					) : null}
 					<p className='mt-2.5 text-sm leading-6 text-dim'>{project.summary}</p>
 					<Link
 						href={`/projects/${project.slug}`}
-						className='group/link mt-4 inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
+						className='group/link mt-4 inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-flare'>
 						View case study <Arrow />
 					</Link>
 				</div>

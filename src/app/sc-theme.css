@@ -65,8 +65,8 @@ html.sc-timeout [data-sc-cue] {
 	pointer-events: none;
 	background: radial-gradient(
 		34rem circle at calc(var(--sc-mx, 0.5) * 100%) calc(var(--sc-my, 0.5) * 100%),
-		rgb(0 229 255 / 0.16),
-		rgb(255 20 147 / 0.06) 34%,
+		rgb(230 36 41 / 0.14),
+		rgb(242 239 232 / 0.05) 34%,
 		transparent 70%
 	);
 }
@@ -76,7 +76,7 @@ html.sc-timeout [data-sc-cue] {
 	--sc-surface: #120d24;
 	--sc-ink: #f2efe8;
 	--sc-ink-soft: #a79fc4;
-	--sc-accent: #00e5ff;
+	--sc-accent: #e62429;
 	--sc-accent-ink: #ffffff;
 	--sc-font-display: var(--font-bangers), Impact, ui-sans-serif, sans-serif;
 	--sc-font-text: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;

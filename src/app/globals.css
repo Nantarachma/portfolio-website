@@ -15,7 +15,7 @@
 	--color-rule-strong: #443a6b;
 	--color-blueprint: #e62429;
 	--color-signal: #00e5ff;
-	--color-flare: #ffd400;
+	--color-flare: #e62429; /* noir + merah Miles: kuning dihapus */
 	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
 }
 
@@ -29,11 +29,11 @@
 	--accent: #e62429;
 	--accent-strong: #b31b2c;
 	--accent-soft: #2a0d1e;
-	--accent-bright: #00e5ff;
+	--accent-bright: #e62429;
 	--grid-line: rgb(255 255 255 / 0.045);
-	/* CMYK plate rotation utk panel stats (cyan → magenta → merah) */
-	--shadow-plate-0: #00e5ff;
-	--shadow-plate-1: #ff1493;
+	/* Shadow seragam: satu arah, satu warna (merah Miles) — linear */
+	--shadow-plate-0: #e62429;
+	--shadow-plate-1: #e62429;
 	--shadow-plate-2: #e62429;
 	--layout-gutter: clamp(1rem, 4vw, 2rem);
 	--layout-max: 76rem;
@@ -42,7 +42,7 @@
 	--space-section-stack: clamp(1rem, 1.75vw, 1.375rem);
 	--space-grid: clamp(0.5rem, 0.75vw, 0.75rem);
 	--space-card: clamp(0.75rem, 1.1vw, 0.875rem);
-	--size-display: clamp(2.75rem, 7.5vw, 6rem);
+	--size-display: clamp(2.5rem, 6.5vw, 5.25rem);
 	--size-page-title: clamp(2.25rem, 5vw, 3.75rem);
 	--size-section-title: clamp(1.75rem, 3.25vw, 2.75rem);
 	--site-header-height: 3.25rem;
@@ -195,9 +195,9 @@
 		z-index: 0;
 		pointer-events: none;
 		background-image:
-			radial-gradient(circle, rgba(255, 20, 147, 0.22) 1px, transparent 1px),
-			linear-gradient(rgba(0, 229, 255, 0.1) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(0, 229, 255, 0.1) 1px, transparent 1px);
+			radial-gradient(circle, rgba(230, 36, 41, 0.2) 1px, transparent 1px),
+			linear-gradient(rgba(242, 239, 232, 0.05) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(242, 239, 232, 0.05) 1px, transparent 1px);
 		background-size: 24px 24px, 120px 120px, 120px 120px;
 		mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
 	}
@@ -241,8 +241,8 @@
 	}
 
 	.glitch-text::after {
-		color: #00e5ff;
-		-webkit-text-fill-color: #00e5ff;
+		color: #f2efe8;
+		-webkit-text-fill-color: #f2efe8;
 		animation: glitch-2 1.2s infinite linear;
 	}
 
@@ -300,7 +300,7 @@
 	   keeps the full-bleed backdrop. */
 	@media (min-width: 1024px) {
 		.hero-network-slot {
-			left: 49%;
+			left: 52%;
 		}
 	}
 
@@ -411,8 +411,8 @@
 		opacity: 0;
 		transform: rotate(-8deg) scale(0.6);
 		text-shadow:
-			3px 3px 0 var(--color-blueprint),
-			-2px -2px 0 var(--color-signal);
+			3px 3px 0 var(--color-ink),
+			-2px -2px 0 #14092e;
 	}
 
 	/* engine menambah .sc-in sekali saat section masuk viewport →
@@ -427,25 +427,6 @@
 		20% { transform: rotate(-8deg) scale(1); }
 		70% { opacity: 1; transform: rotate(-8deg) scale(1); }
 		100% { opacity: 0; transform: rotate(-4deg) scale(0.95); }
-	}
-
-	/* Judul dgn halftone fill (kuat) — Ben-Day dots menembus huruf */
-	.halftone-title {
-		background-image:
-			radial-gradient(circle at 1.5px 1.5px, rgba(10, 7, 22, 0.55) 1.5px, transparent 1.6px);
-		background-size: 7px 7px;
-		background-color: var(--color-flare);
-		-webkit-background-clip: text;
-		background-clip: text;
-		color: transparent;
-		-webkit-text-fill-color: transparent;
-	}
-
-	/* Judul dgn CMYK ghost (misregistration print) */
-	.misprint-title {
-		text-shadow:
-			-4px 0 0 var(--color-blueprint),
-			4px 0 0 var(--color-signal);
 	}
 
 	.hero-assembles::before {
@@ -533,11 +514,10 @@
 	}
 
 	.safe-wrap {
-		/* break-word only breaks when a word truly cannot fit, and hyphens
-		   adds a soft break ("Prepro-cessing") instead of a silent
-		   mid-word cut like overflow-wrap:anywhere produced. */
-		overflow-wrap: break-word;
-		hyphens: auto;
+		/* Wrap ke baris baru bila muat; kata tak pernah dipotong
+		   ("Requiremen ts" / "Require-/ments" dilarang). */
+		overflow-wrap: normal;
+		hyphens: none;
 		word-break: normal;
 	}
 

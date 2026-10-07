@@ -22,16 +22,17 @@ const practiceAreas = [
 	},
 ] as const;
 
+/* Noir linear: semua kartu gelap, merah hanya utk shadow */
 const toneClasses = {
-	dark: 'bg-[#0d0f13] text-ink',
-	tint: 'bg-[#171c26] text-ink',
-	cream: 'bg-blueprint text-white',
+	dark: 'bg-void text-ink',
+	tint: 'bg-raised text-ink',
+	cream: 'bg-raised text-ink',
 } as const;
 
 const bodyTone = {
 	dark: 'text-dim',
 	tint: 'text-dim',
-	cream: 'text-blue-100',
+	cream: 'text-dim',
 } as const;
 
 /** Three practice areas as an asymmetric trio: dark, tinted, and cream cells. */

@@ -49,7 +49,7 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 						<p id='project-filter-label' className='font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-dim'>
 							Filter / discipline
 						</p>
-						<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-signal lg:hidden'>
+						<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-flare lg:hidden'>
 							{String(filteredProjects.length).padStart(2, '0')} records
 						</p>
 					</div>
@@ -67,12 +67,12 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 										aria-controls='project-results'
 										className={`touch-target inline-flex items-center gap-2 border px-3 py-2 font-mono text-xs font-bold uppercase tracking-[0.1em] whitespace-nowrap transition-[background-color,border-color,color] duration-200 ${
 											isSelected
-												? 'border-signal bg-plate text-ink'
-												: 'border-rule text-dim hover:border-signal hover:text-ink'
+												? 'border-blueprint bg-plate text-ink'
+												: 'border-rule text-dim hover:border-blueprint hover:text-ink'
 										}`}>
-										<span className={`size-1.5 ${isSelected ? 'bg-signal' : 'bg-rule-strong'}`} aria-hidden='true' />
+										<span className={`size-1.5 ${isSelected ? 'bg-blueprint' : 'bg-rule-strong'}`} aria-hidden='true' />
 										{option.label}
-										<span className={`font-mono text-[10px] ${isSelected ? 'text-signal' : 'text-dim'}`}>
+										<span className={`font-mono text-[10px] ${isSelected ? 'text-flare' : 'text-dim'}`}>
 											{String(option.count).padStart(2, '0')}
 										</span>
 									</button>
@@ -80,7 +80,7 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 							})}
 						</div>
 					</div>
-					<p className='hidden font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-signal lg:block'>
+					<p className='hidden font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-flare lg:block'>
 						{String(filteredProjects.length).padStart(2, '0')} records
 					</p>
 				</div>

@@ -41,15 +41,15 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 							<a
 								href={profile.links.email.href}
 								data-sc-magnet='0.3'
-								className='touch-target group inline-flex items-center border-[3px] border-ink bg-flare px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-[#14092e] shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--color-blueprint)]'>
+								className='touch-target group inline-flex items-center border-[3px] border-ink bg-ink px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-[#14092e] shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--color-blueprint)]'>
 								Email me <Arrow />
 							</a>
 							<a
 								href={profile.links.whatsapp.href}
 								target='_blank'
 								rel='noreferrer'
-								className='touch-target group inline-flex items-center border-[3px] border-ink px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--color-signal)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--color-signal)]'>
-								WhatsApp <Arrow />
+								className='touch-target group inline-flex items-center border-[3px] border-ink px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--color-blueprint)]'>
+							WhatsApp <Arrow />
 							</a>
 							<a
 								href={profile.links.linkedin.href}
@@ -66,12 +66,12 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 									href={link.href}
 									target={link.href.startsWith('mailto:') ? undefined : '_blank'}
 									rel={link.href.startsWith('mailto:') ? undefined : 'noreferrer'}
-									className='border-b border-transparent pb-0.5 text-sm font-semibold text-dim transition-colors duration-200 hover:border-signal hover:text-signal'>
+									className='border-b border-transparent pb-0.5 text-sm font-semibold text-dim transition-colors duration-200 hover:border-flare hover:text-flare'>
 									{link.label}
 								</a>
 							))}
 						</nav>
-						<p className='mt-6 max-w-md font-mono text-[10px] uppercase leading-5 tracking-[0.14em] text-dim'>
+						<p className='mt-6 max-w-md font-mono text-[10px] uppercase leading-5 tracking-[0.14em] text-ink'>
 							Set in Plus Jakarta Sans. Built with Next.js and scrollcraft. {profile.location}.
 						</p>
 					</div>
@@ -83,7 +83,7 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 						    the pinned scene — the drift was more distracting than
 						    alive at 0.08. */}
 						<figure className='max-w-[16rem]'>
-							<div className='relative aspect-[4/5] overflow-hidden border-[3px] border-ink bg-plate p-3 shadow-[6px_6px_0_0_var(--color-signal)]'>
+							<div className='relative aspect-[4/5] overflow-hidden border-[3px] border-ink bg-plate p-3 shadow-[6px_6px_0_0_var(--color-blueprint)]'>
 								<div className='relative h-full overflow-hidden border border-rule bg-plate'>
 									<Image
 										src={profile.portrait.src}

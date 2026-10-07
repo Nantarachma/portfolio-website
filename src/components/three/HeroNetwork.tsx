@@ -134,7 +134,7 @@ export default function HeroNetwork({ className }: Props) {
 		// grup globe: semua node & garis anak grup ini → rotasi tunggal
 		const world = new THREE.Group();
 		world.rotation.x = 0.32;
-		world.scale.setScalar(0.84); // lega dari judul, clip tepi kanan minim
+		world.scale.setScalar(0.8); // lega dari judul noir, clip tepi minim
 		scene.add(world);
 
 		// ---- geometri/material (disposal manual di cleanup) ----

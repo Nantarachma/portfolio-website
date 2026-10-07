@@ -12,7 +12,9 @@ interface TextScrambleProps {
 }
 
 export default function TextScramble({ text, className = '', speed = 30, delay = 0, interval }: TextScrambleProps) {
-	const [progress, setProgress] = useState(0);
+	// Mode interval: tampil utuh saat load (tanpa "terpotong"), menulis
+	// ulang mulai siklus ke-2 yang sinkron dgn loop CSS fade 10s.
+	const [progress, setProgress] = useState(interval ? 1 : 0);
 	const frameRef = useRef(0);
 
 	useEffect(() => {
@@ -34,8 +36,8 @@ export default function TextScramble({ text, className = '', speed = 30, delay =
 		};
 
 		if (interval) {
-			// Loop: siklus pertama setelah `delay`, reset tiap `interval`.
-			timers.push(window.setTimeout(() => {
+			// Load: teks utuh. Menulis mulai t = interval, lalu tiap interval.
+			const firstWrite = window.setTimeout(() => {
 				startCycle();
 				let cycleStart = Date.now();
 				const schedule = (): void => {
@@ -47,7 +49,8 @@ export default function TextScramble({ text, className = '', speed = 30, delay =
 					}, wait));
 				};
 				schedule();
-			}, delay));
+			}, interval);
+			timers.push(firstWrite);
 		} else {
 			// One-shot: tulis sekali setelah delay.
 			timers.push(window.setTimeout(startCycle, delay));

@@ -51,7 +51,7 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 						<Link
 							href='/projects'
 							data-sc-in
-							className='group mt-3 inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
+							className='group mt-3 inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-flare'>
 							View all projects <Arrow />
 						</Link>
 					</header>
@@ -67,7 +67,7 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 									{project.categories.slice(0, 3).map((category) => (
 										<span
 											key={category}
-											className='font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-signal'>
+											className='font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-flare'>
 											{categoryLabels[category]}
 										</span>
 									))}
@@ -76,7 +76,7 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 									{project.shortTitle ?? project.title}
 								</h3>
 								{project.subtitle ? (
-									<p className='mt-1 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>
+									<p className='mt-1 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-flare'>
 										{project.subtitle}
 									</p>
 								) : null}
@@ -101,7 +101,7 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 									</ul>
 									<Link
 										href={`/projects/${project.slug}`}
-										className='group mt-3 inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
+										className='group mt-3 inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-flare'>
 										View case study <Arrow />
 									</Link>
 								</div>

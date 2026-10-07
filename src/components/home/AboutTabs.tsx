@@ -70,7 +70,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 								onKeyDown={(event) => onKeyDown(event, index)}
 								className={`-mb-px inline-flex min-h-11 items-center border-b-2 px-3 font-mono text-xs font-bold uppercase tracking-[0.1em] transition-colors duration-200 ${
 									active === tab.key
-										? 'border-signal text-ink'
+										? 'border-blueprint text-ink'
 										: 'border-transparent text-dim hover:text-ink'
 								}`}>
 								{tab.label}
@@ -83,7 +83,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 							<div className='grid gap-2 lg:grid-cols-2'>
 								{content.experience.map((item) => (
 									<article key={item.contentId} className='surface card-pad'>
-										<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{item.period}</p>
+										<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-flare'>{item.period}</p>
 										<h3 className='mt-1 text-lg font-bold tracking-tight text-ink'>{item.role}</h3>
 										<p className='mt-1 font-medium text-ink'>{item.organization}</p>
 										{item.location ? <p className='mt-1 text-sm text-dim'>{item.location}</p> : null}
@@ -91,7 +91,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 										<ul className='mt-2.5 space-y-1 border-t border-rule pt-2.5 text-sm leading-5 text-dim'>
 											{item.contributions.map((contribution) => (
 												<li key={contribution} className='flex gap-3'>
-													<span className='mt-2 h-1.5 w-1.5 shrink-0 bg-signal' aria-hidden='true' />
+													<span className='mt-2 h-1.5 w-1.5 shrink-0 bg-blueprint' aria-hidden='true' />
 													<span>{contribution}</span>
 												</li>
 											))}
@@ -105,7 +105,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					{active === 'education' ? (
 						<div role='tabpanel' id='panel-education' aria-labelledby='tab-education' tabIndex={0} className='pt-3'>
 							<article className='surface card-pad'>
-								<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{content.education.period}</p>
+								<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-flare'>{content.education.period}</p>
 								<h3 className='mt-1 text-lg font-bold tracking-tight text-ink'>
 									{content.education.degree}
 								</h3>
@@ -133,7 +133,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 							<div className='grid gap-2 lg:grid-cols-2'>
 								{content.leadership.map((item) => (
 									<article key={item.contentId} className='surface card-pad'>
-										<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{item.period}</p>
+										<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-flare'>{item.period}</p>
 										<h3 className='mt-1 text-lg font-bold tracking-tight text-ink'>{item.role}</h3>
 										<p className='mt-1 font-medium text-ink'>{item.organization}</p>
 										<ul className='mt-3 flex flex-wrap gap-1.5'>
@@ -154,13 +154,13 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 									<div className='mt-3 grid gap-2 lg:grid-cols-2'>
 										{content.additionalOrganizationalExperience.map((item) => (
 											<article key={item.contentId} className='card-pad border border-rule bg-plate'>
-												<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{item.period}</p>
+												<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-flare'>{item.period}</p>
 												<h4 className='mt-2 font-bold text-ink'>{item.title}</h4>
 												<p className='mt-1 text-sm text-dim'>{item.organization}</p>
 												<ul className='mt-3 space-y-2 text-sm leading-6 text-dim'>
 													{item.responsibilities.map((responsibility) => (
 														<li key={responsibility} className='flex gap-3'>
-															<span className='mt-2 h-1.5 w-1.5 shrink-0 bg-signal' aria-hidden='true' />
+															<span className='mt-2 h-1.5 w-1.5 shrink-0 bg-blueprint' aria-hidden='true' />
 															<span>{responsibility}</span>
 														</li>
 													))}

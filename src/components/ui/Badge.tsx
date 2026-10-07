@@ -11,7 +11,7 @@ export interface BadgeProps {
 }
 
 const toneClasses: Record<BadgeTone, string> = {
-	accent: 'border-signal bg-signal/10 text-signal',
+	accent: 'border-blueprint bg-blueprint/10 text-flare',
 	neutral: 'border-rule bg-plate text-dim',
 	subtle: 'border-rule bg-void text-dim',
 };
