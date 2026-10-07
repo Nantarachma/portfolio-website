@@ -21,7 +21,7 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 			data-sc-act='pin'
 			data-sc-span='1.5'
 			data-sc-spotlight
-			className='page-block block-overlap contact-act spotlight-surface bg-[#14161a] text-ink'>
+			className='page-block block-overlap contact-act spotlight-surface border-t-[3px] border-t-ink bg-[#120d24] text-ink'>
 			<div className='contact-stage sc-stage' data-sc-stage>
 				<div className='site-container page-section contact-stage__inner'>
 				<div className='grid gap-10 lg:grid-cols-12'>
@@ -41,21 +41,21 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 							<a
 								href={profile.links.email.href}
 								data-sc-magnet='0.3'
-								className='touch-target group inline-flex items-center bg-ink px-5 py-3 text-sm font-bold text-void transition-colors duration-150 hover:bg-signal'>
+								className='touch-target group inline-flex items-center border-[3px] border-ink bg-flare px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-[#14092e] shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--color-blueprint)]'>
 								Email me <Arrow />
 							</a>
 							<a
 								href={profile.links.whatsapp.href}
 								target='_blank'
 								rel='noreferrer'
-								className='touch-target group inline-flex items-center border border-rule-strong px-5 py-3 text-sm font-bold text-ink transition-colors duration-150 hover:border-signal hover:text-signal'>
+								className='touch-target group inline-flex items-center border-[3px] border-ink px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--color-signal)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--color-signal)]'>
 								WhatsApp <Arrow />
 							</a>
 							<a
 								href={profile.links.linkedin.href}
 								target='_blank'
 								rel='noreferrer'
-								className='touch-target group inline-flex items-center border border-rule-strong px-5 py-3 text-sm font-bold text-ink transition-colors duration-150 hover:border-signal hover:text-signal'>
+								className='touch-target group inline-flex items-center border-[3px] border-ink px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--shadow-plate-1)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--shadow-plate-1)]'>
 								LinkedIn <Arrow />
 							</a>
 						</div>
@@ -83,7 +83,7 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 						    the pinned scene — the drift was more distracting than
 						    alive at 0.08. */}
 						<figure className='max-w-[16rem]'>
-							<div className='relative aspect-[4/5] overflow-hidden border border-rule bg-plate p-3'>
+							<div className='relative aspect-[4/5] overflow-hidden border-[3px] border-ink bg-plate p-3 shadow-[6px_6px_0_0_var(--color-signal)]'>
 								<div className='relative h-full overflow-hidden border border-rule bg-plate'>
 									<Image
 										src={profile.portrait.src}
@@ -93,7 +93,7 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 										className='object-cover object-center'
 									/>
 								</div>
-								<figcaption className='absolute bottom-3 left-3 border border-white/25 bg-[#14161a]/90 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-dim'>
+								<figcaption className='absolute bottom-3 left-3 border border-ink bg-void/95 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-flare'>
 									Portrait
 								</figcaption>
 							</div>

@@ -27,7 +27,7 @@ function ResearchCard({
 }) {
 	return (
 		<article
-			className={`card-pad group border border-rule bg-void transition-[border-color,box-shadow] duration-200 hover:border-signal hover:shadow-[6px_6px_0_0_#1e46c8] ${
+			className={`card-pad group border-[3px] border-ink bg-void shadow-[5px_5px_0_0_var(--shadow-plate-0)] transition-[transform,box-shadow] duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--shadow-plate-1)] ${
 				featured ? 'lg:col-span-2' : ''
 			}`}>
 			<div className='flex flex-wrap gap-x-3 gap-y-1'>
@@ -73,17 +73,17 @@ export default function ResearchBlock({ projects, thesis, categoryLabels }: Rese
 			id='research'
 			data-nav-section='research'
 			data-sc-act='flow'
-			className='page-block block-overlap border-b border-rule bg-plate'>
+			className='page-block block-overlap border-b-[3px] border-b-ink bg-plate'>
 			<div className='site-container page-section'>
 				<div className='border-b border-rule pb-4' data-sc-cue='0.05 0.51 0.25 0.2'>
 					<h2 className='section-title max-w-3xl text-ink'>Additional applied research.</h2>
-					<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim'>
+					<p className='caption-box mt-3 max-w-[65ch] text-sm leading-6'>
 						Machine learning and computer vision work focused on transparent technical approaches rather than
 						unverified performance claims.
 					</p>
 				</div>
 
-				<div className='mt-4 grid gap-2 lg:grid-cols-2' data-sc-in data-sc-stagger='80'>
+				<div className='mt-4 grid gap-3 lg:grid-cols-2' data-sc-in data-sc-stagger='80'>
 					{thesis ? <ResearchCard project={thesis} categoryLabels={categoryLabels} featured /> : null}
 					{others.map((project) => (
 						<ResearchCard key={project.slug} project={project} categoryLabels={categoryLabels} />
