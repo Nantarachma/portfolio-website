@@ -31,7 +31,7 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 							data-text={profile.name}>
 							<TextScramble text={profile.name} speed={25} delay={400} />
 						</h1>
-						<p className='hero-role mt-6 max-w-2xl break-words font-bold leading-snug tracking-[-0.035em] text-blue-300'>
+						<p className='subtitle-loop hero-role mt-6 max-w-2xl break-words font-bold leading-snug tracking-[-0.035em] text-blue-300'>
 							<TextScramble text={profile.role} speed={35} delay={1200} />
 						</p>
 						<div className='hero-actions mt-8'>

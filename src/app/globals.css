@@ -197,6 +197,21 @@
 	.glitch-text {
 		position: relative;
 		display: inline-block;
+		animation: glitch-shake 1.2s infinite linear;
+	}
+
+	/* Teks utama ikut geser cepat mengikuti window aktif glitch */
+	@keyframes glitch-shake {
+		0%, 75% { transform: translate(0, 0); }
+		76% { transform: translate(-3px, 2px); }
+		77% { transform: translate(3px, -2px); }
+		78% { transform: translate(-2px, -1px); }
+		79% { transform: translate(2px, 1px); }
+		80% { transform: translate(-2px, 2px); }
+		81% { transform: translate(2px, -2px); }
+		82% { transform: translate(-1px, 1px); }
+		83% { transform: translate(1px, -1px); }
+		84%, 100% { transform: translate(0, 0); }
 	}
 
 	.glitch-text::before,
@@ -212,40 +227,53 @@
 
 	.glitch-text::before {
 		color: #ff0040;
-		animation: glitch-1 1.2s infinite linear alternate-reverse;
+		animation: glitch-1 1.2s infinite linear;
 	}
 
 	.glitch-text::after {
 		color: #00d4ff;
-		animation: glitch-2 1.2s infinite linear alternate-reverse;
+		animation: glitch-2 1.2s infinite linear;
 	}
 
 	@keyframes glitch-1 {
-		0%, 80% { transform: translate(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-		81% { transform: translate(-4px, -2px); opacity: 0.7; clip-path: polygon(0 10%, 100% 0, 100% 45%, 0 55%); }
-		82% { transform: translate(4px, 2px); opacity: 0.7; clip-path: polygon(0 30%, 100% 20%, 100% 70%, 0 80%); }
-		83% { transform: translate(-3px, 2px); opacity: 0.7; clip-path: polygon(0 50%, 100% 40%, 100% 90%, 0 100%); }
-		84% { transform: translate(3px, -2px); opacity: 0.7; clip-path: polygon(0 0, 100% 10%, 100% 60%, 0 50%); }
-		85% { transform: translate(-2px, 2px); opacity: 0.7; clip-path: polygon(0 20%, 100% 30%, 100% 80%, 0 70%); }
-		86% { transform: translate(2px, -2px); opacity: 0.7; clip-path: polygon(0 40%, 100% 50%, 100% 100%, 0 90%); }
-		87% { transform: translate(-2px, 1px); opacity: 0.7; clip-path: polygon(0 60%, 100% 70%, 100% 100%, 0 80%); }
-		88% { transform: translate(2px, -1px); opacity: 0.7; clip-path: polygon(0 0, 100% 0, 100% 30%, 0 20%); }
-		89% { transform: translate(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-		100% { transform: translate(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+		0%, 75% { transform: translate(0) skewX(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+		76% { transform: translate(-6px, -3px) skewX(-2deg); opacity: 0.9; clip-path: polygon(0 10%, 100% 0, 100% 45%, 0 55%); }
+		77% { transform: translate(6px, 3px) skewX(2deg); opacity: 0.9; clip-path: polygon(0 30%, 100% 20%, 100% 70%, 0 80%); }
+		78% { transform: translate(-5px, 3px) skewX(-1deg); opacity: 0.9; clip-path: polygon(0 50%, 100% 40%, 100% 90%, 0 100%); }
+		79% { transform: translate(5px, -3px) skewX(1deg); opacity: 0.9; clip-path: polygon(0 0, 100% 10%, 100% 60%, 0 50%); }
+		80% { transform: translate(-4px, 3px) skewX(-2deg); opacity: 0.9; clip-path: polygon(0 20%, 100% 30%, 100% 80%, 0 70%); }
+		81% { transform: translate(4px, -3px) skewX(2deg); opacity: 0.9; clip-path: polygon(0 40%, 100% 50%, 100% 100%, 0 90%); }
+		82% { transform: translate(-3px, 2px) skewX(-1deg); opacity: 0.9; clip-path: polygon(0 60%, 100% 70%, 100% 100%, 0 80%); }
+		83% { transform: translate(3px, -2px) skewX(1deg); opacity: 0.9; clip-path: polygon(0 0, 100% 0, 100% 30%, 0 20%); }
+		84% { transform: translate(0) skewX(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+		100% { transform: translate(0) skewX(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
 	}
 
 	@keyframes glitch-2 {
-		0%, 80% { transform: translate(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-		81% { transform: translate(4px, 2px); opacity: 0.7; clip-path: polygon(0 55%, 100% 45%, 100% 100%, 0 90%); }
-		82% { transform: translate(-4px, -2px); opacity: 0.7; clip-path: polygon(0 80%, 100% 70%, 100% 20%, 0 30%); }
-		83% { transform: translate(3px, -2px); opacity: 0.7; clip-path: polygon(0 100%, 100% 90%, 100% 40%, 0 50%); }
-		84% { transform: translate(-3px, 2px); opacity: 0.7; clip-path: polygon(0 50%, 100% 60%, 100% 10%, 0 0%); }
-		85% { transform: translate(2px, -2px); opacity: 0.7; clip-path: polygon(0 70%, 100% 80%, 100% 30%, 0 20%); }
-		86% { transform: translate(-2px, 2px); opacity: 0.7; clip-path: polygon(0 90%, 100% 100%, 100% 50%, 0 40%); }
-		87% { transform: translate(2px, -1px); opacity: 0.7; clip-path: polygon(0 80%, 100% 90%, 100% 0%, 0 10%); }
-		88% { transform: translate(-2px, 1px); opacity: 0.7; clip-path: polygon(0 20%, 100% 30%, 100% 0%, 0 0%); }
-		89% { transform: translate(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-		100% { transform: translate(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+		0%, 75% { transform: translate(0) skewX(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+		76% { transform: translate(6px, 3px) skewX(2deg); opacity: 0.9; clip-path: polygon(0 55%, 100% 45%, 100% 100%, 0 90%); }
+		77% { transform: translate(-6px, -3px) skewX(-2deg); opacity: 0.9; clip-path: polygon(0 80%, 100% 70%, 100% 20%, 0 30%); }
+		78% { transform: translate(5px, -3px) skewX(1deg); opacity: 0.9; clip-path: polygon(0 100%, 100% 90%, 100% 40%, 0 50%); }
+		79% { transform: translate(-5px, 3px) skewX(-1deg); opacity: 0.9; clip-path: polygon(0 50%, 100% 60%, 100% 10%, 0 0%); }
+		80% { transform: translate(4px, -3px) skewX(2deg); opacity: 0.9; clip-path: polygon(0 70%, 100% 80%, 100% 30%, 0 20%); }
+		81% { transform: translate(-4px, 3px) skewX(-2deg); opacity: 0.9; clip-path: polygon(0 90%, 100% 100%, 100% 50%, 0 40%); }
+		82% { transform: translate(3px, -2px) skewX(1deg); opacity: 0.9; clip-path: polygon(0 80%, 100% 90%, 100% 0%, 0 10%); }
+		83% { transform: translate(-3px, 2px) skewX(-1deg); opacity: 0.9; clip-path: polygon(0 20%, 100% 30%, 100% 0%, 0 0%); }
+		84% { transform: translate(0) skewX(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+		100% { transform: translate(0) skewX(0); opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+	}
+
+	/* Subtitle looping: 10s cycle — scramble in (2s), hold (6s), fade+blur out (2s) */
+	.subtitle-loop {
+		animation: subtitle-cycle 10s ease-in-out infinite;
+	}
+
+	@keyframes subtitle-cycle {
+		0% { opacity: 0; filter: blur(8px); transform: translateY(8px); }
+		15% { opacity: 1; filter: blur(0); transform: translateY(0); }
+		75% { opacity: 1; filter: blur(0); transform: translateY(0); }
+		90% { opacity: 0; filter: blur(8px); transform: translateY(-8px); }
+		100% { opacity: 0; filter: blur(8px); transform: translateY(-8px); }
 	}
 
 	.hero-network-slot {
