@@ -39,12 +39,12 @@ export default function ToolkitBlock({ techGroups }: { techGroups: readonly Tech
 								index === techGroups.length - 1 ? 'md:col-span-2 lg:col-span-3' : ''
 							}`}
 							style={{ boxShadow: `5px 5px 0 0 var(--shadow-plate-${index % 3})` }}>
-							<h3 className='font-mono text-sm font-bold uppercase tracking-[0.08em] text-ink'>{group.name}</h3>
+							<h3 className='text-sm font-bold uppercase tracking-[0.08em] text-ink'>{group.name}</h3>
 							<ul className='mt-2 flex flex-wrap gap-1.5' aria-label={`${group.name} skills`}>
 								{group.items.map((item) => (
 									<li
 										key={item}
-										className='border border-rule bg-void px-2 py-0.5 font-mono text-[10px] font-semibold leading-4 tracking-[0.02em] text-dim'>
+										className='border border-rule bg-void px-2 py-0.5 text-[10px] font-semibold leading-4 tracking-[0.02em] text-dim'>
 										{item}
 									</li>
 								))}

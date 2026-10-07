@@ -41,10 +41,10 @@ export default function StatsStrip({ highlights }: { highlights: readonly Stat[]
 							key={item.contentId}
 							className='highlight-item comic-panel'
 							style={{ boxShadow: `5px 5px 0 0 var(--shadow-plate-${i % 3})` }}>
-							<p className='font-mono text-xl font-bold tracking-[-0.03em] text-flare sm:text-2xl'>
+							<p className='text-xl font-bold tracking-[-0.03em] text-flare sm:text-2xl'>
 								<StatValue value={item.value} />
 							</p>
-							<p className='mt-1 font-mono text-xs uppercase leading-4 tracking-[0.1em] text-dim'>{item.label}</p>
+							<p className='mt-1 text-xs uppercase leading-4 tracking-[0.1em] text-dim'>{item.label}</p>
 						</div>
 					))}
 				</div>

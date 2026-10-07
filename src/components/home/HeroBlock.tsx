@@ -37,7 +37,7 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 						<div className='hero-actions mt-8'>
 							<a
 								href='#work'
-								className='group inline-flex items-center justify-center border-[3px] border-ink bg-ink px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-[#14092e] shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--color-blueprint)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_0_var(--color-blueprint)]'>
+								className='group inline-flex items-center justify-center border-[3px] border-ink bg-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-[#14092e] shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--color-blueprint)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_0_var(--color-blueprint)]'>
 								View work{' '}
 								<span className='ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1' aria-hidden='true'>
 									&rarr;
@@ -45,7 +45,7 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 							</a>
 							<a
 								href='#contact'
-								className='group inline-flex items-center justify-center border-[3px] border-ink px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--color-blueprint)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_0_var(--color-blueprint)]'>
+								className='group inline-flex items-center justify-center border-[3px] border-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--color-blueprint)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_0_var(--color-blueprint)]'>
 								Contact{' '}
 								<span className='ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1' aria-hidden='true'>
 									&rarr;

@@ -51,7 +51,7 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 						<Link
 							href='/projects'
 							data-sc-in
-							className='group mt-3 inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-flare'>
+							className='group mt-3 inline-flex items-center text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-flare'>
 							View all projects <Arrow />
 						</Link>
 					</header>
@@ -67,7 +67,7 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 									{project.categories.slice(0, 3).map((category) => (
 										<span
 											key={category}
-											className='font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-flare'>
+											className='text-[10px] font-semibold uppercase tracking-[0.16em] text-flare'>
 											{categoryLabels[category]}
 										</span>
 									))}
@@ -76,7 +76,7 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 									{project.shortTitle ?? project.title}
 								</h3>
 								{project.subtitle ? (
-									<p className='mt-1 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-flare'>
+									<p className='mt-1 text-xs font-semibold uppercase tracking-[0.08em] text-flare'>
 										{project.subtitle}
 									</p>
 								) : null}
@@ -94,14 +94,14 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 										{project.tech.slice(0, 4).map((item) => (
 											<li
 												key={item}
-												className='border border-rule bg-void px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.06em] text-ink/85'>
+												className='border border-rule bg-void px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.06em] text-ink/85'>
 												{item}
 											</li>
 										))}
 									</ul>
 									<Link
 										href={`/projects/${project.slug}`}
-										className='group mt-3 inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-flare'>
+										className='group mt-3 inline-flex items-center text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-flare'>
 										View case study <Arrow />
 									</Link>
 								</div>

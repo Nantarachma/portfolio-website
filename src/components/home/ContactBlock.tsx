@@ -41,21 +41,21 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 							<a
 								href={profile.links.email.href}
 								data-sc-magnet='0.3'
-								className='touch-target group inline-flex items-center border-[3px] border-ink bg-ink px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-[#14092e] shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--color-blueprint)]'>
+								className='touch-target group inline-flex items-center border-[3px] border-ink bg-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-[#14092e] shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--color-blueprint)]'>
 								Email me <Arrow />
 							</a>
 							<a
 								href={profile.links.whatsapp.href}
 								target='_blank'
 								rel='noreferrer'
-								className='touch-target group inline-flex items-center border-[3px] border-ink px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--color-blueprint)]'>
+								className='touch-target group inline-flex items-center border-[3px] border-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--color-blueprint)]'>
 							WhatsApp <Arrow />
 							</a>
 							<a
 								href={profile.links.linkedin.href}
 								target='_blank'
 								rel='noreferrer'
-								className='touch-target group inline-flex items-center border-[3px] border-ink px-5 py-3 font-mono text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--shadow-plate-1)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--shadow-plate-1)]'>
+								className='touch-target group inline-flex items-center border-[3px] border-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--shadow-plate-1)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--shadow-plate-1)]'>
 								LinkedIn <Arrow />
 							</a>
 						</div>
@@ -71,7 +71,7 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 								</a>
 							))}
 						</nav>
-						<p className='mt-6 max-w-md font-mono text-[10px] uppercase leading-5 tracking-[0.14em] text-ink'>
+						<p className='mt-6 max-w-md text-[10px] uppercase leading-5 tracking-[0.14em] text-ink'>
 							Set in Plus Jakarta Sans. Built with Next.js and scrollcraft. {profile.location}.
 						</p>
 					</div>
@@ -93,7 +93,7 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 										className='object-cover object-center'
 									/>
 								</div>
-								<figcaption className='absolute bottom-3 left-3 border border-ink bg-void/95 px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.12em] text-flare'>
+								<figcaption className='absolute bottom-3 left-3 border border-ink bg-void/95 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-flare'>
 									Portrait
 								</figcaption>
 							</div>
