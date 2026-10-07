@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Plus_Jakarta_Sans, Bangers } from 'next/font/google';
 import './globals.css';
+import './webverse.css';
 import './sc-load.css';
 import Navbar from '@/components/Navbar';
 import ScrollEffects from '@/components/effects/ScrollEffects';
@@ -14,6 +15,14 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 const plusJakarta = Plus_Jakarta_Sans({
 	subsets: ['latin'],
 	variable: '--font-plus-jakarta',
+	display: 'swap',
+});
+
+/* Comic display face — Spider-Verse title lettering (all headings). */
+const bangers = Bangers({
+	subsets: ['latin'],
+	weight: '400',
+	variable: '--font-bangers',
 	display: 'swap',
 });
 
@@ -37,7 +46,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	const { profile } = await getPortfolioContent();
 
 	return (
-		<html lang='en' suppressHydrationWarning>
+		<html lang='en' suppressHydrationWarning className={`${plusJakarta.variable} ${bangers.variable}`}>
 			<body
 				className={`${plusJakarta.className} flex min-h-screen flex-col bg-slate-50 text-slate-950 antialiased`}>
 				<script src='/scrollcraft.js' defer />

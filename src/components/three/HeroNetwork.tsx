@@ -134,19 +134,57 @@ export default function HeroNetwork({ className }: Props) {
 		// grup globe: semua node & garis anak grup ini → rotasi tunggal
 		const world = new THREE.Group();
 		world.rotation.x = 0.32;
-		world.scale.setScalar(0.88); // lebih kecil: tidak overlap judul + tidak terpotong
+		world.scale.setScalar(0.84); // lega dari judul, clip tepi kanan minim
 		scene.add(world);
 
 		// ---- geometri/material (disposal manual di cleanup) ----
 		const gridGeo = new THREE.BufferGeometry();
 		gridGeo.setAttribute('position', new THREE.BufferAttribute(gridPositions(), 3));
 		const gridMat = new THREE.LineBasicMaterial({
-			color: 0xeef1f6,
+			color: 0xf2efe8, // ink komik (noir: putih = tinta)
 			transparent: true,
-			opacity: 0.3,
+			opacity: 0.35,
 		});
 		const gridMesh = new THREE.LineSegments(gridGeo, gridMat);
 		world.add(gridMesh);
+
+		/* Chromatic ghost: dua salinan wireframe offset kiri/kanan dgn warna
+		   plate CMYK — misregistration cetak ala Spider-Verse. */
+		const ghostMatR = new THREE.LineBasicMaterial({ color: 0xe62429, transparent: true, opacity: 0.28 });
+		const ghostMatC = new THREE.LineBasicMaterial({ color: 0x00e5ff, transparent: true, opacity: 0.28 });
+		const ghostR = new THREE.LineSegments(gridGeo, ghostMatR);
+		const ghostC = new THREE.LineSegments(gridGeo, ghostMatC);
+		ghostR.position.x = 0.035;
+		ghostC.position.x = -0.035;
+		ghostR.scale.setScalar(1.004);
+		ghostC.scale.setScalar(1.004);
+		world.add(ghostR, ghostC);
+
+		/* Halftone shading: sphere dgn texture titik Ben-Day (canvas prosedural)
+		   — shading komik, bukan smooth gradient CG. */
+		const dotCanvas = document.createElement('canvas');
+		dotCanvas.width = 64;
+		dotCanvas.height = 64;
+		const dctx = dotCanvas.getContext('2d');
+		if (dctx) {
+			dctx.clearRect(0, 0, 64, 64);
+			dctx.fillStyle = 'rgba(196, 182, 255, 0.95)'; // lavender terang — menonjol di ungu gelap
+			dctx.beginPath();
+			dctx.arc(32, 32, 5.5, 0, Math.PI * 2);
+			dctx.fill();
+			}
+			const dotTex = new THREE.CanvasTexture(dotCanvas);
+			dotTex.wrapS = THREE.RepeatWrapping;
+			dotTex.wrapT = THREE.RepeatWrapping;
+			dotTex.repeat.set(16, 11); // Ben-Day rapat ala cetak komik
+		const haloMat = new THREE.MeshBasicMaterial({
+			map: dotTex,
+			transparent: true,
+			opacity: 0.65,
+			depthWrite: false,
+		});
+		const halo = new THREE.Mesh(new THREE.SphereGeometry(R * 0.99, 32, 24), haloMat);
+		world.add(halo);
 
 		// ---- node topik ----
 		const nodeGeo = new THREE.SphereGeometry(0.03, 10, 8);
@@ -156,7 +194,7 @@ export default function HeroNetwork({ className }: Props) {
 		const nodeMats: THREE.MeshBasicMaterial[] = [];
 		for (let i = 0; i < TOPICS.length; i++) {
 			const mat = new THREE.MeshBasicMaterial({
-				color: 0x60a5fa,
+				color: 0x00e5ff,
 				transparent: true,
 				opacity: 0.95,
 			});
@@ -199,10 +237,10 @@ export default function HeroNetwork({ className }: Props) {
 		// ---- interaktif: hover raycast + click-lock + drag orbit ----
 		const raycaster = new THREE.Raycaster();
 		const ndc = new THREE.Vector2();
-		const COL_BASE = new THREE.Color(0x2f4d78);
-		const COL_HOT = new THREE.Color(0x60a5fa);
-		const NODE_BASE = new THREE.Color(0x60a5fa);
-		const NODE_HOT = new THREE.Color(0xe0f2fe);
+		const COL_BASE = new THREE.Color(0x4b3a8c);
+		const COL_HOT = new THREE.Color(0x00e5ff);
+		const NODE_BASE = new THREE.Color(0x00e5ff); // cyan Miles
+		const NODE_HOT = new THREE.Color(0xffd400); // flare — node aktif menyala
 		let hoverIdx = -1;
 		let lockIdx = -1;
 		let activeIdx = -1;
@@ -386,8 +424,16 @@ export default function HeroNetwork({ className }: Props) {
 
 			// globe LARUT saat terurai ("broke apart"): fade keras + kontraksi
 			// siluet, lalu kembali menyusun bersama reassemble.
-			gridMat.opacity = 0.3 * Math.pow(1 - burst, 3);
+			gridMat.opacity = 0.35 * Math.pow(1 - burst, 3);
 			gridMesh.scale.setScalar(1 - 0.3 * burst);
+			// ghost CMYK & halftone halo ikut kontraksi/fade (misregistration ikut larut)
+			const gs = (1 - 0.3 * burst) * 1.004;
+			ghostR.scale.setScalar(gs);
+			ghostC.scale.setScalar(gs);
+			ghostMatR.opacity = 0.28 * Math.pow(1 - burst, 3);
+			ghostMatC.opacity = 0.28 * Math.pow(1 - burst, 3);
+			halo.scale.setScalar(1 - 0.3 * burst);
+			haloMat.opacity = 0.65 * Math.pow(1 - burst, 3);
 
 			renderer.render(scene, camera);
 		};
@@ -480,6 +526,11 @@ export default function HeroNetwork({ className }: Props) {
 			document.removeEventListener('visibilitychange', onVis);
 			gridGeo.dispose();
 			gridMat.dispose();
+			ghostMatR.dispose();
+			ghostMatC.dispose();
+			haloMat.dispose();
+			halo.geometry.dispose();
+			dotTex.dispose();
 			nodeGeo.dispose();
 			for (const m of nodeMats) m.dispose();
 			linkGeo.dispose();

@@ -27,14 +27,21 @@ function StatValue({ value }: { value: string }) {
 export default function StatsStrip({ highlights }: { highlights: readonly Stat[] }) {
 	return (
 		<section
-			className='page-block block-overlap border-b border-rule bg-void'
+			className='page-block block-overlap border-b-[3px] border-b-ink bg-void'
 			aria-label='Profile in numbers'
 			data-sc-act='flow'>
-			<div className='site-container py-[var(--space-section-compact)]'>
+			<div className='site-container relative py-[var(--space-section-compact)]'>
+				{/* Onomatopoeia pop saat strip masuk */}
+				<span className='action-word right-0 -top-2 hidden md:block' data-sc-in aria-hidden='true'>
+					BAM!
+				</span>
 				<div className='highlight-grid' data-sc-in data-sc-stagger='70'>
-					{highlights.map((item) => (
-						<div key={item.contentId} className='highlight-item'>
-							<p className='font-mono text-xl font-bold tracking-[-0.03em] text-ink sm:text-2xl'>
+					{highlights.map((item, i) => (
+						<div
+							key={item.contentId}
+							className='highlight-item comic-panel'
+							style={{ boxShadow: `5px 5px 0 0 var(--shadow-plate-${i % 3})` }}>
+							<p className='font-mono text-xl font-bold tracking-[-0.03em] text-flare sm:text-2xl'>
 								<StatValue value={item.value} />
 							</p>
 							<p className='mt-1 font-mono text-xs uppercase leading-4 tracking-[0.1em] text-dim'>{item.label}</p>
