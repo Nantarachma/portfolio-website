@@ -40,17 +40,19 @@ export default function PracticeBlock() {
 		<section data-sc-act='flow' className='page-block border-b border-rule bg-plate' aria-labelledby='practice-heading'>
 			<div className='site-container page-section'>
 				<div className='max-w-3xl' data-sc-cue='0.05 0.68 0.25 0.18'>
-					<h2 id='practice-heading' className='section-title text-ink'>
+					<h2 id='practice-heading' className='section-title text-ink' data-sc-in>
 						What I build.
 					</h2>
-					<p className='mt-2.5 max-w-[65ch] text-sm leading-6 text-dim'>
+					<p className='mt-2.5 max-w-[65ch] text-sm leading-6 text-dim' data-sc-in>
 						Three practice areas, backed by shipped projects and published research from this portfolio.
 					</p>
 				</div>
-				<div className='mt-3 grid gap-2 lg:grid-cols-5' data-sc-in data-sc-stagger='70' data-sc-reveal='up' data-sc-reveal-at='0.15 0.6'>
-					{practiceAreas.map((area) => (
+				<div className='mt-3 grid gap-2 lg:grid-cols-5'>
+					{practiceAreas.map((area, i) => (
 						<article
 							key={area.title}
+							data-sc-in
+							data-sc-stagger={String(120 + i * 80)}
 							className={`card-pad flex flex-col justify-between gap-4 border border-rule ${area.tone === 'cream' ? '' : 'min-h-36'} ${toneClasses[area.tone]} ${area.className}`}>
 							<div>
 								<h3 className='text-lg font-bold tracking-[-0.03em] sm:text-xl'>{area.title}</h3>

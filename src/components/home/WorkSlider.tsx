@@ -39,11 +39,12 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 							data-sc-in>
 							Case studies shaped by method, implementation, and evidence.
 						</h2>
-						<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim [@media(max-height:760px)]:hidden'>
+						<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim [@media(max-height:760px)]:hidden' data-sc-in>
 							Machine learning research, product delivery, and an ML-integrated Android capstone.
 						</p>
 						<Link
 							href='/projects'
+							data-sc-in
 							className='group mt-3 inline-flex items-center font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
 							View all projects <Arrow />
 						</Link>
