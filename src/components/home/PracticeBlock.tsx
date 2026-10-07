@@ -37,23 +37,31 @@ const bodyTone = {
 /** Three practice areas as an asymmetric trio: dark, tinted, and cream cells. */
 export default function PracticeBlock() {
 	return (
-		<section data-sc-act='flow' className='page-block border-b border-rule bg-plate' aria-labelledby='practice-heading'>
-			<div className='site-container page-section'>
+		<section
+			data-sc-act='flow'
+			className='page-block border-b-[3px] border-b-ink bg-plate'
+			aria-labelledby='practice-heading'>
+			<div className='site-container relative page-section'>
+				{/* Onomatopoeia pop saat section masuk */}
+				<span className='action-word right-0 top-0 hidden md:block' data-sc-in aria-hidden='true'>
+					THWIP!
+				</span>
 				<div className='max-w-3xl' data-sc-cue='0.05 0.68 0.25 0.18'>
 					<h2 id='practice-heading' className='section-title text-ink' data-sc-in>
 						What I build.
 					</h2>
-					<p className='mt-2.5 max-w-[65ch] text-sm leading-6 text-dim' data-sc-in>
+					<p className='caption-box mt-2.5 max-w-[65ch] text-sm leading-6' data-sc-in>
 						Three practice areas, backed by shipped projects and published research from this portfolio.
 					</p>
 				</div>
-				<div className='mt-3 grid gap-2 lg:grid-cols-5'>
+				<div className='mt-4 grid gap-3 lg:grid-cols-5'>
 					{practiceAreas.map((area, i) => (
 						<article
 							key={area.title}
 							data-sc-in
 							data-sc-stagger={String(120 + i * 80)}
-							className={`card-pad flex flex-col justify-between gap-4 border border-rule ${area.tone === 'cream' ? '' : 'min-h-36'} ${toneClasses[area.tone]} ${area.className}`}>
+							className={`card-pad flex flex-col justify-between gap-4 border-[3px] border-ink ${area.tone === 'cream' ? '' : 'min-h-36'} ${toneClasses[area.tone]} ${area.className}`}
+							style={{ boxShadow: `5px 5px 0 0 var(--shadow-plate-${i % 3})` }}>
 							<div>
 								<h3 className='text-lg font-bold tracking-[-0.03em] sm:text-xl'>{area.title}</h3>
 								<p className={`mt-2.5 max-w-2xl text-sm leading-6 ${bodyTone[area.tone]}`}>{area.description}</p>

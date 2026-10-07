@@ -9,8 +9,12 @@ export default function ToolkitBlock({ techGroups }: { techGroups: readonly Tech
 			data-header-theme='dark'
 			data-sc-act='flow'
 			data-sc-spotlight
-			className='page-block block-overlap toolkit-surface bg-void text-ink'>
-			<div className='site-container page-section'>
+			className='page-block block-overlap border-b-[3px] border-b-ink toolkit-surface bg-void text-ink'>
+			<div className='site-container relative page-section'>
+				{/* Onomatopoeia pop saat section masuk */}
+				<span className='action-word right-0 top-0 hidden md:block' data-sc-in aria-hidden='true'>
+					THWIP!
+				</span>
 				<div className='border-b border-rule pb-4' data-sc-in>
 					{/* Wrapper cue: block-level in/out (kinetic only staggers the
 					    line units inside, parent stays at opacity 1). */}
@@ -22,18 +26,19 @@ export default function ToolkitBlock({ techGroups }: { techGroups: readonly Tech
 							Grouped by practice area.
 						</h2>
 					</div>
-					<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim'>
+					<p className='caption-box mt-3 max-w-[65ch] text-sm leading-6'>
 						The stack used across research pipelines, Android applications, and web products.
 					</p>
 				</div>
 
-				<div className='mt-4 grid border-l border-t border-rule md:grid-cols-2 lg:grid-cols-3' data-sc-in data-sc-stagger='60'>
+				<div className='mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-3' data-sc-in data-sc-stagger='60'>
 					{techGroups.map((group, index) => (
 						<article
 							key={group.contentId}
-							className={`card-pad border-b border-r border-rule bg-plate transition-colors duration-200 hover:bg-raised ${
+							className={`card-pad border-[3px] border-ink bg-plate transition-colors duration-200 hover:bg-raised ${
 								index === techGroups.length - 1 ? 'md:col-span-2 lg:col-span-3' : ''
-							}`}>
+							}`}
+							style={{ boxShadow: `5px 5px 0 0 var(--shadow-plate-${index % 3})` }}>
 							<h3 className='font-mono text-sm font-bold uppercase tracking-[0.08em] text-ink'>{group.name}</h3>
 							<ul className='mt-2 flex flex-wrap gap-1.5' aria-label={`${group.name} skills`}>
 								{group.items.map((item) => (

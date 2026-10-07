@@ -26,9 +26,13 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 			data-nav-section='work'
 			data-sc-act='pan'
 			data-sc-span='3.5'
-			className='page-block block-overlap border-b border-rule bg-void'>
+			className='page-block block-overlap border-b-[3px] border-b-ink bg-void'>
 			<div className='sc-stage' data-sc-stage>
-				<div className='site-container flex h-full flex-col justify-center py-8 [@media(max-height:760px)]:justify-start [@media(max-height:760px)]:pt-[calc(var(--site-header-h,3.25rem)+1.5rem)] [@media(max-height:760px)]:pb-4'>
+				<div className='site-container relative flex h-full flex-col justify-center py-8 [@media(max-height:760px)]:justify-start [@media(max-height:760px)]:pt-[calc(var(--site-header-h,3.25rem)+1.5rem)] [@media(max-height:760px)]:pb-4'>
+					{/* Onomatopoeia pop saat section masuk */}
+					<span className='action-word right-0 top-0 hidden md:block' data-sc-in aria-hidden='true'>
+						WHOOSH!
+					</span>
 					<header className='border-b border-rule pb-5'>
 						<p className='eyebrow'>Selected work</p>
 						{/* Time-driven entrance only (user call): a plain one-shot
@@ -39,7 +43,9 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 							data-sc-in>
 							Case studies shaped by method, implementation, and evidence.
 						</h2>
-						<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim [@media(max-height:760px)]:hidden' data-sc-in>
+						<p
+							className='caption-box mt-3 max-w-[65ch] text-sm leading-6 [@media(max-height:760px)]:hidden'
+							data-sc-in>
 							Machine learning research, product delivery, and an ML-integrated Android capstone.
 						</p>
 						<Link
@@ -51,11 +57,12 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 					</header>
 
 					<div className='rack mt-5' data-sc-pan='0.04'>
-						{projects.map((project) => (
+						{projects.map((project, i) => (
 							<article
 								key={project.slug}
 								data-sc-tilt='6'
-								className='case-card surface flex flex-col bg-plate p-4'>
+								className='case-card surface flex flex-col border-[3px] border-ink bg-plate p-4'
+								style={{ boxShadow: `5px 5px 0 0 var(--shadow-plate-${i % 3})` }}>
 								<div className='flex flex-wrap gap-x-3 gap-y-1'>
 									{project.categories.slice(0, 3).map((category) => (
 										<span
