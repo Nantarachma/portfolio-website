@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+import LineReveal from '@/components/effects/LineReveal';
 import GlitchChars from '@/components/effects/GlitchChars';
 import Link from 'next/link';
 import ProjectVisual from '@/components/projects/ProjectVisual';
@@ -55,7 +56,9 @@ function ResearchCard({
 							{project.context}
 						</p>
 					) : null}
-					<p className='mt-2.5 text-sm leading-6 text-dim'>{project.summary}</p>
+					<p className='mt-2.5 text-sm leading-6 text-dim'>
+						<LineReveal text={project.summary} />
+					</p>
 					<Link
 						href={`/projects/${project.slug}`}
 						className='group/link mt-4 inline-flex items-center text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-flare'>

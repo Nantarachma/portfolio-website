@@ -1133,4 +1133,33 @@ html.sc-timeout .flip3d__inner {
 	transform: none !important;
 }
 
+/* ─── Entrance layer D: line-by-line mask reveal utk paragraf ─── */
+
+.line {
+	display: block;
+	overflow: hidden;
+}
+.line__i {
+	display: block;
+	transform: translateY(110%);
+}
+/* fill BOTH: base .line__i = translateY(110%) (tersembunyi) — fill
+   backwards akan MENGEMBALIKAN-nya ke hidden setelah animasi selesai. */
+.sc-in .line__i {
+	animation: line-rise 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+	animation-delay: calc(360ms + var(--l, 0) * 55ms);
+}
+@keyframes line-rise {
+	from {
+		transform: translateY(110%);
+	}
+	to {
+		transform: none;
+	}
+}
+html.sc-timeout .line__i {
+	transform: none !important;
+	animation: none !important;
+}
+
 

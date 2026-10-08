@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import LineReveal from '@/components/effects/LineReveal';
 import type { CSSProperties } from 'react';
 import { FiArrowRight, FiArrowUpRight, FiGithub } from 'react-icons/fi';
 import Badge from '@/components/ui/Badge';
@@ -79,7 +80,9 @@ export default function ProjectCard({
 					) : null}
 				</div>
 
-				<p className='mt-4 text-sm leading-6 text-dim'>{project.summary}</p>
+				<p className='mt-4 text-sm leading-6 text-dim'>
+					<LineReveal text={project.summary} />
+				</p>
 
 				{project.role || project.context || project.period ? (
 					<dl className='mt-5 grid gap-3 border-l-2 border-blueprint pl-3 text-sm leading-5 text-dim'>

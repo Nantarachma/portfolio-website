@@ -1,3 +1,4 @@
+import LineReveal from '@/components/effects/LineReveal';
 import GlitchChars from '@/components/effects/GlitchChars';
 import Image from 'next/image';
 import type { PortfolioProfile } from '@/lib/portfolio/schema';
@@ -39,8 +40,8 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 							aria-label='Interested in working together?'>
 							<GlitchChars text='Interested in working together?' />
 						</h2>
-						<p className='mt-4 max-w-xl leading-7 text-dim'>
-							I&apos;m open to software engineering, machine learning, and mobile development opportunities.
+						<p className='mt-4 max-w-xl leading-7 text-dim' data-sc-in>
+							<LineReveal text="I'm open to software engineering, machine learning, and mobile development opportunities." />
 						</p>
 						<div className='mt-6 flex flex-wrap gap-3'>
 							<a
