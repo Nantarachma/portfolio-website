@@ -1,5 +1,6 @@
 'use client';
 
+import GlitchChars from '@/components/effects/GlitchChars';
 import { useRef, useState, type KeyboardEvent } from 'react';
 import type { PortfolioContent } from '@/lib/portfolio/schema';
 
@@ -44,10 +45,14 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 			aria-labelledby='background-heading'>
 			<div className='site-container page-section'>
 				<div className='border-b border-rule pb-4' data-sc-cue='0.05 0.66 0.25 0.18'>
-					<h2 id='background-heading' className='section-title text-balance text-ink'>
-						Background.
+					<h2
+						id='background-heading'
+						className='section-title text-balance text-ink'
+						data-sc-in
+						aria-label='Background.'>
+						<GlitchChars text='Background.' />
 					</h2>
-					<p className='caption-box mt-3 max-w-[65ch] text-sm leading-6'>
+					<p className='caption-box mt-3 max-w-[65ch] text-sm leading-6' data-sc-in>
 						{intro} Professional and cohort experience, education record, leadership work, and verified
 						credentials.
 					</p>

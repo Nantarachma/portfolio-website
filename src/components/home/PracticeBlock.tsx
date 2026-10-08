@@ -1,3 +1,5 @@
+import GlitchChars from '@/components/effects/GlitchChars';
+
 const practiceAreas = [
 	{
 		title: 'Machine learning & computer vision',
@@ -49,8 +51,8 @@ export default function PracticeBlock() {
 					THWIP!
 				</span>
 				<div className='max-w-3xl' data-sc-cue='0.05 0.68 0.25 0.18'>
-					<h2 id='practice-heading' className='section-title text-ink' data-sc-in>
-						What I build.
+					<h2 id='practice-heading' className='section-title text-ink' data-sc-in aria-label='What I build.'>
+						<GlitchChars text='What I build.' />
 					</h2>
 					<p className='caption-box mt-2.5 max-w-[65ch] text-sm leading-6' data-sc-in>
 						Three practice areas, backed by shipped projects and published research from this portfolio.

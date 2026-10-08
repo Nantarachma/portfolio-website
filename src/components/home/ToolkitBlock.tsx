@@ -1,3 +1,4 @@
+import GlitchChars from '@/components/effects/GlitchChars';
 import type { PortfolioContent } from '@/lib/portfolio/schema';
 
 type TechGroup = PortfolioContent['techGroups'][number];
@@ -23,11 +24,11 @@ export default function ToolkitBlock({ techGroups }: { techGroups: readonly Tech
 						<h2
 							className='section-title max-w-3xl text-balance text-ink'
 							data-sc-cue='0.05 0.67 0.3 0.05'
-							data-sc-kinetic='lines'>
-							Grouped by practice area.
+							aria-label='Grouped by practice area.'>
+							<GlitchChars text='Grouped by practice area.' />
 						</h2>
 					</div>
-					<p className='caption-box mt-3 max-w-[65ch] text-sm leading-6'>
+					<p className='caption-box mt-3 max-w-[65ch] text-sm leading-6' data-sc-in>
 						The stack used across research pipelines, Android applications, and web products.
 					</p>
 				</div>

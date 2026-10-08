@@ -1008,4 +1008,75 @@ body.bg-slate-50 {
 	transform: scaleX(1);
 }
 
+/* ─── Entrance layer B: glitch-in heading + stamp caption ─── */
+
+/* Glitch-in: per char, RGB split merah/putih + skew, stagger 30ms.
+   Sequence base 160ms (border 0 → eyebrow 80 → heading 160 → caption 240). */
+.glitch-in__word {
+	display: inline-block;
+	white-space: nowrap;
+}
+.glitch-in__ch {
+	display: inline-block;
+	opacity: 0;
+}
+.sc-in .glitch-in__ch {
+	animation: glitch-char 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+	animation-delay: calc(160ms + var(--i, 0) * 30ms);
+	transition: none;
+}
+@keyframes glitch-char {
+	0% {
+		opacity: 0;
+		transform: translate3d(-6px, 0, 0) skewX(-10deg);
+		text-shadow: -3px 0 var(--color-blueprint), 3px 0 rgb(242 239 232 / 0.7);
+	}
+	35% {
+		opacity: 1;
+		transform: translate3d(5px, -2px, 0) skewX(7deg);
+		text-shadow: 4px 0 var(--color-blueprint), -4px 0 rgb(242 239 232 / 0.5);
+	}
+	65% {
+		opacity: 1;
+		transform: translate3d(-2px, 1px, 0) skewX(-2deg);
+		text-shadow: -2px 0 var(--color-blueprint), 2px 0 transparent;
+	}
+	100% {
+		opacity: 1;
+		transform: none;
+		text-shadow: none;
+	}
+}
+/* Watchdog: engine tak boleh meninggalkan heading kosong. */
+html.sc-timeout .glitch-in__ch {
+	opacity: 1 !important;
+	animation: none !important;
+}
+
+/* Stamp caption: scale 1.35 + rotate masuk → settle overshoot —
+   kotak komik "dicap" ke tempatnya (delay 240ms, setelah heading). */
+.sc-in.caption-box,
+.sc-in .caption-box:not(.hero-role) {
+	/* hero-role (subtitle-loop) punya siklus ketik sendiri — jangan distamp. */
+	animation: stamp 0.55s cubic-bezier(0.2, 0.9, 0.3, 1) 240ms both;
+	transition: none;
+}
+@keyframes stamp {
+	0% {
+		opacity: 0;
+		transform: scale(1.35) rotate(2.5deg);
+	}
+	55% {
+		opacity: 1;
+		transform: scale(0.965) rotate(-0.7deg);
+	}
+	78% {
+		transform: scale(1.02) rotate(0.35deg);
+	}
+	100% {
+		opacity: 1;
+		transform: none;
+	}
+}
+
 

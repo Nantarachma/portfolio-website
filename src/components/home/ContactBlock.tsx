@@ -1,3 +1,4 @@
+import GlitchChars from '@/components/effects/GlitchChars';
 import Image from 'next/image';
 import type { PortfolioProfile } from '@/lib/portfolio/schema';
 
@@ -32,8 +33,11 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 					    stage's header-height clearance already keeps the bar from
 					    ever covering it. */}
 					<div className='min-w-0 lg:col-span-7'>
-						<h2 className='section-title max-w-2xl text-balance font-bold text-ink'>
-							Interested in working together?
+						<h2
+							className='section-title max-w-2xl text-balance font-bold text-ink'
+							data-sc-in
+							aria-label='Interested in working together?'>
+							<GlitchChars text='Interested in working together?' />
 						</h2>
 						<p className='mt-4 max-w-xl leading-7 text-dim'>
 							I&apos;m open to software engineering, machine learning, and mobile development opportunities.

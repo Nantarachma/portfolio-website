@@ -1,3 +1,4 @@
+import GlitchChars from '@/components/effects/GlitchChars';
 import Link from 'next/link';
 import ProjectVisual from '@/components/projects/ProjectVisual';
 import type { PortfolioProject, PortfolioProjectCategory } from '@/lib/portfolio/schema';
@@ -40,8 +41,9 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 						    kinetic line assembly on this headline. */}
 						<h2
 							className='section-title mt-3 max-w-3xl text-balance text-ink'
-							data-sc-in>
-							Case studies shaped by method, implementation, and evidence.
+							data-sc-in
+							aria-label='Case studies shaped by method, implementation, and evidence.'>
+							<GlitchChars text='Case studies shaped by method, implementation, and evidence.' />
 						</h2>
 						<p
 							className='caption-box mt-3 max-w-[65ch] text-sm leading-6 [@media(max-height:760px)]:hidden'
