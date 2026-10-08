@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import GlitchChars from '@/components/effects/GlitchChars';
 import Link from 'next/link';
 import ProjectVisual from '@/components/projects/ProjectVisual';
@@ -21,16 +22,20 @@ function ResearchCard({
 	project,
 	categoryLabels,
 	featured = false,
+	index = 0,
 }: {
 	project: PortfolioProject;
 	categoryLabels: Record<PortfolioProjectCategory, string>;
 	featured?: boolean;
+	index?: number;
 }) {
 	return (
 		<article
-			className={`card-pad group border-[3px] border-ink bg-void shadow-[5px_5px_0_0_var(--shadow-plate-0)] transition-[transform,box-shadow] duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--shadow-plate-1)] ${
+			className={`flip3d__inner card-pad group border-[3px] border-ink bg-void shadow-[5px_5px_0_0_var(--shadow-plate-0)] transition-[transform,box-shadow] duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--shadow-plate-1)] ${
 				featured ? 'lg:col-span-2' : ''
-			}`}>
+			}`}
+			style={{ '--flip-i': index } as CSSProperties}>
+			<div className='flip3d__front'>
 			<div className='flex flex-wrap gap-x-3 gap-y-1'>
 				{project.categories.slice(0, 2).map((category) => (
 					<span
@@ -61,6 +66,13 @@ function ResearchCard({
 					<ProjectVisual project={project} className='min-h-32' />
 				</div>
 			</div>
+			</div>
+			<div className='flip3d__back wv-halftone bg-void' aria-hidden='true'>
+				<span className='text-[10px] font-bold uppercase tracking-[0.3em] text-dim'>Research</span>
+				<span className='section-title max-w-[16ch] text-xl text-ink'>
+					{project.shortTitle ?? project.title}
+				</span>
+			</div>
 		</article>
 	);
 }
@@ -87,10 +99,10 @@ export default function ResearchBlock({ projects, thesis, categoryLabels }: Rese
 					</p>
 				</div>
 
-				<div className='mt-4 grid gap-3 lg:grid-cols-2' data-sc-in data-sc-stagger='80'>
-					{thesis ? <ResearchCard project={thesis} categoryLabels={categoryLabels} featured /> : null}
-					{others.map((project) => (
-						<ResearchCard key={project.slug} project={project} categoryLabels={categoryLabels} />
+				<div className='flip3d-persp mt-4 grid gap-3 lg:grid-cols-2' data-sc-in data-sc-stagger='80'>
+					{thesis ? <ResearchCard project={thesis} categoryLabels={categoryLabels} featured index={0} /> : null}
+					{others.map((project, i) => (
+						<ResearchCard key={project.slug} project={project} categoryLabels={categoryLabels} index={i + 1} />
 					))}
 				</div>
 			</div>

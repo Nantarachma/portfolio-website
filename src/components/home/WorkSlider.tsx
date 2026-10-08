@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import GlitchChars from '@/components/effects/GlitchChars';
 import Link from 'next/link';
 import ProjectVisual from '@/components/projects/ProjectVisual';
@@ -58,13 +59,19 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 						</Link>
 					</header>
 
-					<div className='rack mt-5' data-sc-pan='0.04'>
+					<div className='rack flip3d-persp mt-5' data-sc-pan='0.04' data-sc-in data-sc-stagger='80'>
 						{projects.map((project, i) => (
 							<article
 								key={project.slug}
 								data-sc-tilt='6'
-								className='case-card surface flex flex-col border-[3px] border-ink bg-plate p-4'
-								style={{ boxShadow: `5px 5px 0 0 var(--shadow-plate-${i % 3})` }}>
+								className='case-card flip3d__inner surface flex flex-col border-[3px] border-ink bg-plate p-4'
+								style={
+									{
+										'--flip-i': i,
+										boxShadow: `5px 5px 0 0 var(--shadow-plate-${i % 3})`,
+									} as CSSProperties
+								}>
+								<div className='flip3d__front'>
 								<div className='flex flex-wrap gap-x-3 gap-y-1'>
 									{project.categories.slice(0, 3).map((category) => (
 										<span
@@ -107,6 +114,13 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 										View case study <Arrow />
 									</Link>
 								</div>
+							</div>
+							<div className='flip3d__back wv-halftone border-[3px] border-ink bg-void' aria-hidden='true'>
+								<span className='text-[10px] font-bold uppercase tracking-[0.3em] text-dim'>Case study</span>
+								<span className='section-title max-w-[16ch] text-xl text-ink'>
+									{project.shortTitle ?? project.title}
+								</span>
+							</div>
 							</article>
 						))}
 					</div>

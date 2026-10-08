@@ -90,7 +90,11 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 				Showing <span className='font-semibold text-ink'>{filteredProjects.length}</span> {filteredProjects.length === 1 ? 'project' : 'projects'} in <span className='font-semibold text-ink'>{selectedLabel}</span>
 			</p>
 
-			<div id='project-results' className='card-grid mt-7 grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3'>
+			<div
+				id='project-results'
+				className='flip3d-persp card-grid mt-7 grid grid-flow-row-dense md:grid-cols-2 lg:grid-cols-3'
+				data-sc-in
+				data-sc-stagger='80'>
 				{filteredProjects.map((project, index) => {
 					const layout = cardLayouts[index % cardLayouts.length];
 
@@ -101,6 +105,7 @@ export default function ProjectFilters({ projects, filterCategories, categoryLab
 							categoryLabels={categoryLabels}
 							layout={layout}
 							className={layout === 'stacked' ? '' : 'md:col-span-2 lg:col-span-3'}
+							index={index}
 						/>
 					);
 				})}

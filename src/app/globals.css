@@ -1079,4 +1079,58 @@ html.sc-timeout .glitch-in__ch {
 	}
 }
 
+/* ─── Entrance layer C: flip penuh 180° utk kartu ─── */
+
+/* Kartu masuk MEMBELAKANGI (rotateY 180 = panel belakang) lalu membalik
+   ke 0 — muka belakang = halftone + judul. fill: backwards → setelah
+   selesai, transform dilepas kembali ke CSS/JS (tilt & hover translate
+   engine tetap berfungsi). Sequence base 320ms + stagger 80ms/kartu. */
+.flip3d-persp {
+	perspective: 1200px;
+}
+.flip3d__inner {
+	transform-style: preserve-3d;
+}
+.sc-in .flip3d__inner,
+.flip3d__inner.sc-in {
+	animation: flip-in 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) backwards;
+	animation-delay: calc(320ms + var(--flip-i, 0) * 80ms);
+	transition: none;
+}
+.flip3d__front {
+	backface-visibility: hidden;
+}
+.flip3d__back {
+	position: absolute;
+	inset: 0;
+	transform: rotateY(180deg);
+	backface-visibility: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	padding: 1.5rem;
+	text-align: center;
+}
+@keyframes flip-in {
+	0% {
+		transform: rotateY(180deg);
+	}
+	62% {
+		transform: rotateY(-8deg);
+	}
+	82% {
+		transform: rotateY(4deg);
+	}
+	100% {
+		transform: rotateY(0deg);
+	}
+}
+/* Watchdog: kartu tak boleh tertinggal terbalik bila animasi gagal. */
+html.sc-timeout .flip3d__inner {
+	animation: none !important;
+	transform: none !important;
+}
+
 

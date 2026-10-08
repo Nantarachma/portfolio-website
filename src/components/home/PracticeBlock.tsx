@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import GlitchChars from '@/components/effects/GlitchChars';
 
 const practiceAreas = [
@@ -58,17 +59,28 @@ export default function PracticeBlock() {
 						Three practice areas, backed by shipped projects and published research from this portfolio.
 					</p>
 				</div>
-				<div className='mt-4 grid gap-3 lg:grid-cols-5'>
+				<div className='flip3d-persp mt-4 grid gap-3 lg:grid-cols-5'>
 					{practiceAreas.map((area, i) => (
 						<article
 							key={area.title}
 							data-sc-in
 							data-sc-stagger={String(120 + i * 80)}
-							className={`card-pad flex flex-col justify-between gap-4 border-[3px] border-ink ${area.tone === 'cream' ? '' : 'min-h-36'} ${toneClasses[area.tone]} ${area.className}`}
-							style={{ boxShadow: `5px 5px 0 0 var(--shadow-plate-${i % 3})` }}>
+							className={`flip3d__inner card-pad flex flex-col justify-between gap-4 border-[3px] border-ink ${area.tone === 'cream' ? '' : 'min-h-36'} ${toneClasses[area.tone]} ${area.className}`}
+							style={
+								{
+									'--flip-i': i,
+									boxShadow: `5px 5px 0 0 var(--shadow-plate-${i % 3})`,
+								} as CSSProperties
+							}>
+							<div className='flip3d__front'>
 							<div>
 								<h3 className='text-lg font-bold tracking-[-0.03em] sm:text-xl'>{area.title}</h3>
 								<p className={`mt-2.5 max-w-2xl text-sm leading-6 ${bodyTone[area.tone]}`}>{area.description}</p>
+							</div>
+							</div>
+							<div className='flip3d__back wv-halftone bg-void' aria-hidden='true'>
+								<span className='text-[10px] font-bold uppercase tracking-[0.3em] text-dim'>Practice</span>
+								<span className='section-title max-w-[14ch] text-lg text-ink'>{area.title}</span>
 							</div>
 						</article>
 					))}

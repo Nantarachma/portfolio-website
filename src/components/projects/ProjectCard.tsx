@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { CSSProperties } from 'react';
 import { FiArrowRight, FiArrowUpRight, FiGithub } from 'react-icons/fi';
 import Badge from '@/components/ui/Badge';
 import ProjectVisual from '@/components/projects/ProjectVisual';
@@ -10,6 +11,8 @@ export interface ProjectCardProps {
 	variant?: 'default' | 'featured';
 	layout?: 'stacked' | 'split' | 'split-reverse';
 	className?: string;
+	/** Index utk stagger flip-in kartu (--flip-i). */
+	index?: number;
 }
 
 export default function ProjectCard({
@@ -18,6 +21,7 @@ export default function ProjectCard({
 	variant = 'default',
 	layout = 'stacked',
 	className = '',
+	index = 0,
 }: ProjectCardProps) {
 	const isFeatured = variant === 'featured';
 	const isSplit = isFeatured || layout !== 'stacked';
@@ -30,9 +34,14 @@ export default function ProjectCard({
 			/* Same pointer-tilt as the Selected Works rack (engine gates it to
 			   hover + fine pointers, so touch devices never get it). */
 			data-sc-tilt='6'
-			className={`surface group relative h-full overflow-hidden ${
-				isSplit ? 'lg:grid lg:grid-cols-[minmax(15rem,0.82fr)_minmax(0,1.18fr)]' : 'flex flex-col'
-			} ${className}`}>
+			className={`flip3d__inner surface group relative h-full overflow-hidden ${className}`}
+			style={{ '--flip-i': index } as CSSProperties}>
+			{/* Grid layout pindah ke front — back face overlay absolut tak
+			    boleh jadi grid item kedua. */}
+			<div
+				className={`flip3d__front ${
+					isSplit ? 'lg:grid lg:grid-cols-[minmax(15rem,0.82fr)_minmax(0,1.18fr)]' : 'flex flex-col'
+				}`}>
 			<ProjectVisual
 				project={project}
 				className={
@@ -134,6 +143,13 @@ export default function ProjectCard({
 						</a>
 					) : null}
 				</div>
+			</div>
+			</div>
+			<div className='flip3d__back wv-halftone bg-void' aria-hidden='true'>
+				<span className='text-[10px] font-bold uppercase tracking-[0.3em] text-dim'>Project</span>
+				<span className='section-title max-w-[16ch] text-xl text-ink'>
+					{project.shortTitle ?? project.title}
+				</span>
 			</div>
 		</article>
 	);
