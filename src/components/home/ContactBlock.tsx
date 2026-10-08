@@ -95,23 +95,42 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 					<aside
 						className='min-w-0 border-t border-rule pt-8 lg:col-span-4 lg:col-start-9 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0'
 						aria-label='Contact details'>
-						{/* Parallax ON (user reversal): portrait drift 0.08
-						    mengikuti scroll act — dulu dimatikan, kini diminta
-						    hidup lagi. */}
-						<figure className='max-w-[16rem]' data-sc-parallax='0.08'>
-							<div className='relative aspect-[4/5] overflow-hidden border-[3px] border-ink bg-plate p-3 shadow-[6px_6px_0_0_var(--color-blueprint)]'>
-								<div className='relative h-full overflow-hidden border border-rule bg-plate'>
-									<Image
-										src={profile.portrait.src}
-										alt={profile.portrait.alt}
-										fill
-										sizes='(min-width: 1024px) 16rem, 70vw'
-										className='object-cover object-center'
-									/>
+						{/* ID card 3D: parallax 0.25 di figure (drift panjang,
+						    user call) — flip scrub rotateY di .flip3d__inner
+						    (elemen terpisah → inline parallax engine vs
+						    stylesheet flip tak bentrok). Masuk dari sisi INFO →
+						    membalik ke FOTO, konsisten dgn 19 kartu lain. */}
+						<figure className='max-w-[16rem]' data-sc-parallax='0.25'>
+							<div className='flip3d-persp'>
+								<div className='flip3d__inner flip-id' data-sc-in>
+									<div className='flip3d__front'>
+										<div className='relative aspect-[4/5] overflow-hidden border-[3px] border-ink bg-plate p-3 shadow-[6px_6px_0_0_var(--color-blueprint)]'>
+											<div className='relative h-full overflow-hidden border border-rule bg-plate'>
+												<Image
+													src={profile.portrait.src}
+													alt={profile.portrait.alt}
+													fill
+													sizes='(min-width: 1024px) 16rem, 70vw'
+													className='object-cover object-center'
+												/>
+											</div>
+											<figcaption className='absolute bottom-3 left-3 border border-ink bg-void/95 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-flare'>
+												Portrait
+											</figcaption>
+										</div>
+									</div>
+									<div className='flip3d__back wv-halftone border-[3px] border-ink bg-void shadow-[6px_6px_0_0_var(--color-blueprint)]'>
+										<span className='text-[9px] font-bold uppercase tracking-[0.3em] text-flare'>
+											Portfolio ID
+										</span>
+										<span className='h-px w-12 bg-rule' aria-hidden='true' />
+										<span className='text-base font-bold leading-tight text-ink'>{profile.name}</span>
+										<span className='text-[11px] font-semibold uppercase leading-4 tracking-[0.08em] text-dim'>
+											{profile.role}
+										</span>
+										<span className='text-[11px] text-dim'>{profile.location}</span>
+									</div>
 								</div>
-								<figcaption className='absolute bottom-3 left-3 border border-ink bg-void/95 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-flare'>
-									Portrait
-								</figcaption>
 							</div>
 						</figure>
 						<p className='mt-6 text-[11px] font-semibold text-dim'>Based in</p>

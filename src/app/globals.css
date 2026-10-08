@@ -954,14 +954,22 @@ html [data-sc-stagger] > *.sc-in {
 }
 
 /* Flip kartu: reveal + rotateY(180→0) dalam SATU transform (p besar →
-   overshoot dr backOut JS → rotateY negatif = pantulan). */
+   overshoot dr backOut JS → rotateY negatif = pantulan).
+
+   FLATTEN GUARD: opacity <1 dan filter ≠ none pada elemen preserve-3d
+   MEMBAKAR children jadi plane2D (spec: grouping property) → back face
+   menempel di front (z-fighting) — inilah kenapa panel belakang tak
+   pernah terlihat selama ini. Tanpa fade/blur: entrance = motion 3D
+   murni; elemen di p=0 masih di bawah viewport (raw clamp) jadi tak
+   muncul tiba-tiba. */
 html [data-sc-stagger] > .flip3d__inner,
 html [data-sc-in].flip3d__inner,
 html .flip3d__inner.sc-in {
+	opacity: 1;
+	filter: none;
 	transform: translate3d(0, calc((1 - var(--p, 1)) * 34px), 0)
 		scale(calc(0.975 + var(--p, 1) * 0.025))
 		rotateY(calc((1 - var(--p, 1)) * 180deg));
-	filter: blur(calc((1 - var(--p, 1)) * 6px));
 }
 /* front/back di dlm kartu: ikut opacity reveal saja (jangan dobel rise) */
 html [data-sc-stagger] > .flip3d__front,
@@ -973,6 +981,9 @@ html [data-sc-stagger] > .flip3d__back {
 	perspective: 1200px;
 }
 .flip3d__inner {
+	/* relative = anchor utk .flip3d__back (absolute) — kartu tanpa
+	   position sendiri (practice/research) sblmnya salah-arah. */
+	position: relative;
 	transform-style: preserve-3d;
 }
 .flip3d__front {

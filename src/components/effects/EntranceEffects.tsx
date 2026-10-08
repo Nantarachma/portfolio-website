@@ -76,7 +76,9 @@ export default function EntranceEffects() {
 		const SELECTOR =
 			'[data-sc-in], [data-sc-stagger] > *, [data-draw-b], [data-draw-t], .action-word, .eyebrow';
 		const isBack = (el: HTMLElement) =>
-			el.classList.contains('flip3d__inner') ||
+			// flip-id (portrait ID card): smooth — backOut melesat, pita
+			// back face cuma ~63px scroll, info ID nyaris tak terbaca.
+			(el.classList.contains('flip3d__inner') && !el.classList.contains('flip-id')) ||
 			el.classList.contains('caption-box') ||
 			el.classList.contains('action-word');
 
