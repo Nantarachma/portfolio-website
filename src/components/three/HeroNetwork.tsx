@@ -251,6 +251,32 @@ export default function HeroNetwork({ className }: Props) {
 		});
 		world.add(new THREE.LineSegments(linkGeo, linkMat));
 
+		// ---- energy pulse: titik energi berjalan di tiap link (loop —
+		// dispensasi globe idle, bukan animasi entrance). Vertices dibaca
+		// dari linkArr tiap frame → pulse OTOMATIS ikut explode/reassemble.
+		// Warna per-link cyan/merah (identity Miles) + additive glow.
+		const pulseGeo = new THREE.BufferGeometry();
+		const pulseArr = new Float32Array(pairs.length * 3);
+		pulseGeo.setAttribute('position', new THREE.BufferAttribute(pulseArr, 3));
+		const pulseCol = new Float32Array(pairs.length * 3);
+		for (let k = 0; k < pairs.length; k++) {
+			const c = k % 2 === 0 ? [0.0, 0.9, 1.0] : [0.9, 0.14, 0.16];
+			pulseCol[k * 3] = c[0];
+			pulseCol[k * 3 + 1] = c[1];
+			pulseCol[k * 3 + 2] = c[2];
+		}
+		pulseGeo.setAttribute('color', new THREE.BufferAttribute(pulseCol, 3));
+		const pulseMat = new THREE.PointsMaterial({
+			size: 7,
+			sizeAttenuation: false,
+			vertexColors: true,
+			transparent: true,
+			opacity: 0.6,
+			blending: THREE.AdditiveBlending,
+			depthWrite: false,
+		});
+		world.add(new THREE.Points(pulseGeo, pulseMat));
+
 		// ---- interaktif: hover raycast + click-lock + drag orbit ----
 		const raycaster = new THREE.Raycaster();
 		const ndc = new THREE.Vector2();
@@ -333,6 +359,7 @@ export default function HeroNetwork({ className }: Props) {
 		let raf = 0;
 		let pS = readP(); // progress tersaring (lerp per frame → halus)
 		let spin = 0;
+		let pulseT = 0; // akumulasi waktu utk energy pulse (pause ikut speedMul)
 		let last = 0;
 		let cw = 0;
 		let ch = 0;
@@ -440,6 +467,22 @@ export default function HeroNetwork({ className }: Props) {
 			}
 			linkGeo.attributes.position.needsUpdate = true;
 			linkMat.opacity = (0.08 + 0.8 * reassemble) * (1 - 0.9 * burst);
+
+			// energy pulse: lerp di sepanjang segmen dari linkArr (ikut
+			// explode); offset tiap link beda → arus tak seragam. Pause
+			// ikut speedMul (hover node / tab background = diam).
+			pulseT += dt * speedMul;
+			for (let k = 0; k < pairs.length; k++) {
+				const o = k * 6;
+				const frac = (pulseT * (0.14 + (k % 5) * 0.02) + k * 0.37) % 1;
+				const q = k * 3;
+				pulseArr[q] = linkArr[o] + (linkArr[o + 3] - linkArr[o]) * frac;
+				pulseArr[q + 1] = linkArr[o + 1] + (linkArr[o + 4] - linkArr[o + 1]) * frac;
+				pulseArr[q + 2] = linkArr[o + 2] + (linkArr[o + 5] - linkArr[o + 2]) * frac;
+			}
+			pulseGeo.attributes.position.needsUpdate = true;
+			// tenang 0.55 · reassemble menyala 0.95 · explode redup 0
+			pulseMat.opacity = (0.55 + 0.4 * reassemble) * (1 - burst);
 
 			// debug probe (dihapus setelah QA): angka arc terbaca dari DOM
 			if (hostRef.current) {
@@ -562,6 +605,8 @@ export default function HeroNetwork({ className }: Props) {
 			nodeGeo.dispose();
 			for (const m of nodeMats) m.dispose();
 			linkGeo.dispose();
+			pulseGeo.dispose();
+			pulseMat.dispose();
 			linkMat.dispose();
 			renderer.dispose();
 			canvas.removeEventListener('pointermove', onMove);

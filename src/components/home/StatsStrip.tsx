@@ -31,9 +31,11 @@ export default function StatsStrip({ highlights }: { highlights: readonly Stat[]
 			data-draw-b
 			aria-label='Profile in numbers'
 			data-sc-act='flow'>
-			<div className='site-container relative py-[var(--space-section-compact)]'>
-				{/* Onomatopoeia pop saat strip masuk */}
-				<span className='action-word right-0 -top-2 hidden md:block' data-sc-in aria-hidden='true'>
+			{/* Bar atas lega (pt-24 md:pt-28) → BAM! duduk di sudut kiri-atas
+			    DI LUAR box grid (tinggi bar > tinggi span) — dulu right-0
+			    menempel kartu kanan & ketutup (hit-test: highlight-item). */}
+			<div className='site-container relative pb-[var(--space-section-compact)] pt-24 md:pt-28'>
+				<span className='action-word left-0 top-0 z-10 hidden md:block' data-sc-in aria-hidden='true'>
 					BAM!
 				</span>
 				<div className='highlight-grid' data-sc-in data-sc-stagger='70'>
