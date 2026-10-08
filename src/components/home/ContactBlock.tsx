@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import LineReveal from '@/components/effects/LineReveal';
 import GlitchChars from '@/components/effects/GlitchChars';
 import Image from 'next/image';
@@ -68,13 +69,20 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 							</a>
 						</div>
 						<nav className='mt-6 flex flex-wrap gap-x-6 gap-y-2' aria-label='Profile links'>
-							{secondaryLinks.map((link) => (
+							{secondaryLinks.map((link, i) => (
 								<a
 									key={link.label}
 									href={link.href}
 									target={link.href.startsWith('mailto:') ? undefined : '_blank'}
 									rel={link.href.startsWith('mailto:') ? undefined : 'noreferrer'}
-									className='border-b border-transparent pb-0.5 text-sm font-semibold text-dim transition-colors duration-200 hover:border-flare hover:text-flare'>
+									data-sc-in
+									className='p-link inline-block border-b border-transparent pb-0.5 text-sm font-semibold text-dim transition-colors duration-200 hover:border-flare hover:text-flare'
+									style={
+										{
+											'--i': i,
+											'--span': ((secondaryLinks.length - 1) * 0.06).toFixed(3),
+										} as CSSProperties
+									}>
 									{link.label}
 								</a>
 							))}
@@ -87,10 +95,10 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 					<aside
 						className='min-w-0 border-t border-rule pt-8 lg:col-span-4 lg:col-start-9 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0'
 						aria-label='Contact details'>
-						{/* No parallax here (user call): the portrait just sits in
-						    the pinned scene — the drift was more distracting than
-						    alive at 0.08. */}
-						<figure className='max-w-[16rem]'>
+						{/* Parallax ON (user reversal): portrait drift 0.08
+						    mengikuti scroll act — dulu dimatikan, kini diminta
+						    hidup lagi. */}
+						<figure className='max-w-[16rem]' data-sc-parallax='0.08'>
 							<div className='relative aspect-[4/5] overflow-hidden border-[3px] border-ink bg-plate p-3 shadow-[6px_6px_0_0_var(--color-blueprint)]'>
 								<div className='relative h-full overflow-hidden border border-rule bg-plate'>
 									<Image

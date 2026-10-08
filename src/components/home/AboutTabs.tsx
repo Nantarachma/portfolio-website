@@ -85,7 +85,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					</div>
 
 					{active === 'experience' ? (
-						<div role='tabpanel' id='panel-experience' aria-labelledby='tab-experience' tabIndex={0} className='pt-3'>
+						<div role='tabpanel' id='panel-experience' aria-labelledby='tab-experience' tabIndex={0} className='tab-panel pt-3'>
 							<div className='grid gap-2 lg:grid-cols-2'>
 								{content.experience.map((item) => (
 									<article key={item.contentId} className='surface card-pad'>
@@ -109,7 +109,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					) : null}
 
 					{active === 'education' ? (
-						<div role='tabpanel' id='panel-education' aria-labelledby='tab-education' tabIndex={0} className='pt-3'>
+						<div role='tabpanel' id='panel-education' aria-labelledby='tab-education' tabIndex={0} className='tab-panel pt-3'>
 							<article className='surface card-pad'>
 								<p className='text-xs font-semibold uppercase tracking-[0.08em] text-flare'>{content.education.period}</p>
 								<h3 className='mt-1 text-lg font-bold tracking-tight text-ink'>
@@ -135,7 +135,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					) : null}
 
 					{active === 'leadership' ? (
-						<div role='tabpanel' id='panel-leadership' aria-labelledby='tab-leadership' tabIndex={0} className='pt-3'>
+						<div role='tabpanel' id='panel-leadership' aria-labelledby='tab-leadership' tabIndex={0} className='tab-panel pt-3'>
 							<div className='grid gap-2 lg:grid-cols-2'>
 								{content.leadership.map((item) => (
 									<article key={item.contentId} className='surface card-pad'>
@@ -180,7 +180,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					) : null}
 
 					{active === 'certifications' ? (
-						<div role='tabpanel' id='panel-certifications' aria-labelledby='tab-certifications' tabIndex={0} className='pt-3'>
+						<div role='tabpanel' id='panel-certifications' aria-labelledby='tab-certifications' tabIndex={0} className='tab-panel pt-3'>
 							<ul className='grid gap-px border border-rule bg-rule md:grid-cols-2'>
 								{content.certifications.map((certification) => (
 									<li key={certification.contentId} className='bg-void'>
