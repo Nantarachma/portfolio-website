@@ -41,6 +41,7 @@ export default function PracticeBlock() {
 		<section
 			data-sc-act='flow'
 			className='page-block border-b-[3px] border-b-ink bg-plate'
+			data-draw-b
 			aria-labelledby='practice-heading'>
 			<div className='site-container relative page-section'>
 				{/* Onomatopoeia pop saat section masuk */}

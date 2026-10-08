@@ -5,6 +5,7 @@ import './webverse.css';
 import './sc-load.css';
 import Navbar from '@/components/Navbar';
 import ScrollEffects from '@/components/effects/ScrollEffects';
+import EntranceEffects from '@/components/effects/EntranceEffects';
 import ScrollCraftMount from '@/components/effects/ScrollCraftMount';
 import SmoothScroll from '@/components/SmoothScroll';
 import Footer from '@/components/Footer';
@@ -73,6 +74,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				</main>
 				<Footer profile={profile} />
 				<ScrollEffects />
+				<EntranceEffects />
 				<ScrollCraftMount />
 				<SmoothScroll />
 				<Analytics />

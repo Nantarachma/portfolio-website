@@ -40,6 +40,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 			data-nav-section='about'
 			data-sc-act='flow'
 			className='page-block block-overlap border-b-[3px] border-b-ink bg-void'
+			data-draw-b
 			aria-labelledby='background-heading'>
 			<div className='site-container page-section'>
 				<div className='border-b border-rule pb-4' data-sc-cue='0.05 0.66 0.25 0.18'>

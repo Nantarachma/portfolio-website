@@ -9,7 +9,8 @@ export default function ToolkitBlock({ techGroups }: { techGroups: readonly Tech
 			data-header-theme='dark'
 			data-sc-act='flow'
 			data-sc-spotlight
-			className='page-block block-overlap border-b-[3px] border-b-ink toolkit-surface bg-void text-ink'>
+			className='page-block block-overlap border-b-[3px] border-b-ink toolkit-surface bg-void text-ink'
+			data-draw-b>
 			<div className='site-container relative page-section'>
 				{/* Onomatopoeia pop saat section masuk */}
 				<span className='action-word right-0 top-0 hidden md:block' data-sc-in aria-hidden='true'>

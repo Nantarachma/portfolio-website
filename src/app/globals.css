@@ -916,4 +916,96 @@ body.bg-slate-50 {
 	}
 }
 
+/* ─── Entrance layer A: magnetic + eyebrow wipe + drawn rules ─── */
+
+/* Magnetic: drag aktif → posisi dari --mag-x/y + squash + ghost chromatic
+   merah; lepas → spring balik. Transition-only, tanpa JS per frame. */
+[data-magnetic] {
+	--mag-x: 0px;
+	--mag-y: 0px;
+	transform: translate3d(var(--mag-x), var(--mag-y), 0);
+	transition:
+		transform 0.45s cubic-bezier(0.22, 1.4, 0.36, 1),
+		filter 0.3s ease-out;
+	will-change: transform;
+}
+[data-magnetic][data-mag='1'] {
+	transform: translate3d(var(--mag-x), var(--mag-y), 0) scale(1.05, 0.95);
+	filter: drop-shadow(calc(var(--mag-x) * -0.6) calc(var(--mag-y) * -0.6) 0 rgb(230 36 41 / 0.55));
+	transition:
+		transform 0.16s ease-out,
+		filter 0.16s ease-out;
+}
+
+/* Eyebrow wipe: bar merah menarik dulu → teks kebuka kiri→kanan.
+   Menggantikan reveal fade bawaan utk .eyebrow (trigger .sc-in). */
+/* .eyebrow bisa MENJADI .sc-in (data-sc-in di elemen sendiri) ATAU
+   keturunan .sc-in → pakai dua selector. */
+.sc-in.eyebrow,
+.sc-in .eyebrow {
+	animation: eyebrow-wipe 0.55s cubic-bezier(0.65, 0, 0.35, 1) 80ms both;
+	transition: none;
+}
+.sc-in.eyebrow::before,
+.sc-in .eyebrow::before {
+	animation: eyebrow-bar 0.4s cubic-bezier(0.65, 0, 0.35, 1) both;
+	transform-origin: left center;
+}
+@keyframes eyebrow-wipe {
+	from {
+		clip-path: inset(0 100% 0 0);
+		opacity: 1;
+	}
+	to {
+		clip-path: inset(0 -8px 0 0);
+		opacity: 1;
+	}
+}
+@keyframes eyebrow-bar {
+	from {
+		transform: scaleX(0);
+	}
+	to {
+		transform: scaleX(1);
+	}
+}
+
+/* Drawn rules: garis pemisah section menggambar scaleX 0→1 saat masuk. */
+.page-block {
+	position: relative;
+}
+[data-draw-b],
+[data-draw-t] {
+	--rule-color: var(--color-ink);
+}
+[data-draw-b] {
+	border-bottom-color: transparent !important;
+}
+[data-draw-t] {
+	border-top-color: transparent !important;
+}
+[data-draw-b]::after,
+[data-draw-t]::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 3px;
+	background: var(--rule-color);
+	transform: scaleX(0);
+	transform-origin: left center;
+	transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1) 60ms;
+	pointer-events: none;
+}
+[data-draw-b]::after {
+	bottom: -3px;
+}
+[data-draw-t]::before {
+	top: -3px;
+}
+[data-draw-b][data-drawn='1']::after,
+[data-draw-t][data-drawn='1']::before {
+	transform: scaleX(1);
+}
+
 

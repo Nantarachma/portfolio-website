@@ -17,7 +17,8 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 			data-sc-span='4'
 			data-header-theme='dark'
 			data-nav-section='home'
-			className='page-block hero-act border-b-[3px] border-b-ink bg-[#120d24] text-ink'>
+			className='page-block hero-act border-b-[3px] border-b-ink bg-[#120d24] text-ink'
+			data-draw-b>
 			<div className='hero-stage sc-stage' data-sc-stage>
 				<div className='hero-bg-pattern' aria-hidden='true' />
 				<div className='hero-network-slot' aria-hidden='true'>
@@ -25,7 +26,7 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 				</div>
 				<div className='site-container hero-section grid min-w-0 items-center gap-y-10 lg:grid-cols-12 lg:gap-x-8'>
 					<div className='min-w-0 lg:col-span-9' data-sc-cue='0 0.28 0 0.25'>
-						<p className='eyebrow text-flare'>{profile.eyebrow}</p>
+						<p className='eyebrow text-flare' data-sc-in>{profile.eyebrow}</p>
 						<h1
 							className='glitch-text display-title safe-wrap mt-7 max-w-3xl text-balance text-ink'
 							data-text={profile.name}>
@@ -37,7 +38,8 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 						<div className='hero-actions mt-8'>
 							<a
 								href='#work'
-								className='group inline-flex items-center justify-center border-[3px] border-ink bg-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-[#14092e] shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--color-blueprint)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_0_var(--color-blueprint)]'>
+								data-magnetic
+							className='group inline-flex items-center justify-center border-[3px] border-ink bg-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-[#14092e] shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--color-blueprint)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_0_var(--color-blueprint)]'>
 								View work{' '}
 								<span className='ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1' aria-hidden='true'>
 									&rarr;
@@ -45,7 +47,8 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 							</a>
 							<a
 								href='#contact'
-								className='group inline-flex items-center justify-center border-[3px] border-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--color-blueprint)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_0_var(--color-blueprint)]'>
+								data-magnetic
+							className='group inline-flex items-center justify-center border-[3px] border-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--color-blueprint)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0_0_var(--color-blueprint)]'>
 								Contact{' '}
 								<span className='ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1' aria-hidden='true'>
 									&rarr;

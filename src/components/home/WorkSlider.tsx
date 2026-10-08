@@ -34,7 +34,7 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 						WHOOSH!
 					</span>
 					<header className='border-b border-rule pb-5'>
-						<p className='eyebrow'>Selected work</p>
+						<p className='eyebrow' data-sc-in>Selected work</p>
 						{/* Time-driven entrance only (user call): a plain one-shot
 						    reveal with a fixed duration, no scroll scrubbing and no
 						    kinetic line assembly on this headline. */}

@@ -21,7 +21,8 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 			data-sc-act='pin'
 			data-sc-span='1.5'
 			data-sc-spotlight
-			className='page-block block-overlap contact-act spotlight-surface border-t-[3px] border-t-ink bg-[#120d24] text-ink'>
+			className='page-block block-overlap contact-act spotlight-surface border-t-[3px] border-t-ink bg-[#120d24] text-ink'
+			data-draw-t>
 			<div className='contact-stage sc-stage' data-sc-stage>
 				<div className='site-container page-section contact-stage__inner'>
 				<div className='grid gap-10 lg:grid-cols-12'>
@@ -40,21 +41,23 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 						<div className='mt-6 flex flex-wrap gap-3'>
 							<a
 								href={profile.links.email.href}
-								data-sc-magnet='0.3'
-								className='touch-target group inline-flex items-center border-[3px] border-ink bg-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-[#14092e] shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0_0_var(--color-blueprint)]'>
+								data-magnetic
+								className='touch-target group inline-flex items-center border-[3px] border-ink bg-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-[#14092e] shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_5px_0_0_var(--color-blueprint)]'>
 								Email me <Arrow />
 							</a>
 							<a
 								href={profile.links.whatsapp.href}
 								target='_blank'
 								rel='noreferrer'
+								data-magnetic
 								className='touch-target group inline-flex items-center border-[3px] border-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--color-blueprint)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--color-blueprint)]'>
-							WhatsApp <Arrow />
+								WhatsApp <Arrow />
 							</a>
 							<a
 								href={profile.links.linkedin.href}
 								target='_blank'
 								rel='noreferrer'
+								data-magnetic
 								className='touch-target group inline-flex items-center border-[3px] border-ink px-5 py-3 text-sm font-bold uppercase tracking-wider text-ink shadow-[5px_5px_0_0_var(--shadow-plate-1)] transition-all duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:text-flare hover:shadow-[7px_7px_0_0_var(--shadow-plate-1)]'>
 								LinkedIn <Arrow />
 							</a>

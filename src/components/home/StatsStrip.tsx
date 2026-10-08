@@ -28,6 +28,7 @@ export default function StatsStrip({ highlights }: { highlights: readonly Stat[]
 	return (
 		<section
 			className='page-block block-overlap border-b-[3px] border-b-ink bg-void'
+			data-draw-b
 			aria-label='Profile in numbers'
 			data-sc-act='flow'>
 			<div className='site-container relative py-[var(--space-section-compact)]'>
