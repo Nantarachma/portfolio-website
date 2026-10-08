@@ -410,19 +410,10 @@
 			-2px -2px 0 #14092e;
 	}
 
-	/* engine menambah .sc-in sekali saat section masuk viewport →
-	   pop sesaat lalu hilang sendiri (muncul sekali, bukan menetap) */
-	.action-word.sc-in {
-		animation: action-pop 2.4s cubic-bezier(0.2, 1.4, 0.4, 1) forwards;
-	}
-
-	@keyframes action-pop {
-		0% { opacity: 0; transform: rotate(-8deg) scale(0.4); }
-		12% { opacity: 1; transform: rotate(-8deg) scale(1.12); }
-		20% { transform: rotate(-8deg) scale(1); }
-		70% { opacity: 1; transform: rotate(-8deg) scale(1); }
-		100% { opacity: 0; transform: rotate(-4deg) scale(0.95); }
-	}
+	/* action-word kini di-scrub (Entrance SCRUB layer di bawah): pop ikut
+	   --p, tetap terlihat setelah masuk, mundur saat scroll balik.
+	   Rule action-pop one-shot lama DIHAPUS — animation menang atas
+	   deklarasi biasa & fill-forwards membuat kata hilang permanen. */
 
 	.hero-assembles::before {
 		content: '';
