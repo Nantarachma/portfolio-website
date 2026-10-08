@@ -8,8 +8,14 @@ import type { CSSProperties } from 'react';
  */
 export default function GlitchChars({ text }: { text: string }) {
 	let i = 0;
+	// total char (tanpa spasi) → --span = panjang stagger, --win = durasi
+	// per char. Dipakai CSS utk menghitung --cp dari --p (scrub).
+	const n = text.split(' ').reduce((sum, word) => sum + word.length, 0);
 	return (
-		<span aria-hidden='true' className='glitch-in'>
+		<span
+			aria-hidden='true'
+			className='glitch-in'
+			style={{ '--span': ((n - 1) * 0.03).toFixed(3), '--win': '0.5' } as CSSProperties}>
 			{text.split(' ').map((word, wi, arr) => [
 				// word-wrapper = inline-block nowrap (tak pecah kata);
 				// space text-node di LUAR wrapper → peluang line-break.

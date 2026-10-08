@@ -24,6 +24,7 @@ export default function ToolkitBlock({ techGroups }: { techGroups: readonly Tech
 						<h2
 							className='section-title max-w-3xl text-balance text-ink'
 							data-sc-cue='0.05 0.67 0.3 0.05'
+							data-sc-in
 							aria-label='Grouped by practice area.'>
 							<GlitchChars text='Grouped by practice area.' />
 						</h2>
