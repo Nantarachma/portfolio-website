@@ -67,34 +67,65 @@ export default function EntranceEffects() {
 		}
 
 		// ---- scrub manager ----
+		// Perf: TWO-PASS (baca semua rect dulu → tulis semua) — versi lama
+		// menulis di antara baca → reflow dipaksa per elemen per frame.
+		// Plus ACTIVE-SET via IO (rootMargin ±100%): elemen jauh di luar
+		// viewport tak dibaca tiap frame — cuma ditulis target ekstrem
+		// (0 = di bawah layar, 1 = di atas layar) saat statusnya berubah.
+		// State per elemen di WeakMap → selamat dari recollect (filter).
 		const SELECTOR =
 			'[data-sc-in], [data-sc-stagger] > *, [data-draw-b], [data-draw-t], .action-word, .eyebrow';
-		// easing back (overshoot) utk entrance yg butuh pantulan:
-		// flip kartu, stamp caption, pop action-word.
 		const isBack = (el: HTMLElement) =>
 			el.classList.contains('flip3d__inner') ||
 			el.classList.contains('caption-box') ||
 			el.classList.contains('action-word');
 
-		let items: { el: HTMLElement; back: boolean }[] = [];
+		interface Item {
+			el: HTMLElement;
+			back: boolean;
+			near: boolean;
+			raw: number;
+		}
+		type State = { cur?: number };
+		const state = new WeakMap<HTMLElement, State>();
+		const stateOf = (el: HTMLElement) => {
+			let s = state.get(el);
+			if (!s) {
+				s = {};
+				state.set(el, s);
+			}
+			return s;
+		};
+
+		let items: Item[] = [];
+		let boot = false; // true setelah frame pertama → item baru = mulai dr 0
 		let dirty = true;
 		const collect = () => {
 			items = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR)).map((el) => ({
 				el,
 				back: isBack(el),
+				near: true, // default optimis; IO segera mengkoreksi
+				raw: 0,
 			}));
+			for (const it of items) observer.observe(it.el);
 			dirty = false;
 		};
 
 		const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 		const smooth = (t: number) => t * t * (3 - 2 * t);
 		const backOut = (t: number) => {
-			// easeOutBack: tembus sedikit >1 lalu settle — overshoot utk
-			// flip/stamp selayaknya keyframe aslinya.
 			const c1 = 1.70158;
 			const c3 = c1 + 1;
 			const u = t - 1;
 			return 1 + c3 * u * u * u + c1 * u * u;
+		};
+
+		const writeP = (el: HTMLElement, v: number) => {
+			const s = v.toFixed(4);
+			if (el.dataset.pCache !== s) {
+				el.style.setProperty('--p', s);
+				el.dataset.pCache = s;
+			}
 		};
 
 		let raf = 0;
@@ -104,20 +135,58 @@ export default function EntranceEffects() {
 			const vh = window.innerHeight;
 			const band = vh * 0.45;
 			const start = vh * 0.92;
+			let chasing = false; // masih ada elemen mengejar target?
+
+			// PASS 1 — baca semua rect (tanpa write apa pun di sela baca)
 			for (const it of items) {
+				if (!it.near) continue;
 				const rect = it.el.getBoundingClientRect();
-				const raw = clamp01((start - rect.top) / band);
-				const eased = it.back ? backOut(raw) : smooth(raw);
-				const v = eased.toFixed(4);
-				if (it.el.dataset.pCache !== v) {
-					it.el.style.setProperty('--p', v);
-					it.el.dataset.pCache = v;
-				}
+				it.raw = clamp01((start - rect.top) / band);
 			}
+
+			// PASS 2 — easing + catch-up tween + write
+			for (const it of items) {
+				if (!it.near) continue;
+				const target = it.back ? backOut(it.raw) : smooth(it.raw);
+				const st = stateOf(it.el);
+				if (st.cur === undefined) st.cur = boot ? 0 : target; // item baru → dr 0
+				const d = target - st.cur;
+				if (Math.abs(d) > 0.004) {
+					// lompat besar (elemen baru / fast-jump) → ease pelan;
+					// beda kecil (scroll halus) → snap biar scrub responsif
+					st.cur = Math.abs(d) > 0.2 ? st.cur + d * 0.28 : target;
+					chasing = true;
+				}
+				writeP(it.el, st.cur);
+			}
+			boot = true;
+			// tween jalan terus walau scroll berhenti (fast-jump / filter:
+			// rAF sekali doang akan membekukan p di tengah jalan)
+			if (chasing) schedule();
 		};
 		const schedule = () => {
 			if (!raf) raf = window.requestAnimationFrame(frame);
 		};
+
+		// ACTIVE-SET: elemen dekat viewport (±100%vh) → masuk loop frame;
+		// keluar → tulin ekstrem sekali lalu keluar dari loop.
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const e of entries) {
+					const el = e.target as HTMLElement;
+					const item = items.find((i) => i.el === el);
+					if (!item) continue;
+					if (e.isIntersecting) {
+						item.near = true;
+						schedule();
+					} else {
+						item.near = false;
+						writeP(el, e.boundingClientRect.top > window.innerHeight ? 0 : 1);
+					}
+				}
+			},
+			{ rootMargin: '100% 0px 100% 0px', threshold: 0 },
+		);
 
 		collect();
 		frame();
@@ -145,6 +214,7 @@ export default function EntranceEffects() {
 			if (raf) window.cancelAnimationFrame(raf);
 			window.clearTimeout(moTimer);
 			mo.disconnect();
+			observer.disconnect();
 		};
 	}, [pathname]);
 
