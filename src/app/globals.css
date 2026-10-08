@@ -295,14 +295,9 @@
 		overflow: hidden;
 	}
 
-	/* Desktop: the globe lives in the open right-hand field (centre ≈68%
-	   of the viewport), clear of the headline stack on the left. Mobile
-	   keeps the full-bleed backdrop. */
-	@media (min-width: 1024px) {
-		.hero-network-slot {
-			left: 52%;
-		}
-	}
+	/* Full-bleed: canvas selebar viewport — node bebas menyebar saat
+	   explode tanpa pernah terpotong tepi slot. Posisi globe kanan
+	   di-offset lewat posisi 3D (world.position.x), bukan CSS. */
 
 	/* Pointer funnel: the grid wrapper is a full-width stacking layer, so
 	   it must pass events through to the canvas below; interactive

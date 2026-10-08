@@ -201,10 +201,19 @@ export default function HeroNetwork({ className }: Props) {
 			const mesh = new THREE.Mesh(nodeGeo, mat);
 			const base = nodeBase(i, TOPICS.length);
 			mesh.position.copy(base);
-			// arah terurai: sedikit acak, tetap menyimpang dari permukaan
+			// Arah terurai = radial-out SEARAH posisi golden-angle (sudah
+			// quasi-merata) + chaos ringan 0.45 → radius akhir ≈ 2.55,
+			// isotropik menyebar rata ke segala arah & menjangkau tepi.
+			// (JANGAN negate: menembus pusat justru menyempit ke 0.55.)
 			const dir = base
 				.clone()
-				.add(new THREE.Vector3(Math.sin(i * 12.9898) * 0.55, Math.cos(i * 78.233) * 0.55, Math.sin(i * 39.425) * 0.55))
+				.add(
+					new THREE.Vector3(
+						Math.sin(i * 12.9898) * 0.45,
+						Math.cos(i * 78.233) * 0.45,
+						Math.sin(i * 39.425) * 0.45,
+					),
+				)
 				.normalize();
 			world.add(mesh);
 			nodes.push(mesh);
@@ -212,6 +221,14 @@ export default function HeroNetwork({ className }: Props) {
 			burstDir.push(dir);
 			nodeMats.push(mat);
 		}
+
+		/* Netralkan momentum: kurangi centroid burstDir lalu renormalisasi
+		   supaya penyebaran explode menyebar merata ke SEGALA arah —
+		   sebelumnya random vector sederhana bias ke kanan (3:7). */
+		const centroid = new THREE.Vector3();
+		for (const d of burstDir) centroid.add(d);
+		centroid.multiplyScalar(1 / burstDir.length);
+		for (const d of burstDir) d.sub(centroid).normalize();
 
 		// ---- koneksi: satu LineSegments (1 draw call) ----
 		const pairs: [number, number][] = [];
@@ -319,6 +336,9 @@ export default function HeroNetwork({ className }: Props) {
 		let last = 0;
 		let cw = 0;
 		let ch = 0;
+		// Offset globe ke kanan dlm satuan frustum (ikut aspect viewport):
+		// 0.52 ndc → pusat di 76% layar (persis slot lama), 0 utk layar sempit.
+		const FRAC = window.matchMedia('(min-width: 1024px)').matches ? 0.52 : 0;
 
 		const frame = (t: number): void => {
 			raf = 0;
@@ -367,6 +387,14 @@ export default function HeroNetwork({ className }: Props) {
 			world.rotation.y = spin + dragYaw;
 			world.rotation.x = Math.max(-0.6, Math.min(0.9, 0.32 + Math.sin(spin * 0.5) * 0.05 + dragPitch));
 			camera.position.z = CAM_Z + 0.6 * burst; // dolly saat ledakan
+			// posisi kanan via offset 3D — canvas full-bleed, node menyebar
+			// bebas ke seluruh layar. Saat explode offset melebur ke tengah
+			// (× 1-burst) supaya penyebaran menjangkau kiri layar juga,
+			// bukan condong kanan.
+			if (FRAC !== 0) {
+				const halfW = Math.tan(((camera.fov * Math.PI) / 180) / 2) * camera.position.z * camera.aspect;
+				world.position.x = FRAC * halfW * (1 - burst);
+			}
 
 			// raycast node: posisi berubah tiap frame → ray per frame saat pointer di dalam
 			let hit = -1;
