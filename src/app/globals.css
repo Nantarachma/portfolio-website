@@ -1117,8 +1117,26 @@ html .action-word.sc-in {
 html.sc-timeout .line__i {
 	transform: none !important;
 }
-/* Watchdog kartu: jangan tertinggal terbalik. */
-html.sc-timeout .flip3d__inner {
+/* ─── ID card flip: interaksi TEKAN (user call, bukan scroll) ───
+   Tanpa data-sc-in → scrub manager tak mengelolanya; transform dipegang
+   transisi time-based spring-overshoot (sama easing dgn magnetic
+   release). Toggle oleh EntranceEffects (klik / Enter / Space). */
+.flip-id {
+	transform: rotateY(0deg);
+	transition: transform 0.9s cubic-bezier(0.22, 1.4, 0.36, 1);
+	cursor: pointer;
+}
+.flip-id[data-flipped='1'] {
+	transform: rotateY(180deg);
+}
+.flip-id:focus-visible {
+	outline: 2px solid var(--color-blueprint);
+	outline-offset: 4px;
+}
+
+/* Watchdog kartu: jangan tertinggal terbalik — kecuali flip-id yg
+   transform-nya dipegang transisi tekan (dipaksa none = tombol mati). */
+html.sc-timeout .flip3d__inner:not(.flip-id) {
 	transform: none !important;
 }
 

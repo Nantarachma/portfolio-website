@@ -66,6 +66,29 @@ export default function EntranceEffects() {
 			el.addEventListener('pointerleave', onLeave as EventListener);
 		}
 
+		// ---- flip by press (portrait ID card) ----
+		// Delegated: [data-flip] toggle data-flipped → CSS transition
+		// time-based. Keyboard: Enter/Space pada elemen fokus (a11y).
+		const flipToggle = (el: HTMLElement) => {
+			const on = el.dataset.flipped !== '1';
+			el.dataset.flipped = on ? '1' : '0';
+			el.setAttribute('aria-pressed', on ? 'true' : 'false');
+		};
+		const onFlipClick = (e: Event) => {
+			const el = (e.target as Element | null)?.closest?.('[data-flip]');
+			if (el) flipToggle(el as HTMLElement);
+		};
+		const onFlipKey = (e: KeyboardEvent) => {
+			if (e.key !== 'Enter' && e.key !== ' ') return;
+			const el = document.activeElement;
+			if (el instanceof HTMLElement && el.hasAttribute('data-flip')) {
+				e.preventDefault();
+				flipToggle(el);
+			}
+		};
+		document.addEventListener('click', onFlipClick);
+		document.addEventListener('keydown', onFlipKey);
+
 		// ---- scrub manager ----
 		// Perf: TWO-PASS (baca semua rect dulu → tulis semua) — versi lama
 		// menulis di antara baca → reflow dipaksa per elemen per frame.
@@ -76,9 +99,7 @@ export default function EntranceEffects() {
 		const SELECTOR =
 			'[data-sc-in], [data-sc-stagger] > *, [data-draw-b], [data-draw-t], .action-word, .eyebrow';
 		const isBack = (el: HTMLElement) =>
-			// flip-id (portrait ID card): smooth — backOut melesat, pita
-			// back face cuma ~63px scroll, info ID nyaris tak terbaca.
-			(el.classList.contains('flip3d__inner') && !el.classList.contains('flip-id')) ||
+			el.classList.contains('flip3d__inner') ||
 			el.classList.contains('caption-box') ||
 			el.classList.contains('action-word');
 
@@ -211,6 +232,8 @@ export default function EntranceEffects() {
 				el.removeEventListener('pointermove', onMove as EventListener);
 				el.removeEventListener('pointerleave', onLeave as EventListener);
 			}
+			document.removeEventListener('click', onFlipClick);
+			document.removeEventListener('keydown', onFlipKey);
 			window.removeEventListener('scroll', schedule);
 			window.removeEventListener('resize', schedule);
 			if (raf) window.cancelAnimationFrame(raf);
