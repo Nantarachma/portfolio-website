@@ -219,8 +219,13 @@ export default function EntranceEffects() {
 				const d = target - st.cur;
 				if (Math.abs(d) > 0.004) {
 					// lompat besar (elemen baru / fast-jump) → ease pelan;
-					// beda kecil (scroll halus) → snap biar scrub responsif
-					st.cur = Math.abs(d) > 0.2 ? st.cur + d * 0.28 : target;
+					// beda kecil (scroll halus) → snap biar scrub responsif.
+					// SNAP bila posisi sudah penuh (raw≥1): kartu harus tuntas
+					// di titik penuh — tanpa ini catch-up tween tertinggal dan
+					// kartu meninggalkan viewport dlm keadaan setengah (tak
+					// terbaca, keluhan research).
+					if (it.raw >= 1) st.cur = target;
+					else st.cur = Math.abs(d) > 0.2 ? st.cur + d * 0.28 : target;
 					chasing = true;
 				}
 				writeP(it.el, st.cur);

@@ -102,7 +102,7 @@ export default function ResearchBlock({ projects, thesis, categoryLabels }: Rese
 					</p>
 				</div>
 
-				<div className='flip3d-persp mt-4 grid gap-3 lg:grid-cols-2' data-sc-in data-sc-stagger='80'>
+				<div className='flip3d-persp mt-4 grid gap-3 lg:grid-cols-2' data-sc-in data-sc-stagger='40'>
 					{thesis ? <ResearchCard project={thesis} categoryLabels={categoryLabels} featured index={0} /> : null}
 					{others.map((project, i) => (
 						<ResearchCard key={project.slug} project={project} categoryLabels={categoryLabels} index={i + 1} />
