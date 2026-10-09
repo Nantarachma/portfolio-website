@@ -28,11 +28,11 @@ function ProjectWorkflow({ steps, label }: { steps?: readonly string[]; label?: 
 
 	return (
 		<div className='surface card-pad'>
-			<p className='font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-signal'>{label ?? 'Workflow'}</p>
+			<p className='text-[11px] font-bold uppercase tracking-[0.16em] text-flare'>{label ?? 'Workflow'}</p>
 			<ol className='mt-6 grid gap-3 sm:grid-cols-2'>
 				{steps.map((step, index) => (
 					<li key={step} className='flex items-center gap-3 border border-rule bg-plate px-3 py-3 text-sm text-ink'>
-						<span className='flex size-6 shrink-0 items-center justify-center bg-signal text-xs font-bold text-void'>
+						<span className='flex size-6 shrink-0 items-center justify-center bg-blueprint text-xs font-bold text-void'>
 							{index + 1}
 						</span>
 						{step}
@@ -52,7 +52,7 @@ function DetailList({ title, items }: { title: string; items?: readonly string[]
 			<ul className='mt-5 space-y-3 text-dim'>
 				{items.map((item) => (
 					<li key={item} className='flex gap-3 leading-7'>
-						<span className='mt-2 size-1.5 shrink-0 bg-signal' aria-hidden='true' />
+						<span className='mt-2 size-1.5 shrink-0 bg-blueprint' aria-hidden='true' />
 						<span>{item}</span>
 					</li>
 				))}
@@ -77,14 +77,14 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 
 	return (
 		<div className='site-container page-section'>
-			<Link href='/projects' className='touch-target inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
+			<Link href='/projects' className='touch-target inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-flare'>
 				<span aria-hidden='true' className='mr-1.5'>&lt;-</span> All projects
 			</Link>
 
 			<header className='mt-8 max-w-4xl'>
 				<div className='flex flex-wrap gap-2'>
 					{project.categories.map((category) => (
-						<span key={category} className='border border-rule bg-plate px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.1em] text-signal'>
+						<span key={category} className='border border-rule bg-plate px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.1em] text-flare'>
 							{projectCategoryLabels[category]}
 						</span>
 					))}
@@ -110,7 +110,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 					.filter((detail): detail is { label: string; value: string } => Boolean(detail.value))
 					.map((detail) => (
 						<div key={detail.label} className='bg-void px-5 py-5'>
-							<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-dim'>{detail.label}</p>
+							<p className='text-[10px] font-semibold uppercase tracking-[0.14em] text-dim'>{detail.label}</p>
 							<p className='mt-2 text-sm font-semibold leading-6 text-ink'>{detail.value}</p>
 						</div>
 					))}
@@ -120,7 +120,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 				<h2 className='text-lg font-bold text-ink'>Tech stack</h2>
 				<div className='mt-4 flex flex-wrap gap-2'>
 					{project.tech.map((technology) => (
-						<span key={technology} className='border border-rule bg-plate px-3 py-1.5 font-mono text-xs font-semibold text-dim'>
+						<span key={technology} className='border border-rule bg-plate px-3 py-1.5 text-xs font-semibold text-dim'>
 							{technology}
 						</span>
 					))}
@@ -154,7 +154,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 								{caseStudy.evidence.map((evidence) => (
 									<li key={evidence.label}>
 										{evidence.href ? (
-											<a href={evidence.href} target='_blank' rel='noreferrer' className='font-mono text-xs font-bold uppercase tracking-[0.1em] text-ink transition-colors duration-200 hover:text-signal'>
+											<a href={evidence.href} target='_blank' rel='noreferrer' className='text-xs font-bold uppercase tracking-[0.1em] text-ink transition-colors duration-200 hover:text-flare'>
 												{evidence.label} <span aria-hidden='true'>-&gt;</span>
 											</a>
 										) : (
@@ -174,7 +174,7 @@ export default async function ProjectCaseStudyPage({ params }: PageProps) {
 					<div className='card-grid mt-6 grid md:grid-cols-2 lg:grid-cols-3'>
 						{relatedProjects.map((related) => (
 							<Link key={related.slug} href={`/projects/${related.slug}`} className='surface card-pad min-w-0'>
-								<p className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-signal'>{related.categories.map((category) => projectCategoryLabels[category]).slice(0, 2).join(' / ')}</p>
+								<p className='text-[10px] font-semibold uppercase tracking-[0.14em] text-flare'>{related.categories.map((category) => projectCategoryLabels[category]).slice(0, 2).join(' / ')}</p>
 								<h3 className='mt-3 safe-wrap font-bold text-ink'>{related.shortTitle ?? related.title}</h3>
 								<p className='mt-3 line-clamp-3 text-sm leading-6 text-dim'>{related.summary}</p>
 							</Link>

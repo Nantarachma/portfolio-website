@@ -65,19 +65,19 @@ html.sc-timeout [data-sc-cue] {
 	pointer-events: none;
 	background: radial-gradient(
 		34rem circle at calc(var(--sc-mx, 0.5) * 100%) calc(var(--sc-my, 0.5) * 100%),
-		rgb(96 165 250 / 0.2),
-		rgb(96 165 250 / 0.07) 34%,
+		rgb(230 36 41 / 0.14),
+		rgb(242 239 232 / 0.05) 34%,
 		transparent 70%
 	);
 }
 
 :root {
-	--sc-canvas: #0d0f13;
-	--sc-surface: #12151c;
-	--sc-ink: #e9edf4;
-	--sc-ink-soft: #97a1b2;
-	--sc-accent: #1e46c8;
+	--sc-canvas: #0a0716;
+	--sc-surface: #120d24;
+	--sc-ink: #f2efe8;
+	--sc-ink-soft: #a79fc4;
+	--sc-accent: #e62429;
 	--sc-accent-ink: #ffffff;
-	--sc-font-display: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+	--sc-font-display: var(--font-bangers), Impact, ui-sans-serif, sans-serif;
 	--sc-font-text: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
 }

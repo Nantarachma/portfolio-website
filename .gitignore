@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# visual verification screenshots (artefak lokal 24MB; file historis sudah tracked)
+scrollcraft/builds/**/lab/shots/*.png

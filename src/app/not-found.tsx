@@ -13,7 +13,7 @@ export default function NotFound() {
 			<div className='mt-8'>
 				<Link
 					href='/'
-					className='touch-target inline-flex items-center bg-ink px-5 py-3 text-sm font-bold text-void transition-colors duration-150 hover:bg-signal'>
+					className='touch-target inline-flex items-center bg-ink px-5 py-3 text-sm font-bold text-void transition-colors duration-150 hover:bg-blueprint'>
 					Return home
 				</Link>
 			</div>

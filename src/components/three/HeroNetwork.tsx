@@ -134,19 +134,57 @@ export default function HeroNetwork({ className }: Props) {
 		// grup globe: semua node & garis anak grup ini → rotasi tunggal
 		const world = new THREE.Group();
 		world.rotation.x = 0.32;
-		world.scale.setScalar(0.88); // lebih kecil: tidak overlap judul + tidak terpotong
+		world.scale.setScalar(0.8); // lega dari judul noir, clip tepi minim
 		scene.add(world);
 
 		// ---- geometri/material (disposal manual di cleanup) ----
 		const gridGeo = new THREE.BufferGeometry();
 		gridGeo.setAttribute('position', new THREE.BufferAttribute(gridPositions(), 3));
 		const gridMat = new THREE.LineBasicMaterial({
-			color: 0xeef1f6,
+			color: 0xf2efe8, // ink komik (noir: putih = tinta)
 			transparent: true,
-			opacity: 0.3,
+			opacity: 0.35,
 		});
 		const gridMesh = new THREE.LineSegments(gridGeo, gridMat);
 		world.add(gridMesh);
+
+		/* Chromatic ghost: dua salinan wireframe offset kiri/kanan dgn warna
+		   plate CMYK — misregistration cetak ala Spider-Verse. */
+		const ghostMatR = new THREE.LineBasicMaterial({ color: 0xe62429, transparent: true, opacity: 0.28 });
+		const ghostMatC = new THREE.LineBasicMaterial({ color: 0x00e5ff, transparent: true, opacity: 0.28 });
+		const ghostR = new THREE.LineSegments(gridGeo, ghostMatR);
+		const ghostC = new THREE.LineSegments(gridGeo, ghostMatC);
+		ghostR.position.x = 0.035;
+		ghostC.position.x = -0.035;
+		ghostR.scale.setScalar(1.004);
+		ghostC.scale.setScalar(1.004);
+		world.add(ghostR, ghostC);
+
+		/* Halftone shading: sphere dgn texture titik Ben-Day (canvas prosedural)
+		   — shading komik, bukan smooth gradient CG. */
+		const dotCanvas = document.createElement('canvas');
+		dotCanvas.width = 64;
+		dotCanvas.height = 64;
+		const dctx = dotCanvas.getContext('2d');
+		if (dctx) {
+			dctx.clearRect(0, 0, 64, 64);
+			dctx.fillStyle = 'rgba(196, 182, 255, 0.95)'; // lavender terang — menonjol di ungu gelap
+			dctx.beginPath();
+			dctx.arc(32, 32, 5.5, 0, Math.PI * 2);
+			dctx.fill();
+			}
+			const dotTex = new THREE.CanvasTexture(dotCanvas);
+			dotTex.wrapS = THREE.RepeatWrapping;
+			dotTex.wrapT = THREE.RepeatWrapping;
+			dotTex.repeat.set(16, 11); // Ben-Day rapat ala cetak komik
+		const haloMat = new THREE.MeshBasicMaterial({
+			map: dotTex,
+			transparent: true,
+			opacity: 0.65,
+			depthWrite: false,
+		});
+		const halo = new THREE.Mesh(new THREE.SphereGeometry(R * 0.99, 32, 24), haloMat);
+		world.add(halo);
 
 		// ---- node topik ----
 		const nodeGeo = new THREE.SphereGeometry(0.03, 10, 8);
@@ -156,17 +194,26 @@ export default function HeroNetwork({ className }: Props) {
 		const nodeMats: THREE.MeshBasicMaterial[] = [];
 		for (let i = 0; i < TOPICS.length; i++) {
 			const mat = new THREE.MeshBasicMaterial({
-				color: 0x60a5fa,
+				color: 0x00e5ff,
 				transparent: true,
 				opacity: 0.95,
 			});
 			const mesh = new THREE.Mesh(nodeGeo, mat);
 			const base = nodeBase(i, TOPICS.length);
 			mesh.position.copy(base);
-			// arah terurai: sedikit acak, tetap menyimpang dari permukaan
+			// Arah terurai = radial-out SEARAH posisi golden-angle (sudah
+			// quasi-merata) + chaos ringan 0.45 → radius akhir ≈ 2.55,
+			// isotropik menyebar rata ke segala arah & menjangkau tepi.
+			// (JANGAN negate: menembus pusat justru menyempit ke 0.55.)
 			const dir = base
 				.clone()
-				.add(new THREE.Vector3(Math.sin(i * 12.9898) * 0.55, Math.cos(i * 78.233) * 0.55, Math.sin(i * 39.425) * 0.55))
+				.add(
+					new THREE.Vector3(
+						Math.sin(i * 12.9898) * 0.45,
+						Math.cos(i * 78.233) * 0.45,
+						Math.sin(i * 39.425) * 0.45,
+					),
+				)
 				.normalize();
 			world.add(mesh);
 			nodes.push(mesh);
@@ -174,6 +221,14 @@ export default function HeroNetwork({ className }: Props) {
 			burstDir.push(dir);
 			nodeMats.push(mat);
 		}
+
+		/* Netralkan momentum: kurangi centroid burstDir lalu renormalisasi
+		   supaya penyebaran explode menyebar merata ke SEGALA arah —
+		   sebelumnya random vector sederhana bias ke kanan (3:7). */
+		const centroid = new THREE.Vector3();
+		for (const d of burstDir) centroid.add(d);
+		centroid.multiplyScalar(1 / burstDir.length);
+		for (const d of burstDir) d.sub(centroid).normalize();
 
 		// ---- koneksi: satu LineSegments (1 draw call) ----
 		const pairs: [number, number][] = [];
@@ -196,13 +251,39 @@ export default function HeroNetwork({ className }: Props) {
 		});
 		world.add(new THREE.LineSegments(linkGeo, linkMat));
 
+		// ---- energy pulse: titik energi berjalan di tiap link (loop —
+		// dispensasi globe idle, bukan animasi entrance). Vertices dibaca
+		// dari linkArr tiap frame → pulse OTOMATIS ikut explode/reassemble.
+		// Warna per-link cyan/merah (identity Miles) + additive glow.
+		const pulseGeo = new THREE.BufferGeometry();
+		const pulseArr = new Float32Array(pairs.length * 3);
+		pulseGeo.setAttribute('position', new THREE.BufferAttribute(pulseArr, 3));
+		const pulseCol = new Float32Array(pairs.length * 3);
+		for (let k = 0; k < pairs.length; k++) {
+			const c = k % 2 === 0 ? [0.0, 0.9, 1.0] : [0.9, 0.14, 0.16];
+			pulseCol[k * 3] = c[0];
+			pulseCol[k * 3 + 1] = c[1];
+			pulseCol[k * 3 + 2] = c[2];
+		}
+		pulseGeo.setAttribute('color', new THREE.BufferAttribute(pulseCol, 3));
+		const pulseMat = new THREE.PointsMaterial({
+			size: 7,
+			sizeAttenuation: false,
+			vertexColors: true,
+			transparent: true,
+			opacity: 0.6,
+			blending: THREE.AdditiveBlending,
+			depthWrite: false,
+		});
+		world.add(new THREE.Points(pulseGeo, pulseMat));
+
 		// ---- interaktif: hover raycast + click-lock + drag orbit ----
 		const raycaster = new THREE.Raycaster();
 		const ndc = new THREE.Vector2();
-		const COL_BASE = new THREE.Color(0x2f4d78);
-		const COL_HOT = new THREE.Color(0x60a5fa);
-		const NODE_BASE = new THREE.Color(0x60a5fa);
-		const NODE_HOT = new THREE.Color(0xe0f2fe);
+		const COL_BASE = new THREE.Color(0x4b3a8c);
+		const COL_HOT = new THREE.Color(0x00e5ff);
+		const NODE_BASE = new THREE.Color(0x00e5ff); // cyan Miles
+		const NODE_HOT = new THREE.Color(0xffd400); // flare — node aktif menyala
 		let hoverIdx = -1;
 		let lockIdx = -1;
 		let activeIdx = -1;
@@ -278,9 +359,13 @@ export default function HeroNetwork({ className }: Props) {
 		let raf = 0;
 		let pS = readP(); // progress tersaring (lerp per frame → halus)
 		let spin = 0;
+		let pulseT = 0; // akumulasi waktu utk energy pulse (pause ikut speedMul)
 		let last = 0;
 		let cw = 0;
 		let ch = 0;
+		// Offset globe ke kanan dlm satuan frustum (ikut aspect viewport):
+		// 0.52 ndc → pusat di 76% layar (persis slot lama), 0 utk layar sempit.
+		const FRAC = window.matchMedia('(min-width: 1024px)').matches ? 0.52 : 0;
 
 		const frame = (t: number): void => {
 			raf = 0;
@@ -329,6 +414,14 @@ export default function HeroNetwork({ className }: Props) {
 			world.rotation.y = spin + dragYaw;
 			world.rotation.x = Math.max(-0.6, Math.min(0.9, 0.32 + Math.sin(spin * 0.5) * 0.05 + dragPitch));
 			camera.position.z = CAM_Z + 0.6 * burst; // dolly saat ledakan
+			// posisi kanan via offset 3D — canvas full-bleed, node menyebar
+			// bebas ke seluruh layar. Saat explode offset melebur ke tengah
+			// (× 1-burst) supaya penyebaran menjangkau kiri layar juga,
+			// bukan condong kanan.
+			if (FRAC !== 0) {
+				const halfW = Math.tan(((camera.fov * Math.PI) / 180) / 2) * camera.position.z * camera.aspect;
+				world.position.x = FRAC * halfW * (1 - burst);
+			}
 
 			// raycast node: posisi berubah tiap frame → ray per frame saat pointer di dalam
 			let hit = -1;
@@ -375,6 +468,22 @@ export default function HeroNetwork({ className }: Props) {
 			linkGeo.attributes.position.needsUpdate = true;
 			linkMat.opacity = (0.08 + 0.8 * reassemble) * (1 - 0.9 * burst);
 
+			// energy pulse: lerp di sepanjang segmen dari linkArr (ikut
+			// explode); offset tiap link beda → arus tak seragam. Pause
+			// ikut speedMul (hover node / tab background = diam).
+			pulseT += dt * speedMul;
+			for (let k = 0; k < pairs.length; k++) {
+				const o = k * 6;
+				const frac = (pulseT * (0.14 + (k % 5) * 0.02) + k * 0.37) % 1;
+				const q = k * 3;
+				pulseArr[q] = linkArr[o] + (linkArr[o + 3] - linkArr[o]) * frac;
+				pulseArr[q + 1] = linkArr[o + 1] + (linkArr[o + 4] - linkArr[o + 1]) * frac;
+				pulseArr[q + 2] = linkArr[o + 2] + (linkArr[o + 5] - linkArr[o + 2]) * frac;
+			}
+			pulseGeo.attributes.position.needsUpdate = true;
+			// tenang 0.55 · reassemble menyala 0.95 · explode redup 0
+			pulseMat.opacity = (0.55 + 0.4 * reassemble) * (1 - burst);
+
 			// debug probe (dihapus setelah QA): angka arc terbaca dari DOM
 			if (hostRef.current) {
 				hostRef.current.dataset.p = pS.toFixed(3);
@@ -386,8 +495,16 @@ export default function HeroNetwork({ className }: Props) {
 
 			// globe LARUT saat terurai ("broke apart"): fade keras + kontraksi
 			// siluet, lalu kembali menyusun bersama reassemble.
-			gridMat.opacity = 0.3 * Math.pow(1 - burst, 3);
+			gridMat.opacity = 0.35 * Math.pow(1 - burst, 3);
 			gridMesh.scale.setScalar(1 - 0.3 * burst);
+			// ghost CMYK & halftone halo ikut kontraksi/fade (misregistration ikut larut)
+			const gs = (1 - 0.3 * burst) * 1.004;
+			ghostR.scale.setScalar(gs);
+			ghostC.scale.setScalar(gs);
+			ghostMatR.opacity = 0.28 * Math.pow(1 - burst, 3);
+			ghostMatC.opacity = 0.28 * Math.pow(1 - burst, 3);
+			halo.scale.setScalar(1 - 0.3 * burst);
+			haloMat.opacity = 0.65 * Math.pow(1 - burst, 3);
 
 			renderer.render(scene, camera);
 		};
@@ -480,9 +597,16 @@ export default function HeroNetwork({ className }: Props) {
 			document.removeEventListener('visibilitychange', onVis);
 			gridGeo.dispose();
 			gridMat.dispose();
+			ghostMatR.dispose();
+			ghostMatC.dispose();
+			haloMat.dispose();
+			halo.geometry.dispose();
+			dotTex.dispose();
 			nodeGeo.dispose();
 			for (const m of nodeMats) m.dispose();
 			linkGeo.dispose();
+			pulseGeo.dispose();
+			pulseMat.dispose();
 			linkMat.dispose();
 			renderer.dispose();
 			canvas.removeEventListener('pointermove', onMove);

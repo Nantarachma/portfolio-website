@@ -7,31 +7,60 @@ interface TextScrambleProps {
 	className?: string;
 	speed?: number;
 	delay?: number;
+	/** Jika diisi (ms) — animasi diulang tiap periode ini (sinkron dgn loop CSS). */
+	interval?: number;
 }
 
-export default function TextScramble({ text, className = '', speed = 30, delay = 0 }: TextScrambleProps) {
-	const [progress, setProgress] = useState(0);
+export default function TextScramble({ text, className = '', speed = 30, delay = 0, interval }: TextScrambleProps) {
+	// Mode interval: tampil utuh saat load (tanpa "terpotong"), menulis
+	// ulang mulai siklus ke-2 yang sinkron dgn loop CSS fade 10s.
+	const [progress, setProgress] = useState(interval ? 1 : 0);
 	const frameRef = useRef(0);
 
 	useEffect(() => {
-		const start = setTimeout(() => {
-			const totalFrames = text.length * 3;
-			const animate = (): void => {
-				frameRef.current++;
-				setProgress(Math.min(frameRef.current / totalFrames, 1));
-				if (frameRef.current < totalFrames) {
-					setTimeout(animate, speed);
-				}
-			};
+		const timers: number[] = [];
+		const totalFrames = text.length * 3;
+
+		const tick = (): void => {
+			frameRef.current++;
+			setProgress(Math.min(frameRef.current / totalFrames, 1));
+			if (frameRef.current < totalFrames) {
+				timers.push(window.setTimeout(tick, speed));
+			}
+		};
+
+		const startCycle = (): void => {
 			frameRef.current = 0;
-			animate();
-		}, delay);
+			setProgress(0);
+			timers.push(window.setTimeout(tick, speed));
+		};
+
+		if (interval) {
+			// Load: teks utuh. Menulis mulai t = interval, lalu tiap interval.
+			const firstWrite = window.setTimeout(() => {
+				startCycle();
+				let cycleStart = Date.now();
+				const schedule = (): void => {
+					const wait = Math.max(interval - (Date.now() - cycleStart), 50);
+					timers.push(window.setTimeout(() => {
+						cycleStart = Date.now();
+						startCycle();
+						schedule();
+					}, wait));
+				};
+				schedule();
+			}, interval);
+			timers.push(firstWrite);
+		} else {
+			// One-shot: tulis sekali setelah delay.
+			timers.push(window.setTimeout(startCycle, delay));
+		}
 
 		return () => {
-			clearTimeout(start);
+			timers.forEach((t) => window.clearTimeout(t));
 			frameRef.current = 0;
 		};
-	}, [text, speed, delay]);
+	}, [text, speed, delay, interval]);
 
 	const chars = text.split('');
 	const revealed = Math.floor(progress * text.length);

@@ -1,3 +1,6 @@
+import type { CSSProperties } from 'react';
+import GlitchChars from '@/components/effects/GlitchChars';
+
 const practiceAreas = [
 	{
 		title: 'Machine learning & computer vision',
@@ -22,41 +25,76 @@ const practiceAreas = [
 	},
 ] as const;
 
+/* Noir linear: semua kartu gelap, merah hanya utk shadow */
 const toneClasses = {
-	dark: 'bg-[#0d0f13] text-ink',
-	tint: 'bg-[#171c26] text-ink',
-	cream: 'bg-blueprint text-white',
+	dark: 'bg-void text-ink',
+	tint: 'bg-raised text-ink',
+	cream: 'bg-raised text-ink',
 } as const;
 
 const bodyTone = {
 	dark: 'text-dim',
 	tint: 'text-dim',
-	cream: 'text-blue-100',
+	cream: 'text-dim',
 } as const;
 
 /** Three practice areas as an asymmetric trio: dark, tinted, and cream cells. */
 export default function PracticeBlock() {
 	return (
-		<section data-sc-act='flow' className='page-block border-b border-rule bg-plate' aria-labelledby='practice-heading'>
-			<div className='site-container page-section'>
+		<section
+			data-sc-act='flow'
+			className='page-block border-b-[3px] border-b-ink bg-plate'
+			data-draw-b
+			aria-labelledby='practice-heading'>
+			<div className='site-container relative page-section'>
+				{/* Onomatopoeia pop saat section masuk */}
+				<span className='action-word right-0 top-0 hidden md:block' data-sc-in aria-hidden='true'>
+					THWIP!
+				</span>
 				<div className='max-w-3xl' data-sc-cue='0.05 0.68 0.25 0.18'>
-					<h2 id='practice-heading' className='section-title text-ink' data-sc-in>
-						What I build.
+					<h2 id='practice-heading' className='section-title text-ink' data-sc-in aria-label='What I build.'>
+						<GlitchChars text='What I build.' />
 					</h2>
-					<p className='mt-2.5 max-w-[65ch] text-sm leading-6 text-dim' data-sc-in>
+					<p className='caption-box mt-2.5 max-w-[65ch] text-sm leading-6' data-sc-in>
 						Three practice areas, backed by shipped projects and published research from this portfolio.
 					</p>
 				</div>
-				<div className='mt-3 grid gap-2 lg:grid-cols-5'>
+				<div className='flip3d-persp mt-4 grid gap-3 lg:grid-cols-5'>
+					{/* Dua sistem dlm satu kartu: rotasi SCRUB (masuk dari
+					    bawah) + offset KLIK --flip-k utk membalik lihat sisi
+					    ke-2 (back). Handler delegated [data-flip]. */}
 					{practiceAreas.map((area, i) => (
 						<article
 							key={area.title}
 							data-sc-in
 							data-sc-stagger={String(120 + i * 80)}
-							className={`card-pad flex flex-col justify-between gap-4 border border-rule ${area.tone === 'cream' ? '' : 'min-h-36'} ${toneClasses[area.tone]} ${area.className}`}>
-							<div>
-								<h3 className='text-lg font-bold tracking-[-0.03em] sm:text-xl'>{area.title}</h3>
-								<p className={`mt-2.5 max-w-2xl text-sm leading-6 ${bodyTone[area.tone]}`}>{area.description}</p>
+							data-flip
+							role='button'
+							tabIndex={0}
+							aria-pressed='false'
+							aria-label={`Balik kartu practice: ${area.title}`}
+							className={`flip3d__inner card-pad flex flex-col justify-between gap-4 border-[3px] border-ink ${area.tone === 'cream' ? '' : 'min-h-36'} ${toneClasses[area.tone]} ${area.className}`}
+							style={
+								{
+									'--flip-i': i,
+									boxShadow: `5px 5px 0 0 var(--shadow-plate-${i % 3})`,
+								} as CSSProperties
+							}>
+							<div className='flip3d__front'>
+								<div>
+									<h3 className='text-lg font-bold tracking-[-0.03em] sm:text-xl'>{area.title}</h3>
+									<p className={`mt-2.5 max-w-2xl text-sm leading-6 ${bodyTone[area.tone]}`}>{area.description}</p>
+								</div>
+								<span className='flip-hint-label absolute bottom-3 right-3 border border-ink bg-void/95 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-flare'>
+									Click to flip
+								</span>
+							</div>
+							<div className='flip3d__back wv-halftone bg-void' aria-hidden='true'>
+								<span className='text-[10px] font-bold uppercase tracking-[0.3em] text-dim'>Practice</span>
+								<span className='section-title max-w-[14ch] text-lg text-ink'>{area.title}</span>
+								<span className='flip-hint-label absolute bottom-3 right-3 border border-ink bg-void/95 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-flare'>
+									Click to flip
+								</span>
 							</div>
 						</article>
 					))}

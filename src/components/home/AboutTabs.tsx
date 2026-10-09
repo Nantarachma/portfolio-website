@@ -1,5 +1,6 @@
 'use client';
 
+import GlitchChars from '@/components/effects/GlitchChars';
 import { useRef, useState, type KeyboardEvent } from 'react';
 import type { PortfolioContent } from '@/lib/portfolio/schema';
 
@@ -39,14 +40,19 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 			id='about'
 			data-nav-section='about'
 			data-sc-act='flow'
-			className='page-block block-overlap border-b border-rule bg-void'
+			className='page-block block-overlap border-b-[3px] border-b-ink bg-void'
+			data-draw-b
 			aria-labelledby='background-heading'>
 			<div className='site-container page-section'>
 				<div className='border-b border-rule pb-4' data-sc-cue='0.05 0.66 0.25 0.18'>
-					<h2 id='background-heading' className='section-title text-balance text-ink'>
-						Background.
+					<h2
+						id='background-heading'
+						className='section-title text-balance text-ink'
+						data-sc-in
+						aria-label='Background.'>
+						<GlitchChars text='Background.' />
 					</h2>
-					<p className='mt-3 max-w-[65ch] text-sm leading-6 text-dim'>
+					<p className='caption-box mt-3 max-w-[65ch] text-sm leading-6' data-sc-in>
 						{intro} Professional and cohort experience, education record, leadership work, and verified
 						credentials.
 					</p>
@@ -68,9 +74,9 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 								tabIndex={active === tab.key ? 0 : -1}
 								onClick={() => setActive(tab.key)}
 								onKeyDown={(event) => onKeyDown(event, index)}
-								className={`-mb-px inline-flex min-h-11 items-center border-b-2 px-3 font-mono text-xs font-bold uppercase tracking-[0.1em] transition-colors duration-200 ${
+								className={`-mb-px inline-flex min-h-11 items-center border-b-2 px-3 text-xs font-bold uppercase tracking-[0.1em] transition-colors duration-200 ${
 									active === tab.key
-										? 'border-signal text-ink'
+										? 'border-blueprint text-ink'
 										: 'border-transparent text-dim hover:text-ink'
 								}`}>
 								{tab.label}
@@ -79,11 +85,11 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					</div>
 
 					{active === 'experience' ? (
-						<div role='tabpanel' id='panel-experience' aria-labelledby='tab-experience' tabIndex={0} className='pt-3'>
+						<div role='tabpanel' id='panel-experience' aria-labelledby='tab-experience' tabIndex={0} className='tab-panel pt-3'>
 							<div className='grid gap-2 lg:grid-cols-2'>
 								{content.experience.map((item) => (
 									<article key={item.contentId} className='surface card-pad'>
-										<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{item.period}</p>
+										<p className='text-xs font-semibold uppercase tracking-[0.08em] text-flare'>{item.period}</p>
 										<h3 className='mt-1 text-lg font-bold tracking-tight text-ink'>{item.role}</h3>
 										<p className='mt-1 font-medium text-ink'>{item.organization}</p>
 										{item.location ? <p className='mt-1 text-sm text-dim'>{item.location}</p> : null}
@@ -91,7 +97,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 										<ul className='mt-2.5 space-y-1 border-t border-rule pt-2.5 text-sm leading-5 text-dim'>
 											{item.contributions.map((contribution) => (
 												<li key={contribution} className='flex gap-3'>
-													<span className='mt-2 h-1.5 w-1.5 shrink-0 bg-signal' aria-hidden='true' />
+													<span className='mt-2 h-1.5 w-1.5 shrink-0 bg-blueprint' aria-hidden='true' />
 													<span>{contribution}</span>
 												</li>
 											))}
@@ -103,22 +109,22 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					) : null}
 
 					{active === 'education' ? (
-						<div role='tabpanel' id='panel-education' aria-labelledby='tab-education' tabIndex={0} className='pt-3'>
+						<div role='tabpanel' id='panel-education' aria-labelledby='tab-education' tabIndex={0} className='tab-panel pt-3'>
 							<article className='surface card-pad'>
-								<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{content.education.period}</p>
+								<p className='text-xs font-semibold uppercase tracking-[0.08em] text-flare'>{content.education.period}</p>
 								<h3 className='mt-1 text-lg font-bold tracking-tight text-ink'>
 									{content.education.degree}
 								</h3>
 								<p className='mt-1 font-medium text-ink'>{content.education.institution}</p>
 								<dl className='mt-4 grid gap-4 border-t border-rule pt-3 text-sm sm:grid-cols-2'>
 									<div>
-										<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-dim'>
+										<dt className='text-[10px] font-semibold uppercase tracking-[0.14em] text-dim'>
 											GPA
 										</dt>
 										<dd className='mt-1 font-semibold text-ink'>{content.education.gpa}</dd>
 									</div>
 									<div>
-										<dt className='font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-dim'>
+										<dt className='text-[10px] font-semibold uppercase tracking-[0.14em] text-dim'>
 											Thesis
 										</dt>
 										<dd className='mt-1 leading-6 text-dim'>{content.education.thesis}</dd>
@@ -129,18 +135,18 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					) : null}
 
 					{active === 'leadership' ? (
-						<div role='tabpanel' id='panel-leadership' aria-labelledby='tab-leadership' tabIndex={0} className='pt-3'>
+						<div role='tabpanel' id='panel-leadership' aria-labelledby='tab-leadership' tabIndex={0} className='tab-panel pt-3'>
 							<div className='grid gap-2 lg:grid-cols-2'>
 								{content.leadership.map((item) => (
 									<article key={item.contentId} className='surface card-pad'>
-										<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{item.period}</p>
+										<p className='text-xs font-semibold uppercase tracking-[0.08em] text-flare'>{item.period}</p>
 										<h3 className='mt-1 text-lg font-bold tracking-tight text-ink'>{item.role}</h3>
 										<p className='mt-1 font-medium text-ink'>{item.organization}</p>
 										<ul className='mt-3 flex flex-wrap gap-1.5'>
 											{item.focus.map((focus) => (
 												<li
 													key={focus}
-													className='border border-rule bg-plate px-2.5 py-1 font-mono text-[11px] font-semibold text-dim'>
+													className='border border-rule bg-plate px-2.5 py-1 text-[11px] font-semibold text-dim'>
 													{focus}
 												</li>
 											))}
@@ -154,13 +160,13 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 									<div className='mt-3 grid gap-2 lg:grid-cols-2'>
 										{content.additionalOrganizationalExperience.map((item) => (
 											<article key={item.contentId} className='card-pad border border-rule bg-plate'>
-												<p className='font-mono text-xs font-semibold uppercase tracking-[0.08em] text-signal'>{item.period}</p>
+												<p className='text-xs font-semibold uppercase tracking-[0.08em] text-flare'>{item.period}</p>
 												<h4 className='mt-2 font-bold text-ink'>{item.title}</h4>
 												<p className='mt-1 text-sm text-dim'>{item.organization}</p>
 												<ul className='mt-3 space-y-2 text-sm leading-6 text-dim'>
 													{item.responsibilities.map((responsibility) => (
 														<li key={responsibility} className='flex gap-3'>
-															<span className='mt-2 h-1.5 w-1.5 shrink-0 bg-signal' aria-hidden='true' />
+															<span className='mt-2 h-1.5 w-1.5 shrink-0 bg-blueprint' aria-hidden='true' />
 															<span>{responsibility}</span>
 														</li>
 													))}
@@ -174,7 +180,7 @@ export default function AboutTabs({ content, intro }: { content: AboutContent; i
 					) : null}
 
 					{active === 'certifications' ? (
-						<div role='tabpanel' id='panel-certifications' aria-labelledby='tab-certifications' tabIndex={0} className='pt-3'>
+						<div role='tabpanel' id='panel-certifications' aria-labelledby='tab-certifications' tabIndex={0} className='tab-panel pt-3'>
 							<ul className='grid gap-px border border-rule bg-rule md:grid-cols-2'>
 								{content.certifications.map((certification) => (
 									<li key={certification.contentId} className='bg-void'>

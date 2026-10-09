@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Plus_Jakarta_Sans, Bangers } from 'next/font/google';
 import './globals.css';
+import './webverse.css';
 import './sc-load.css';
 import Navbar from '@/components/Navbar';
 import ScrollEffects from '@/components/effects/ScrollEffects';
+import EntranceEffects from '@/components/effects/EntranceEffects';
 import ScrollCraftMount from '@/components/effects/ScrollCraftMount';
+import PageTransitions from '@/components/effects/PageTransitions';
 import SmoothScroll from '@/components/SmoothScroll';
 import Footer from '@/components/Footer';
 import { getPortfolioContent } from '@/lib/portfolio/repository';
@@ -14,6 +17,14 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 const plusJakarta = Plus_Jakarta_Sans({
 	subsets: ['latin'],
 	variable: '--font-plus-jakarta',
+	display: 'swap',
+});
+
+/* Comic display face — Spider-Verse title lettering (all headings). */
+const bangers = Bangers({
+	subsets: ['latin'],
+	weight: '400',
+	variable: '--font-bangers',
 	display: 'swap',
 });
 
@@ -37,7 +48,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	const { profile } = await getPortfolioContent();
 
 	return (
-		<html lang='en' suppressHydrationWarning>
+		<html lang='en' suppressHydrationWarning className={`${plusJakarta.variable} ${bangers.variable}`}>
 			<body
 				className={`${plusJakarta.className} flex min-h-screen flex-col bg-slate-50 text-slate-950 antialiased`}>
 				<script src='/scrollcraft.js' defer />
@@ -55,7 +66,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<span data-sc-progress aria-hidden='true' />
 				<a
 					href='#main-content'
-					className='sr-only fixed left-4 top-4 z-[60] rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'>
+					className='sr-only fixed left-4 top-4 z-[60] rounded-md bg-slate-950 px-4 py-2 text-sm font-semibold text-white focus:not-sr-only focus:outline-none focus-visible:ring-2 focus-visible:ring-blueprint focus-visible:ring-offset-2'>
 					Skip to content
 				</a>
 				<Navbar profile={profile} />
@@ -64,7 +75,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				</main>
 				<Footer profile={profile} />
 				<ScrollEffects />
+				<EntranceEffects />
 				<ScrollCraftMount />
+				<PageTransitions />
 				<SmoothScroll />
 				<Analytics />
 				<SpeedInsights />

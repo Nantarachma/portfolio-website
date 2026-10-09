@@ -1,34 +1,40 @@
 @import 'tailwindcss';
 
-/* ── DARK-BRUTALIST-EDITORIAL tokens ────────────────────────────────────────
-   One substrate (near-black slate), one accent (#1e46c8 / signal #60a5fa),
-   off-white ink, hard 1px rules, radius locked to 0 everywhere. Spacing scale
-   is deliberately tight: brutalist density, hard compartmentalisation. */
+/* ── SPIDER-VERSE NOIR tokens ───────────────────────────────────────────────
+   Dark purple-black substrate (multi-verse night), Miles Morales accents:
+   signal = cyan #00E5FF, blueprint = spidey red #E62429, CMYK ghosts
+   (magenta #FF1493 / cyan) for print misregistration only. Ink = paper
+   off-white (inverted noir: white IS the ink). Radius still locked to 0. */
 @theme {
-	--color-void: #0d0f13;
-	--color-plate: #12151c;
-	--color-raised: #171c26;
-	--color-ink: #e9edf4;
-	--color-dim: #97a1b2;
-	--color-rule: #262c37;
-	--color-rule-strong: #3b4351;
-	--color-blueprint: #1e46c8;
-	--color-signal: #60a5fa;
+	--color-void: #0a0716;
+	--color-plate: #120d24;
+	--color-raised: #1a1330;
+	--color-ink: #f2efe8;
+	--color-dim: #a79fc4;
+	--color-rule: #2c2447;
+	--color-rule-strong: #443a6b;
+	--color-blueprint: #e62429;
+	--color-signal: #00e5ff;
+	--color-flare: #e62429; /* noir + merah Miles: kuning dihapus */
 	--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
 }
 
 :root {
-	--background: #0d0f13;
-	--surface: #12151c;
-	--foreground: #e9edf4;
-	--muted: #97a1b2;
-	--border: #262c37;
-	--border-strong: #3b4351;
-	--accent: #1e46c8;
-	--accent-strong: #16379f;
-	--accent-soft: #101a3d;
-	--accent-bright: #60a5fa;
+	--background: #0a0716;
+	--surface: #120d24;
+	--foreground: #f2efe8;
+	--muted: #a79fc4;
+	--border: #2c2447;
+	--border-strong: #443a6b;
+	--accent: #e62429;
+	--accent-strong: #b31b2c;
+	--accent-soft: #2a0d1e;
+	--accent-bright: #e62429;
 	--grid-line: rgb(255 255 255 / 0.045);
+	/* Shadow seragam: satu arah, satu warna (merah Miles) — linear */
+	--shadow-plate-0: #e62429;
+	--shadow-plate-1: #e62429;
+	--shadow-plate-2: #e62429;
 	--layout-gutter: clamp(1rem, 4vw, 2rem);
 	--layout-max: 76rem;
 	--space-section: clamp(1rem, 1.75vw, 1.375rem);
@@ -36,7 +42,7 @@
 	--space-section-stack: clamp(1rem, 1.75vw, 1.375rem);
 	--space-grid: clamp(0.5rem, 0.75vw, 0.75rem);
 	--space-card: clamp(0.75rem, 1.1vw, 0.875rem);
-	--size-display: clamp(2.75rem, 7.5vw, 6rem);
+	--size-display: clamp(2.5rem, 6.5vw, 5.25rem);
 	--size-page-title: clamp(2.25rem, 5vw, 3.75rem);
 	--size-section-title: clamp(1.75rem, 3.25vw, 2.75rem);
 	--site-header-height: 3.25rem;
@@ -128,10 +134,11 @@
 	}
 
 	.display-title {
+		font-family: var(--font-bangers), Impact, sans-serif;
 		font-size: var(--size-display);
-		font-weight: 800;
-		line-height: 0.88;
-		letter-spacing: -0.045em;
+		font-weight: 400;
+		line-height: 0.92;
+		letter-spacing: 0.01em;
 		text-transform: uppercase;
 	}
 
@@ -143,10 +150,12 @@
 	}
 
 	.section-title {
+		font-family: var(--font-bangers), Impact, sans-serif;
 		font-size: var(--size-section-title);
-		font-weight: 800;
-		line-height: 1.04;
-		letter-spacing: -0.04em;
+		font-weight: 400;
+		line-height: 1;
+		letter-spacing: 0.015em;
+		text-transform: uppercase;
 	}
 
 	.lead-text {
@@ -186,9 +195,9 @@
 		z-index: 0;
 		pointer-events: none;
 		background-image:
-			radial-gradient(circle, rgba(96, 165, 250, 0.25) 1px, transparent 1px),
-			linear-gradient(rgba(96, 165, 250, 0.12) 1px, transparent 1px),
-			linear-gradient(90deg, rgba(96, 165, 250, 0.12) 1px, transparent 1px);
+			radial-gradient(circle, rgba(230, 36, 41, 0.2) 1px, transparent 1px),
+			linear-gradient(rgba(242, 239, 232, 0.05) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(242, 239, 232, 0.05) 1px, transparent 1px);
 		background-size: 24px 24px, 120px 120px, 120px 120px;
 		mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
 	}
@@ -226,12 +235,14 @@
 	}
 
 	.glitch-text::before {
-		color: #ff0040;
+		color: #e62429;
+		-webkit-text-fill-color: #e62429;
 		animation: glitch-1 1.2s infinite linear;
 	}
 
 	.glitch-text::after {
-		color: #00d4ff;
+		color: #f2efe8;
+		-webkit-text-fill-color: #f2efe8;
 		animation: glitch-2 1.2s infinite linear;
 	}
 
@@ -284,14 +295,9 @@
 		overflow: hidden;
 	}
 
-	/* Desktop: the globe lives in the open right-hand field (centre ≈68%
-	   of the viewport), clear of the headline stack on the left. Mobile
-	   keeps the full-bleed backdrop. */
-	@media (min-width: 1024px) {
-		.hero-network-slot {
-			left: 44%;
-		}
-	}
+	/* Full-bleed: canvas selebar viewport — node bebas menyebar saat
+	   explode tanpa pernah terpotong tepi slot. Posisi globe kanan
+	   di-offset lewat posisi 3D (world.position.x), bukan CSS. */
 
 	/* Pointer funnel: the grid wrapper is a full-width stacking layer, so
 	   it must pass events through to the canvas below; interactive
@@ -368,6 +374,47 @@
 		padding-top: calc(var(--site-header-h, 3.25rem) + 0.5rem);
 	}
 
+	/* ── SPIDER-VERSE LAYER ────────────────────────────────────────────── */
+
+	/* Panel: border tinta 3px + hard offset shadow (CMYK misregistration) */
+	.comic-panel {
+		border: 3px solid var(--color-ink);
+		box-shadow: 5px 5px 0 0 var(--color-signal);
+	}
+
+	/* Caption box: kotak narasi komik — subtitle & deskripsi section */
+	.caption-box {
+		display: inline-block;
+		background: var(--color-ink);
+		color: #14092e;
+		border: 3px solid #14092e;
+		box-shadow: 5px 5px 0 0 var(--color-blueprint);
+		padding: 0.5rem 0.85rem;
+		font-weight: 700;
+	}
+
+	/* Onomatopoeia: kata aksi muncul sesaat saat section masuk */
+	.action-word {
+		position: absolute;
+		font-family: var(--font-bangers), Impact, sans-serif;
+		font-size: clamp(2.5rem, 6vw, 5rem);
+		line-height: 1;
+		color: var(--color-flare);
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		pointer-events: none;
+		opacity: 0;
+		transform: rotate(-8deg) scale(0.6);
+		text-shadow:
+			3px 3px 0 var(--color-ink),
+			-2px -2px 0 #14092e;
+	}
+
+	/* action-word kini di-scrub (Entrance SCRUB layer di bawah): pop ikut
+	   --p, tetap terlihat setelah masuk, mundur saat scroll balik.
+	   Rule action-pop one-shot lama DIHAPUS — animation menang atas
+	   deklarasi biasa & fill-forwards membuat kata hilang permanen. */
+
 	.hero-assembles::before {
 		content: '';
 		display: block;
@@ -406,15 +453,15 @@
 	.highlight-grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		border-left: 1px solid var(--border);
-		border-top: 1px solid var(--border);
+		gap: 0.625rem;
 	}
 
-	.highlight-item {
+	/* Spider-Verse: tiap stat = panel komik (gutter alih-alih border rapat) */
+	.highlight-grid .highlight-item {
 		min-width: 0;
-		border-right: 1px solid var(--border);
-		border-bottom: 1px solid var(--border);
-		padding: clamp(0.4375rem, 0.85vw, 0.625rem);
+		border: 3px solid var(--color-ink);
+		padding: clamp(0.625rem, 1vw, 0.875rem);
+		background: var(--color-plate);
 	}
 
 	.featured-work {
@@ -453,11 +500,10 @@
 	}
 
 	.safe-wrap {
-		/* break-word only breaks when a word truly cannot fit, and hyphens
-		   adds a soft break ("Prepro-cessing") instead of a silent
-		   mid-word cut like overflow-wrap:anywhere produced. */
-		overflow-wrap: break-word;
-		hyphens: auto;
+		/* Wrap ke baris baru bila muat; kata tak pernah dipotong
+		   ("Requiremen ts" / "Require-/ments" dilarang). */
+		overflow-wrap: normal;
+		hyphens: none;
 		word-break: normal;
 	}
 
@@ -469,7 +515,7 @@
 		gap: 0.5rem;
 		position: relative;
 		padding-left: 0.75rem;
-		font-family: var(--font-mono-tech);
+		font-family: var(--font-plus-jakarta);
 		font-size: 0.6875rem;
 		font-weight: 700;
 		letter-spacing: 0.2em;
@@ -510,8 +556,9 @@
 		position: sticky;
 		top: 0;
 		z-index: 50;
-		border-bottom: 1px solid var(--border-strong);
-		background: rgb(13 15 19 / 0.99);
+		/* Spider-Verse: bar dgn tinta 3px — frame komik di atas halaman */
+		border-bottom: 3px solid var(--color-ink);
+		background: rgb(10 7 22 / 0.99);
 		backdrop-filter: blur(14px);
 		transition:
 			background-color 180ms ease,
@@ -591,7 +638,7 @@
 	}
 
 	.site-footer {
-		border-top: 1px solid var(--border-strong);
+		border-top: 3px solid var(--color-ink);
 		background: var(--background);
 	}
 
@@ -632,7 +679,7 @@
 		white-space: nowrap;
 		align-items: center;
 		color: var(--muted);
-		font-family: var(--font-mono-tech);
+		font-family: var(--font-plus-jakarta);
 		font-size: 0.75rem;
 		font-weight: 700;
 		letter-spacing: 0.08em;
@@ -666,7 +713,7 @@
 		border-top: 1px solid var(--border);
 		padding-top: 0.5rem;
 		color: var(--muted);
-		font-family: var(--font-mono-tech);
+		font-family: var(--font-plus-jakarta);
 		font-size: 0.6875rem;
 		font-weight: 700;
 		letter-spacing: 0.12em;
@@ -825,7 +872,7 @@ body.bg-slate-50 {
 		align-items: center;
 		gap: 1rem;
 		padding-inline: 1rem;
-		font-family: var(--font-mono-tech);
+		font-family: var(--font-plus-jakarta);
 		font-size: 0.75rem;
 		font-weight: 700;
 		letter-spacing: 0.14em;
@@ -858,6 +905,389 @@ body.bg-slate-50 {
 	.case-card {
 		width: min(46vw, 30rem);
 	}
+}
+
+/* ─── Entrance layer A: magnetic + eyebrow wipe + drawn rules ─── */
+
+/* Magnetic: drag aktif → posisi dari --mag-x/y + squash + ghost chromatic
+   merah; lepas → spring balik. Transition-only, tanpa JS per frame. */
+[data-magnetic] {
+	--mag-x: 0px;
+	--mag-y: 0px;
+	transform: translate3d(var(--mag-x), var(--mag-y), 0);
+	transition:
+		transform 0.45s cubic-bezier(0.22, 1.4, 0.36, 1),
+		filter 0.3s ease-out;
+	will-change: transform;
+}
+[data-magnetic][data-mag='1'] {
+	transform: translate3d(var(--mag-x), var(--mag-y), 0) scale(1.05, 0.95);
+	filter: drop-shadow(calc(var(--mag-x) * -0.6) calc(var(--mag-y) * -0.6) 0 rgb(230 36 41 / 0.55));
+	transition:
+		transform 0.16s ease-out,
+		filter 0.16s ease-out;
+}
+
+/* ─── Entrance SCRUB layer ────────────────────────────────────────────
+   SEMUA entrance dinyatakan sbg fungsi calc(var(--p)) — --p ditulis
+   EntranceEffects per frame dari posisi elemen (0 = belum masuk layar,
+   1 = selesai). Scroll turun naik, balik atas mundur, lewati lagi replay.
+
+   FAIL-OPEN: default var(--p, 1) → tanpa JS / JS telat, konten tampil
+   utuh. Ini penyembuh bug "data tak terload" (reveal one-shot engine
+   tak pernah fire saat fast-jump → teks tertinggal tersembunyi).
+
+   urutan selector: generic dulu, specialized (flip/stamp/word/eyebrow)
+   SESUDAHNYA — specificity+order menang atas rules sc-in engine. */
+
+/* Reveal generik — transisi time-based engine dimatikan (transition
+   none), state murni dari --p. */
+html [data-sc-in],
+html [data-sc-stagger] > *,
+html [data-sc-in].sc-in,
+html [data-sc-stagger] > *.sc-in {
+	transition: none;
+	opacity: clamp(0, calc(var(--p, 1) * 1.6), 1);
+	transform: translate3d(0, calc((1 - var(--p, 1)) * 34px), 0)
+		scale(calc(0.975 + var(--p, 1) * 0.025));
+	filter: blur(calc((1 - var(--p, 1)) * 10px));
+}
+
+/* Flip kartu: reveal + rotateY(180→0) dalam SATU transform (p besar →
+   overshoot dr backOut JS → rotateY negatif = pantulan).
+
+   FLATTEN GUARD: opacity <1 dan filter ≠ none pada elemen preserve-3d
+   MEMBAKAR children jadi plane2D (spec: grouping property) → back face
+   menempel di front (z-fighting) — inilah kenapa panel belakang tak
+   pernah terlihat selama ini. Tanpa fade/blur: entrance = motion 3D
+   murni; elemen di p=0 masih di bawah viewport (raw clamp) jadi tak
+   muncul tiba-tiba. */
+html [data-sc-stagger] > .flip3d__inner,
+html [data-sc-in].flip3d__inner,
+html .flip3d__inner.sc-in {
+	opacity: 1;
+	filter: none;
+	transform: translate3d(0, calc((1 - var(--p, 1)) * 34px), 0)
+		scale(calc(0.975 + var(--p, 1) * 0.025))
+		/* + --flip-k: offset klik (180deg) di ATAS rotasi scrubs —
+		   dua sistem tak menulis properti sama */
+		rotateY(calc((1 - var(--p, 1)) * 180deg + var(--flip-k, 0deg)));
+}
+/* PRACTICE: rotasi diINVERT — state akhir (p=1) = 180° = COVER (back face:
+   label "Practice" + judul, teks sedikit). Klik (--flip-k 180°) → 360° =
+   0° = front (judul + deskripsi). ID card (.flip-id) tak punya data-sc-in
+   & kartu lain tak punya data-flip → spesifik ke practice. */
+html [data-sc-in][data-flip].flip3d__inner {
+	transform: translate3d(0, calc((1 - var(--p, 1)) * 34px), 0)
+		scale(calc(0.975 + var(--p, 1) * 0.025))
+		rotateY(calc(var(--p, 1) * 180deg + var(--flip-k, 0deg)));
+}
+/* front/back di dlm kartu: netralkan rise/blur generik TANPA menghapus
+   rotasi dasar back — dulu `transform:none` juga menimpa rotateY(180deg)
+   bawaan .flip3d__back → kedua face searah → backface-visibility
+   menyembunyikan keduanya (kartu practice jadi KOSONG dgn rotasi invert). */
+html [data-sc-stagger] > .flip3d__front {
+	transform: none;
+	filter: none;
+}
+html [data-sc-stagger] > .flip3d__back {
+	transform: rotateY(180deg);
+	filter: none;
+}
+/* Selected work: TANPA entrance flip/translate — murni fade (cue engine
+   menulis inline opacity per act progress; rise=0 → transform identity) +
+   blur dlm JS EntranceEffects (sinkron dgn opacity). transform-style flat
+   + back face disembunyikan: sisi ke-2 kartu works tak dipakai (animasi
+   flip diganti fade-blur per keputusan user) — kalau flip dikembalikan,
+   hapus kedua rule ini. */
+.case-card {
+	transform-style: flat;
+}
+.case-card .flip3d__back {
+	display: none;
+}
+/* Practice: isi face tampil sejak kartu lahir — yang menutupi kartu saat
+   masih di bawah layar itu POSISI-nya, bukan opacity. Dulu face children
+   kena opacity generik clamp(p*1.6) → kartu baris kedua tampak KOSONG
+   (kotak ada, isi transparan) selama masih setengah jalan. Opacity 1 di
+   sini juga mematikan flatten (opacity<1 pada preserve-3d). */
+html [data-flip] > .flip3d__front,
+html [data-flip] > .flip3d__back {
+	opacity: 1;
+}
+/* Klik flip utk kartu scrubs (practice): state → offset rotate; transisi
+   hanya aktif sesaat saat diklik (class is-flipping) supaya scrub scroll
+   tetap tanpa lag transition. ID card (.flip-id) punya transisi sendiri. */
+.flip3d__inner[data-flip] {
+	cursor: pointer;
+}
+.flip3d__inner[data-flip][data-flipped='1'] {
+	--flip-k: 180deg;
+}
+.flip3d__inner[data-flip].is-flipping:not(.flip-id) {
+	transition: transform 0.45s cubic-bezier(0.22, 1.4, 0.36, 1);
+}
+.flip3d__inner[data-flip]:focus-visible {
+	outline: 2px solid var(--color-blueprint);
+	outline-offset: 4px;
+}
+/* Hint klik: teks muncul saat hover/fokus kartu practice (spt portrait) */
+.flip3d__inner[data-flip] .flip-hint-label {
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	pointer-events: none;
+}
+.flip3d__inner[data-flip]:hover .flip-hint-label,
+.flip3d__inner[data-flip]:focus-visible .flip-hint-label {
+	opacity: 1;
+}
+.flip3d-persp {
+	perspective: 1200px;
+}
+.flip3d__inner {
+	/* relative = anchor utk .flip3d__back (absolute) — kartu tanpa
+	   position sendiri (practice/research) sblmnya salah-arah. */
+	position: relative;
+	transform-style: preserve-3d;
+}
+.flip3d__front {
+	backface-visibility: hidden;
+}
+.flip3d__back {
+	position: absolute;
+	inset: 0;
+	transform: rotateY(180deg);
+	backface-visibility: hidden;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.75rem;
+	padding: 1.5rem;
+	text-align: center;
+}
+
+/* Eyebrow: wipe clip kiri→kanan + bar scaleX (menggantikan rise) */
+html .eyebrow,
+html .eyebrow.sc-in {
+	transition: none;
+	opacity: 1;
+	transform: none;
+	filter: none;
+	clip-path: inset(-6px calc((1 - var(--p, 1)) * 100%) -6px -3px);
+}
+html .eyebrow::before {
+	transform: scaleX(var(--p, 1));
+	transform-origin: left center;
+}
+
+/* Stamp caption: scale 1.35 + rotate masuk, overshoot via p>1.
+   hero-role (subtitle-loop) TIDAK disentuh — siklus ketiknya sendiri. */
+html .caption-box:not(.hero-role),
+html .caption-box:not(.hero-role).sc-in {
+	transition: none;
+	opacity: clamp(0, calc(var(--p, 1) * 2.2), 1);
+	transform: scale(calc(1.35 - var(--p, 1) * 0.35))
+		rotate(calc((1 - var(--p, 1)) * 2.5deg));
+	filter: none;
+}
+
+/* Glitch-in per char: --iw = offset stagger char (detik), --span/--win
+   di-set GlitchChars dari panjang teks. p=1 → semua char cp=1 (utuh). */
+.glitch-in__word {
+	display: inline-block;
+	white-space: nowrap;
+}
+.glitch-in__ch {
+	display: inline-block;
+	--iw: calc(var(--i, 0) * 0.03);
+	--cp: clamp(
+		0,
+		calc((var(--p, 1) * (var(--span, 0) + var(--win, 0.5)) - var(--iw)) / var(--win, 0.5)),
+		1
+	);
+	opacity: var(--cp);
+	transform: translate3d(calc((1 - var(--cp)) * -6px), calc((1 - var(--cp)) * 2px), 0)
+		skewX(calc((1 - var(--cp)) * -10deg));
+	text-shadow:
+		calc((1 - var(--cp)) * -3px) 0 var(--color-blueprint),
+		calc((1 - var(--cp)) * 3px) 0 rgb(242 239 232 / 0.7);
+}
+html.sc-timeout .glitch-in__ch {
+	opacity: 1 !important;
+	transform: none !important;
+	text-shadow: none !important;
+}
+
+/* Action-word pop (THWIP!): scale+rotate dari p, overshoot via backOut */
+html .action-word,
+html .action-word.sc-in {
+	transition: none;
+	opacity: clamp(0, calc(var(--p, 1) * 2), 1);
+	transform: scale(calc(0.4 + var(--p, 1) * 0.6)) rotate(calc((1 - var(--p, 1)) * -6deg));
+	filter: none;
+}
+
+/* Drawn rules: garis pemisah section scaleX dari --p (pseudo turun
+   warisan var dari section). Tak ada transisi — murni scrub. */
+.page-block {
+	position: relative;
+}
+[data-draw-b],
+[data-draw-t] {
+	--rule-color: var(--color-ink);
+}
+[data-draw-b] {
+	border-bottom-color: transparent !important;
+}
+[data-draw-t] {
+	border-top-color: transparent !important;
+}
+[data-draw-b]::after,
+[data-draw-t]::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 3px;
+	background: var(--rule-color);
+	transform: scaleX(var(--p, 1));
+	transform-origin: left center;
+	pointer-events: none;
+}
+[data-draw-b]::after {
+	bottom: -3px;
+}
+[data-draw-t]::before {
+	top: -3px;
+}
+
+/* Line-by-line mask: --lstep/--lspan/--lwin di-set LineReveal dari
+   jumlah baris; --p diwarisi dari paragraf/kartu pengelola. */
+.line {
+	display: block;
+	overflow: hidden;
+}
+.line__i {
+	display: block;
+	--lw: calc(var(--l, 0) * var(--lstep, 0.055));
+	--lp: clamp(
+		0,
+		calc((var(--p, 1) * (var(--lspan, 0) + var(--lwin, 0.6)) - var(--lw)) / var(--lwin, 0.6)),
+		1
+	);
+	transform: translateY(calc((1 - var(--lp)) * 110%));
+}
+html.sc-timeout .line__i {
+	transform: none !important;
+}
+/* ─── ID card flip: interaksi TEKAN (user call, bukan scroll) ───
+   Tanpa data-sc-in → scrub manager tak mengelolanya; transform dipegang
+   transisi time-based spring-overshoot (sama easing dgn magnetic
+   release). Toggle oleh EntranceEffects (klik / Enter / Space). */
+.flip-id {
+	transform: rotateY(0deg);
+	transition: transform 0.9s cubic-bezier(0.22, 1.4, 0.36, 1);
+	cursor: pointer;
+}
+.flip-id[data-flipped='1'] {
+	transform: rotateY(180deg);
+}
+.flip-id:focus-visible {
+	outline: 2px solid var(--color-blueprint);
+	outline-offset: 4px;
+}
+/* Badge portrait: default "Portrait"; saat hover kartu → crossfade ke
+   "Click to flip" (affordance tekan; lebar badge = konten terlebar
+   sehingga tak ada layout jump saat bertukar). */
+/* View Transitions — in-out antar halaman: frame lama fade-out,
+   frame baru fade + slide halus dari bawah (motion graphic). */
+@keyframes vt-out {
+	to {
+		opacity: 0;
+	}
+}
+@keyframes vt-in {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+}
+::view-transition-old(root) {
+	animation: vt-out 0.2s ease both;
+}
+::view-transition-new(root) {
+	animation: vt-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.flip-id figcaption span {
+	transition: opacity 0.2s ease;
+}
+.flip-id figcaption .flip-hint {
+	opacity: 0;
+}
+.flip-id:hover figcaption .flip-hint {
+	opacity: 1;
+}
+.flip-id:hover figcaption span:not(.flip-hint) {
+	opacity: 0;
+}
+
+/* Watchdog kartu: jangan tertinggal terbalik — kecuali flip-id yg
+   transform-nya dipegang transisi tekan (dipaksa none = tombol mati). */
+html.sc-timeout .flip3d__inner:not(.flip-id) {
+	transform: none !important;
+}
+
+/* ─── Tab switch (About): interaksi klik → time-based one-shot ───
+   Panel remount saat ganti tab → animasi jalan otomatis (spt
+   hover/magnetic: di luar domain scroll). Pakai property `translate`
+   (bukan transform) → tak bentrok dgn transform siapa pun; children
+   panel TANPA data-sc-in → fill both aman dari scrub layer. */
+.tab-panel > * {
+	animation: tab-in 0.45s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+.tab-panel > *:nth-child(2) {
+	animation-delay: 70ms;
+}
+.tab-panel > *:nth-child(3) {
+	animation-delay: 140ms;
+}
+.tab-panel > *:nth-child(4) {
+	animation-delay: 210ms;
+}
+.tab-panel > *:nth-child(5) {
+	animation-delay: 280ms;
+}
+.tab-panel > *:nth-child(6) {
+	animation-delay: 350ms;
+}
+@keyframes tab-in {
+	from {
+		opacity: 0;
+		translate: 0 16px;
+	}
+	to {
+		opacity: 1;
+		translate: 0 0;
+	}
+}
+
+/* ─── Secondary links (Contact): stagger SCRUB per index ───
+   Tiap link = item scrub sendiri (rect horizontal sama → p sama),
+   stagger datang dari --i/--span (pola sama dgn glitch char/line).
+   Posisi SETELAH generic → specificity tie menang urutan. */
+html .p-link,
+html .p-link.sc-in {
+	transition: none;
+	--sp: clamp(
+		0,
+		calc((var(--p, 1) * (var(--span, 0) + 0.5) - var(--i, 0) * 0.06) / 0.5),
+		1
+	);
+	opacity: var(--sp);
+	transform: translate3d(0, calc((1 - var(--sp)) * 14px), 0);
+	filter: none;
 }
 
 

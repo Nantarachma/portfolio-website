@@ -10,13 +10,17 @@ export default function MarqueeStrip({ techGroups }: { techGroups: readonly Tech
 	const items = [...new Set(techGroups.flatMap((group) => group.items))];
 
 	return (
-		<div className='page-block block-overlap bg-[#14161a] py-1.5' aria-hidden='true'>
+		<div
+			className='page-block block-overlap border-y-[3px] border-ink bg-plate py-1.5'
+			aria-hidden='true'>
 			<div className='skill-marquee'>
 				<div className='skill-marquee__track'>
 					{[0, 1].map((copy) => (
 						<ul key={copy} className='skill-marquee__group'>
 							{items.map((item) => (
-								<li key={item} className='skill-marquee__item text-dim'>
+								<li
+									key={item}
+									className='skill-marquee__item font-bold uppercase tracking-wide text-flare'>
 									{item}
 								</li>
 							))}

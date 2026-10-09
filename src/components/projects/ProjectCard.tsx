@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import LineReveal from '@/components/effects/LineReveal';
+import type { CSSProperties } from 'react';
 import { FiArrowRight, FiArrowUpRight, FiGithub } from 'react-icons/fi';
 import Badge from '@/components/ui/Badge';
 import ProjectVisual from '@/components/projects/ProjectVisual';
@@ -10,6 +12,8 @@ export interface ProjectCardProps {
 	variant?: 'default' | 'featured';
 	layout?: 'stacked' | 'split' | 'split-reverse';
 	className?: string;
+	/** Index utk stagger flip-in kartu (--flip-i). */
+	index?: number;
 }
 
 export default function ProjectCard({
@@ -18,6 +22,7 @@ export default function ProjectCard({
 	variant = 'default',
 	layout = 'stacked',
 	className = '',
+	index = 0,
 }: ProjectCardProps) {
 	const isFeatured = variant === 'featured';
 	const isSplit = isFeatured || layout !== 'stacked';
@@ -30,9 +35,14 @@ export default function ProjectCard({
 			/* Same pointer-tilt as the Selected Works rack (engine gates it to
 			   hover + fine pointers, so touch devices never get it). */
 			data-sc-tilt='6'
-			className={`surface group relative h-full overflow-hidden ${
-				isSplit ? 'lg:grid lg:grid-cols-[minmax(15rem,0.82fr)_minmax(0,1.18fr)]' : 'flex flex-col'
-			} ${className}`}>
+			className={`flip3d__inner surface group relative h-full overflow-hidden ${className}`}
+			style={{ '--flip-i': index } as CSSProperties}>
+			{/* Grid layout pindah ke front — back face overlay absolut tak
+			    boleh jadi grid item kedua. */}
+			<div
+				className={`flip3d__front ${
+					isSplit ? 'lg:grid lg:grid-cols-[minmax(15rem,0.82fr)_minmax(0,1.18fr)]' : 'flex flex-col'
+				}`}>
 			<ProjectVisual
 				project={project}
 				className={
@@ -44,18 +54,18 @@ export default function ProjectCard({
 
 			<div className={`card-pad flex min-w-0 flex-1 flex-col ${isReversed ? 'lg:order-1' : ''}`}>
 				<div className='flex items-start justify-between gap-4'>
-					<p className='font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-signal'>
+					<p className='font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-flare'>
 						<span className='text-dim'>Case / </span>
 						{projectNumber}
 					</p>
-					<p className='border-l border-rule pl-3 text-right font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-dim'>
+					<p className='border-l border-rule pl-3 text-right text-[10px] font-medium uppercase tracking-[0.12em] text-dim'>
 						Project record
 					</p>
 				</div>
 
 				<div className='mt-5 flex flex-wrap gap-x-3 gap-y-2'>
 					{project.categories.map((category) => (
-						<span key={category} className={`text-[11px] font-semibold uppercase tracking-[0.1em] ${category === 'machine-learning' ? 'text-signal' : 'text-dim'}`}>
+						<span key={category} className={`text-[11px] font-semibold uppercase tracking-[0.1em] ${category === 'machine-learning' ? 'text-flare' : 'text-dim'}`}>
 							{categoryLabels[category]}
 						</span>
 					))}
@@ -70,10 +80,12 @@ export default function ProjectCard({
 					) : null}
 				</div>
 
-				<p className='mt-4 text-sm leading-6 text-dim'>{project.summary}</p>
+				<p className='mt-4 text-sm leading-6 text-dim'>
+					<LineReveal text={project.summary} />
+				</p>
 
 				{project.role || project.context || project.period ? (
-					<dl className='mt-5 grid gap-3 border-l-2 border-signal pl-3 text-sm leading-5 text-dim'>
+					<dl className='mt-5 grid gap-3 border-l-2 border-blueprint pl-3 text-sm leading-5 text-dim'>
 						{project.role ? (
 							<div>
 								<dt className='sr-only'>Role</dt>
@@ -109,7 +121,7 @@ export default function ProjectCard({
 				<div className={`mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-rule pt-5 ${isSplit ? 'lg:mt-auto' : ''}`}>
 					<Link
 						href={`/projects/${project.slug}`}
-						className='touch-target inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-signal'>
+						className='touch-target inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-ink transition-colors duration-200 hover:text-flare'>
 						View Case Study
 						<FiArrowRight aria-hidden='true' className='size-4 transition-transform duration-200 group-hover:translate-x-1' />
 					</Link>
@@ -118,7 +130,7 @@ export default function ProjectCard({
 							href={project.githubUrl}
 							target='_blank'
 							rel='noreferrer noopener'
-							className='touch-target inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-[0.1em] text-dim transition-colors duration-200 hover:text-signal'>
+							className='touch-target inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.1em] text-dim transition-colors duration-200 hover:text-flare'>
 							<FiGithub aria-hidden='true' className='size-4' />
 							Repository
 						</a>
@@ -128,12 +140,19 @@ export default function ProjectCard({
 							href={project.demoUrl ?? project.externalUrl}
 							target='_blank'
 							rel='noreferrer noopener'
-							className='touch-target inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-[0.1em] text-dim transition-colors duration-200 hover:text-signal'>
+							className='touch-target inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.1em] text-dim transition-colors duration-200 hover:text-flare'>
 							View Source
 							<FiArrowUpRight aria-hidden='true' className='size-4' />
 						</a>
 					) : null}
 				</div>
+			</div>
+			</div>
+			<div className='flip3d__back wv-halftone bg-void' aria-hidden='true'>
+				<span className='text-[10px] font-bold uppercase tracking-[0.3em] text-dim'>Project</span>
+				<span className='section-title max-w-[16ch] text-xl text-ink'>
+					{project.shortTitle ?? project.title}
+				</span>
 			</div>
 		</article>
 	);
