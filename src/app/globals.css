@@ -1133,6 +1133,21 @@ html.sc-timeout .line__i {
 	outline: 2px solid var(--color-blueprint);
 	outline-offset: 4px;
 }
+/* Badge portrait: default "Portrait"; saat hover kartu → crossfade ke
+   "Click to flip" (affordance tekan; lebar badge = konten terlebar
+   sehingga tak ada layout jump saat bertukar). */
+.flip-id figcaption span {
+	transition: opacity 0.2s ease;
+}
+.flip-id figcaption .flip-hint {
+	opacity: 0;
+}
+.flip-id:hover figcaption .flip-hint {
+	opacity: 1;
+}
+.flip-id:hover figcaption span:not(.flip-hint) {
+	opacity: 0;
+}
 
 /* Watchdog kartu: jangan tertinggal terbalik — kecuali flip-id yg
    transform-nya dipegang transisi tekan (dipaksa none = tombol mati). */

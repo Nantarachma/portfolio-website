@@ -120,8 +120,11 @@ export default function ContactBlock({ profile }: { profile: PortfolioProfile })
 													className='object-cover object-center'
 												/>
 											</div>
-											<figcaption className='absolute bottom-3 left-3 border border-ink bg-void/95 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-flare'>
-												Portrait
+											{/* Badge bertumpuk: "Portrait" default → "Click to flip"
+											    fade saat hover kartu (hint affordance tekan). */}
+											<figcaption className='absolute bottom-3 left-3 grid border border-ink bg-void/95 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-flare'>
+												<span className='[grid-area:1/1]'>Portrait</span>
+												<span className='[grid-area:1/1] flip-hint'>Click to flip</span>
 											</figcaption>
 										</div>
 									</div>
