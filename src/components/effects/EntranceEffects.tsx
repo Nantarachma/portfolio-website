@@ -137,11 +137,34 @@ export default function EntranceEffects() {
 		let introSeq = 0; // slot stagger load intro (hanya item terlihat saat boot)
 		let dirty = true;
 		const collect = () => {
+			// Idx stagger PER BARIS: anak sebaris → 0,1,2…; baris baru RESET
+			// ke 0. Grid kolom (toolkit/research) baris bawah sudah telat
+			// secara vertikal — jangan ditambah delay idx global (dulu kartu
+			// idx 3-5 telat 270-450px dobel). Grid 1 baris (stats 4 kolom)
+			// tetap 0..n → urutan per kartu utuh.
+			const rowCache = new Map<Element, Map<Element, number>>();
+			const rowIdxOf = (parent: Element, child: Element) => {
+				let m = rowCache.get(parent);
+				if (!m) {
+					m = new Map();
+					let rowPrev = NaN;
+					let idx = 0;
+					for (const k of Array.from(parent.children)) {
+						const row = Math.round(k.getBoundingClientRect().top / 60);
+						idx = row === rowPrev ? idx + 1 : 0;
+						m.set(k, idx);
+						rowPrev = row;
+					}
+					rowCache.set(parent, m);
+				}
+				return m.get(child) ?? 0;
+			};
+
 			items = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR)).map((el) => {
-				// anak langsung [data-sc-stagger] → index dlm parent + step
-				// dr nilai attr (mis stats 70, rack 80) → scroll offset/idx
+				// anak langsung [data-sc-stagger] → idx per baris + step dr
+				// nilai attr (mis stats 70, toolkit 60) → scroll offset
 				const sg = el.parentElement?.hasAttribute('data-sc-stagger');
-				const sgIdx = sg ? Array.prototype.indexOf.call(el.parentElement!.children, el) : 0;
+				const sgIdx = sg ? rowIdxOf(el.parentElement!, el) : 0;
 				const sgStagger = sg ? parseFloat(el.parentElement!.getAttribute('data-sc-stagger') || '0') : 0;
 				return {
 					el,
@@ -274,7 +297,18 @@ export default function EntranceEffects() {
 		collect();
 		frame();
 		window.addEventListener('scroll', schedule, { passive: true });
-		window.addEventListener('resize', schedule, { passive: true });
+		// resize → collect ulang: jumlah kolom grid bisa berubah (md→lg)
+		// → idx per baris harus dihitung ulang
+		let rsTimer = 0;
+		const onResize = () => {
+			schedule();
+			window.clearTimeout(rsTimer);
+			rsTimer = window.setTimeout(() => {
+				dirty = true;
+				schedule();
+			}, 150);
+		};
+		window.addEventListener('resize', onResize, { passive: true });
 
 		// DOM berubah (filter projects, nav client, hydration) → collect ulang
 		let moTimer = 0;
@@ -295,7 +329,8 @@ export default function EntranceEffects() {
 			document.removeEventListener('click', onFlipClick);
 			document.removeEventListener('keydown', onFlipKey);
 			window.removeEventListener('scroll', schedule);
-			window.removeEventListener('resize', schedule);
+			window.removeEventListener('resize', onResize);
+			window.clearTimeout(rsTimer);
 			if (raf) window.cancelAnimationFrame(raf);
 			window.clearTimeout(moTimer);
 			mo.disconnect();
