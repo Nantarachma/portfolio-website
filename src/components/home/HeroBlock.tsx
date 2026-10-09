@@ -20,7 +20,9 @@ export default function HeroBlock({ profile }: { profile: PortfolioProfile }) {
 			className='page-block hero-act border-b-[3px] border-b-ink bg-[#120d24] text-ink'
 			data-draw-b>
 			<div className='hero-stage sc-stage' data-sc-stage>
-				<div className='hero-bg-pattern' aria-hidden='true' />
+{/* rate -0.2: pattern bergeser halus berlawanan arah selama hero
+				    pin (act progress) → depth tanpa gerak looping baru */}
+				<div className='hero-bg-pattern' data-sc-parallax='-0.2' aria-hidden='true' />
 				<div className='hero-network-slot' aria-hidden='true'>
 					<HeroNetworkLazy />
 				</div>

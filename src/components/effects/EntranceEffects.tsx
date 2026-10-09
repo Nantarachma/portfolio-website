@@ -109,7 +109,7 @@ export default function EntranceEffects() {
 			near: boolean;
 			raw: number;
 		}
-		type State = { cur?: number };
+		type State = { cur?: number; wait?: number };
 		const state = new WeakMap<HTMLElement, State>();
 		const stateOf = (el: HTMLElement) => {
 			let s = state.get(el);
@@ -121,7 +121,8 @@ export default function EntranceEffects() {
 		};
 
 		let items: Item[] = [];
-		let boot = false; // true setelah frame pertama → item baru = mulai dr 0
+		let boot = false; // true setelah frame pertama → intro selesai
+		let introSeq = 0; // slot stagger load intro (hanya item terlihat saat boot)
 		let dirty = true;
 		const collect = () => {
 			items = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR)).map((el) => ({
@@ -172,7 +173,25 @@ export default function EntranceEffects() {
 				if (!it.near) continue;
 				const target = it.back ? backOut(it.raw) : smooth(it.raw);
 				const st = stateOf(it.el);
-				if (st.cur === undefined) st.cur = boot ? 0 : target; // item baru → dr 0
+				if (st.cur === undefined) {
+					if (boot) {
+						st.cur = target; // item baru (filter) → langsung target (tween di bawah)
+					} else {
+						// LOAD INTRO: frame pertama → semua mulai dr 0; item
+						// yg targetnya >0 (terlihat pas buka halaman) naik
+						// BERURUTAN (stagger 4 frame ≈ 65ms per slot urutan DOM)
+						// — choreography time-driven sekali, lalu menyerah kscrub.
+						// Item di bawah layar (target 0) tanpa slot → diam.
+						st.cur = 0;
+						if (target > 0) st.wait = introSeq++ * 4;
+					}
+				}
+				if (st.wait !== undefined && st.wait > 0) {
+					st.wait--;
+					writeP(it.el, st.cur);
+					chasing = true; // frame terus dipanggil selama intro jalan
+					continue;
+				}
 				const d = target - st.cur;
 				if (Math.abs(d) > 0.004) {
 					// lompat besar (elemen baru / fast-jump) → ease pelan;

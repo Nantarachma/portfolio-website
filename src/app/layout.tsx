@@ -7,6 +7,7 @@ import Navbar from '@/components/Navbar';
 import ScrollEffects from '@/components/effects/ScrollEffects';
 import EntranceEffects from '@/components/effects/EntranceEffects';
 import ScrollCraftMount from '@/components/effects/ScrollCraftMount';
+import PageTransitions from '@/components/effects/PageTransitions';
 import SmoothScroll from '@/components/SmoothScroll';
 import Footer from '@/components/Footer';
 import { getPortfolioContent } from '@/lib/portfolio/repository';
@@ -76,6 +77,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<ScrollEffects />
 				<EntranceEffects />
 				<ScrollCraftMount />
+				<PageTransitions />
 				<SmoothScroll />
 				<Analytics />
 				<SpeedInsights />
