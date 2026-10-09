@@ -112,6 +112,11 @@ export default function EntranceEffects() {
 			back: boolean;
 			near: boolean;
 			raw: number;
+			// Stagger per-scroll: anak [data-sc-stagger] dpt delay band per
+			// index → kartu horizontal (grid 4 kolom / rack) muncul URUT
+			// mengikuti scroll, bukan serempak (rect.top sama semua).
+			sgIdx: number;
+			sgStep: number;
 		}
 		type State = { cur?: number; wait?: number };
 		const state = new WeakMap<HTMLElement, State>();
@@ -129,12 +134,21 @@ export default function EntranceEffects() {
 		let introSeq = 0; // slot stagger load intro (hanya item terlihat saat boot)
 		let dirty = true;
 		const collect = () => {
-			items = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR)).map((el) => ({
-				el,
-				back: isBack(el),
-				near: true, // default optimis; IO segera mengkoreksi
-				raw: 0,
-			}));
+			items = Array.from(document.querySelectorAll<HTMLElement>(SELECTOR)).map((el) => {
+				// anak langsung [data-sc-stagger] → index dlm parent + step
+				// dr nilai attr (mis stats 70, rack 80) → scroll offset/idx
+				const sg = el.parentElement?.hasAttribute('data-sc-stagger');
+				const sgIdx = sg ? Array.prototype.indexOf.call(el.parentElement!.children, el) : 0;
+				const sgStagger = sg ? parseFloat(el.parentElement!.getAttribute('data-sc-stagger') || '0') : 0;
+				return {
+					el,
+					back: isBack(el),
+					near: true, // default optimis; IO segera mengkoreksi
+					raw: 0,
+					sgIdx,
+					sgStep: (sgStagger * window.innerHeight) / 720, // ~0.1vh per index
+				};
+			});
 			for (const it of items) observer.observe(it.el);
 			dirty = false;
 		};
@@ -165,11 +179,13 @@ export default function EntranceEffects() {
 			const start = vh * 0.92;
 			let chasing = false; // masih ada elemen mengejar target?
 
-			// PASS 1 — baca semua rect (tanpa write apa pun di sela baca)
+			// PASS 1 — baca semua rect (tanpa write apa pun di sela baca).
+			// Stagger: idx*step mengurangi raw → kartu ke-2/3/4 butuh scroll
+			// lebih jauh utk mulai masuk = delay urut per scroll.
 			for (const it of items) {
 				if (!it.near) continue;
 				const rect = it.el.getBoundingClientRect();
-				it.raw = clamp01((start - rect.top) / band);
+				it.raw = clamp01((start - rect.top - it.sgIdx * it.sgStep) / band);
 			}
 
 			// PASS 2 — easing + catch-up tween + write
