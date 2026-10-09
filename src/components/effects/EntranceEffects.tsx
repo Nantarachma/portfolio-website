@@ -73,6 +73,10 @@ export default function EntranceEffects() {
 			const on = el.dataset.flipped !== '1';
 			el.dataset.flipped = on ? '1' : '0';
 			el.setAttribute('aria-pressed', on ? 'true' : 'false');
+			// transisi halus sesaat (CSS: class hanya utk kartu scrubs,
+			// .flip-id di-skip karena sudah punya transisi sendiri)
+			el.classList.add('is-flipping');
+			window.setTimeout(() => el.classList.remove('is-flipping'), 480);
 		};
 		const onFlipClick = (e: Event) => {
 			const el = (e.target as Element | null)?.closest?.('[data-flip]');

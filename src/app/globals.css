@@ -969,13 +969,31 @@ html .flip3d__inner.sc-in {
 	filter: none;
 	transform: translate3d(0, calc((1 - var(--p, 1)) * 34px), 0)
 		scale(calc(0.975 + var(--p, 1) * 0.025))
-		rotateY(calc((1 - var(--p, 1)) * 180deg));
+		/* + --flip-k: offset klik (180deg) di ATAS rotasi scrubs —
+		   dua sistem tak menulis properti sama */
+		rotateY(calc((1 - var(--p, 1)) * 180deg + var(--flip-k, 0deg)));
 }
 /* front/back di dlm kartu: ikut opacity reveal saja (jangan dobel rise) */
 html [data-sc-stagger] > .flip3d__front,
 html [data-sc-stagger] > .flip3d__back {
 	transform: none;
 	filter: none;
+}
+/* Klik flip utk kartu scrubs (practice): state → offset rotate; transisi
+   hanya aktif sesaat saat diklik (class is-flipping) supaya scrub scroll
+   tetap tanpa lag transition. ID card (.flip-id) punya transisi sendiri. */
+.flip3d__inner[data-flip] {
+	cursor: pointer;
+}
+.flip3d__inner[data-flip][data-flipped='1'] {
+	--flip-k: 180deg;
+}
+.flip3d__inner[data-flip].is-flipping:not(.flip-id) {
+	transition: transform 0.45s cubic-bezier(0.22, 1.4, 0.36, 1);
+}
+.flip3d__inner[data-flip]:focus-visible {
+	outline: 2px solid var(--color-blueprint);
+	outline-offset: 4px;
 }
 .flip3d-persp {
 	perspective: 1200px;

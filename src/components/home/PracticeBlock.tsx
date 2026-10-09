@@ -60,11 +60,19 @@ export default function PracticeBlock() {
 					</p>
 				</div>
 				<div className='flip3d-persp mt-4 grid gap-3 lg:grid-cols-5'>
+					{/* Dua sistem dlm satu kartu: rotasi SCRUB (masuk dari
+					    bawah) + offset KLIK --flip-k utk membalik lihat sisi
+					    ke-2 (back). Handler delegated [data-flip]. */}
 					{practiceAreas.map((area, i) => (
 						<article
 							key={area.title}
 							data-sc-in
 							data-sc-stagger={String(120 + i * 80)}
+							data-flip
+							role='button'
+							tabIndex={0}
+							aria-pressed='false'
+							aria-label={`Balik kartu practice: ${area.title}`}
 							className={`flip3d__inner card-pad flex flex-col justify-between gap-4 border-[3px] border-ink ${area.tone === 'cream' ? '' : 'min-h-36'} ${toneClasses[area.tone]} ${area.className}`}
 							style={
 								{
