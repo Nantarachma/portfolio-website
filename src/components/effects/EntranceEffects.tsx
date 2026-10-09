@@ -130,6 +130,9 @@ export default function EntranceEffects() {
 		};
 
 		let items: Item[] = [];
+		// Kartu works (cue engine): fade dikontrol scrollcraft (inline
+		// opacity per act progress) → blur disinkronkan dari nilai itu.
+		let blurEls: HTMLElement[] = [];
 		let boot = false; // true setelah frame pertama → intro selesai
 		let introSeq = 0; // slot stagger load intro (hanya item terlihat saat boot)
 		let dirty = true;
@@ -150,6 +153,7 @@ export default function EntranceEffects() {
 				};
 			});
 			for (const it of items) observer.observe(it.el);
+			blurEls = Array.from(document.querySelectorAll<HTMLElement>('[data-sc-cue].case-card'));
 			dirty = false;
 		};
 
@@ -220,6 +224,18 @@ export default function EntranceEffects() {
 					chasing = true;
 				}
 				writeP(it.el, st.cur);
+			}
+			// Blur utk kartu works: baca opacity tulisan cue engine →
+			// (1-op)*6px; snap 'none' di opacity penuh (tulis disimpan di
+			// data-attr → tanpa query getComputedStyle per frame).
+			for (const el of blurEls) {
+				const parsed = parseFloat(el.style.opacity);
+				const b = (1 - (isNaN(parsed) ? 1 : parsed)) * 6;
+				const v = b > 0.06 ? `blur(${b.toFixed(2)}px)` : 'none';
+				if (el.dataset.blurCache !== v) {
+					el.style.filter = v;
+					el.dataset.blurCache = v;
+				}
 			}
 			boot = true;
 			// tween jalan terus walau scroll berhenti (fast-jump / filter:

@@ -979,13 +979,17 @@ html [data-sc-stagger] > .flip3d__back {
 	transform: none;
 	filter: none;
 }
-/* Selected work: kartu masuk DARI KIRI (bukan naik) — mengganti sumbu Y
-   dlm transform entrance; scale+rotateY tetap. Stagger per-scroll dari
-   manager (sgIdx) → satu per satu saat stage masuk viewport. */
-html [data-sc-stagger] > .case-card {
-	transform: translate3d(calc((1 - var(--p, 1)) * -70px), 0, 0)
-		scale(calc(0.975 + var(--p, 1) * 0.025))
-		rotateY(calc((1 - var(--p, 1)) * 180deg + var(--flip-k, 0deg)));
+/* Selected work: TANPA entrance flip/translate — murni fade (cue engine
+   menulis inline opacity per act progress; rise=0 → transform identity) +
+   blur dlm JS EntranceEffects (sinkron dgn opacity). transform-style flat
+   + back face disembunyikan: sisi ke-2 kartu works tak dipakai (animasi
+   flip diganti fade-blur per keputusan user) — kalau flip dikembalikan,
+   hapus kedua rule ini. */
+.case-card {
+	transform-style: flat;
+}
+.case-card .flip3d__back {
+	display: none;
 }
 /* Klik flip utk kartu scrubs (practice): state → offset rotate; transisi
    hanya aktif sesaat saat diklik (class is-flipping) supaya scrub scroll

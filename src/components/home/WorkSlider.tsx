@@ -59,9 +59,16 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 						</Link>
 					</header>
 
-					<div className='rack flip3d-persp mt-5' data-sc-pan='0.04' data-sc-in data-sc-stagger='80'>
+					{/* Kartu masuk via CUE engine (act progress = scroll):
+					    data-sc-cue i*0.14 → tiap scroll maju, kartu baru
+					    muncul satu per satu (window fade 0.18 act lalu hold).
+					    rise=0 → murni fade (tanpa slide naik); blur disinkronkan
+					    dgn opacity oleh EntranceEffects. */}
+					<div className='rack flip3d-persp mt-5' data-sc-pan='0.04'>
 						{projects.map((project, i) => (
 							<article
+								data-sc-cue={(i * 0.14).toFixed(2)}
+								data-sc-rise='0'
 								key={project.slug}
 								data-sc-tilt='6'
 								className='case-card flip3d__inner surface flex flex-col border-[3px] border-ink bg-plate p-4'
