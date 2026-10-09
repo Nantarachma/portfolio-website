@@ -67,7 +67,10 @@ export default function WorkSlider({ projects, categoryLabels }: WorkSliderProps
 					<div className='rack flip3d-persp mt-5' data-sc-pan='0.04'>
 						{projects.map((project, i) => (
 							<article
-								data-sc-cue={(i * 0.14).toFixed(2)}
+								/* from i*0.14-0.18: kartu1 (i=0) penuh di act p=0 —
+							   stage baru masuk langsung terlihat; kartu lain tetap
+							   urut (penuh di 0.14 / 0.28 / 0.42) */
+							data-sc-cue={(i * 0.14 - 0.18).toFixed(2)}
 								data-sc-rise='0'
 								key={project.slug}
 								data-sc-tilt='6'

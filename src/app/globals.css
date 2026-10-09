@@ -1006,6 +1006,15 @@ html [data-sc-stagger] > .flip3d__back {
 .case-card .flip3d__back {
 	display: none;
 }
+/* Practice: isi face tampil sejak kartu lahir — yang menutupi kartu saat
+   masih di bawah layar itu POSISI-nya, bukan opacity. Dulu face children
+   kena opacity generik clamp(p*1.6) → kartu baris kedua tampak KOSONG
+   (kotak ada, isi transparan) selama masih setengah jalan. Opacity 1 di
+   sini juga mematikan flatten (opacity<1 pada preserve-3d). */
+html [data-flip] > .flip3d__front,
+html [data-flip] > .flip3d__back {
+	opacity: 1;
+}
 /* Klik flip utk kartu scrubs (practice): state → offset rotate; transisi
    hanya aktif sesaat saat diklik (class is-flipping) supaya scrub scroll
    tetap tanpa lag transition. ID card (.flip-id) punya transisi sendiri. */
