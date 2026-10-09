@@ -81,14 +81,20 @@ export default function PracticeBlock() {
 								} as CSSProperties
 							}>
 							<div className='flip3d__front'>
-							<div>
-								<h3 className='text-lg font-bold tracking-[-0.03em] sm:text-xl'>{area.title}</h3>
-								<p className={`mt-2.5 max-w-2xl text-sm leading-6 ${bodyTone[area.tone]}`}>{area.description}</p>
-							</div>
+								<div>
+									<h3 className='text-lg font-bold tracking-[-0.03em] sm:text-xl'>{area.title}</h3>
+									<p className={`mt-2.5 max-w-2xl text-sm leading-6 ${bodyTone[area.tone]}`}>{area.description}</p>
+								</div>
+								<span className='flip-hint-label absolute bottom-3 right-3 border border-ink bg-void/95 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-flare'>
+									Click to flip
+								</span>
 							</div>
 							<div className='flip3d__back wv-halftone bg-void' aria-hidden='true'>
 								<span className='text-[10px] font-bold uppercase tracking-[0.3em] text-dim'>Practice</span>
 								<span className='section-title max-w-[14ch] text-lg text-ink'>{area.title}</span>
+								<span className='flip-hint-label absolute bottom-3 right-3 border border-ink bg-void/95 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-flare'>
+									Click to flip
+								</span>
 							</div>
 						</article>
 					))}

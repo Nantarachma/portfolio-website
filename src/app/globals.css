@@ -973,10 +973,25 @@ html .flip3d__inner.sc-in {
 		   dua sistem tak menulis properti sama */
 		rotateY(calc((1 - var(--p, 1)) * 180deg + var(--flip-k, 0deg)));
 }
-/* front/back di dlm kartu: ikut opacity reveal saja (jangan dobel rise) */
-html [data-sc-stagger] > .flip3d__front,
-html [data-sc-stagger] > .flip3d__back {
+/* PRACTICE: rotasi diINVERT — state akhir (p=1) = 180° = COVER (back face:
+   label "Practice" + judul, teks sedikit). Klik (--flip-k 180°) → 360° =
+   0° = front (judul + deskripsi). ID card (.flip-id) tak punya data-sc-in
+   & kartu lain tak punya data-flip → spesifik ke practice. */
+html [data-sc-in][data-flip].flip3d__inner {
+	transform: translate3d(0, calc((1 - var(--p, 1)) * 34px), 0)
+		scale(calc(0.975 + var(--p, 1) * 0.025))
+		rotateY(calc(var(--p, 1) * 180deg + var(--flip-k, 0deg)));
+}
+/* front/back di dlm kartu: netralkan rise/blur generik TANPA menghapus
+   rotasi dasar back — dulu `transform:none` juga menimpa rotateY(180deg)
+   bawaan .flip3d__back → kedua face searah → backface-visibility
+   menyembunyikan keduanya (kartu practice jadi KOSONG dgn rotasi invert). */
+html [data-sc-stagger] > .flip3d__front {
 	transform: none;
+	filter: none;
+}
+html [data-sc-stagger] > .flip3d__back {
+	transform: rotateY(180deg);
 	filter: none;
 }
 /* Selected work: TANPA entrance flip/translate — murni fade (cue engine
@@ -1006,6 +1021,16 @@ html [data-sc-stagger] > .flip3d__back {
 .flip3d__inner[data-flip]:focus-visible {
 	outline: 2px solid var(--color-blueprint);
 	outline-offset: 4px;
+}
+/* Hint klik: teks muncul saat hover/fokus kartu practice (spt portrait) */
+.flip3d__inner[data-flip] .flip-hint-label {
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	pointer-events: none;
+}
+.flip3d__inner[data-flip]:hover .flip-hint-label,
+.flip3d__inner[data-flip]:focus-visible .flip-hint-label {
+	opacity: 1;
 }
 .flip3d-persp {
 	perspective: 1200px;
